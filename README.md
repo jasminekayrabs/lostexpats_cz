@@ -1,2 +1,2 @@
 # lostexpats_cz
-SAD ICA2
+Lostexpats is a secure website designed to help foreigners around the Czech Republic. 
