@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Lostexpats</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+
+    <title>LostExpats.cz</title>
+   
+    </head>
+    <nav class="navbar">
+        <div class="navbar-left">
+         <a href="#" class="navbar-title">LostExpats.cz</a>
+        </div>
+        <div class="navbar-right">
+         <button type="submit"><a href="/login" class="navbar-login">Login</a></button>
+         <button type="submit"><a href="/signup" class="navbar-signup">SignUp</a></button>
+        
+        </div>
+          </nav>
+          
+          <div class="navbar-categories">
+        <ul>
+         <li><a href="#">NEWS</a></li>
+         <li><a href="#">FOOD&DRINK</a></li>
+         <li><a href="#">EVENTS</a></li>
+         <li><a href="#">NIGHTLIFE</a></li>
+        </ul>
+          </div>
+          <div class="navbar-mobile">
+          <ul>
+            <li><a href="#">NEWS</a></li>
+            <li><a href="#">FOOD&DRINK</a></li>
+            <li><a href="#">EVENTS</a></li>
+            <li><a href="#">NIGHTLIFE</a></li>
+          </ul>
+        </div>
+<style>
+
+* {box-sizing: border-box;}
+body {font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+    /* Navbar styles */
+    body{
+  background-color: rgb(191, 101, 101);
+  color:white;
+}
+
+
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-search-form {
+  display: flex;
+  margin-right: 10px;
+}
+
+.navbar-search-form input[type="text"] {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+}
+
+.navbar-search-form button[type="submit"] {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+.navbar-login, .navbar-signup {
+  display: block;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #fff;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-login:hover, .navbar-signup:hover {
+  background-color: #4d4d4d;
+}
+
+/* Navbar categories styles */
+.navbar-categories {
+  background-color: black;
+  padding: 10px;
+  color:white;
+  margin-left: 10px;
+  border-radius: 3px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-categories ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 10;
+  margin: 0;
+  color:white;
+}
+
+.navbar-categories li {
+  margin: 0 10px;
+}
+
+.navbar-categories a {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-categories a:hover {
+  background-color: #4d4d4d;
+}
+/* Navbar mobile styles */
+.navbar-mobile {
+display: none;
+background-color:black;
+padding: 10px;
+color: white;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-mobile ul {
+list-style: none;
+padding: 0;
+margin: 0;
+color: white;
+}
+
+.navbar-mobile li {
+margin-bottom: 10px;
+}
+
+.navbar-mobile a {
+display: block;
+padding: 5px;
+border-radius: 3px;
+text-decoration: none;
+color: white;
+}
+
+.navbar-mobile a:hover {
+background-color: #4d4d4d;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+.navbar-right {
+flex-direction: column;
+align-items: flex-end;
+}
+
+.navbar-search-form {
+margin-right: 0;
+margin-bottom: 10px;
+}
+
+.navbar-login, .navbar-signup {
+margin-left: 0;
+margin-bottom: 10px;
+}
+
+.navbar-hamburger {
+display: block;
+}
+
+.navbar-categories {
+display: none;
+}
+
+.navbar-mobile {
+display: block;
+}
+}
+
+@media screen and (max-width: 480px) {
+.navbar-title {
+font-size: 20px;
+    }
+}
+
+  button[type="submit"] {
+    background-color: #333;
+    color: white;
+    padding: 3px 3px;
+    margin: 0;
+    border: 1px solid rgb(115, 102, 102);
+    border-radius: 40px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+  }
+  button[type="submit"]:hover {
+    background-color: #4d4d4d;
+  }
+  
+</style>
+
+
+    <body>
+
+    </body>
+</html>
