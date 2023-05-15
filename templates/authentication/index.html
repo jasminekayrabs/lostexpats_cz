@@ -1,19 +1,438 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Lostexpats</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <h3>Welcome to Lostexpats</h3>
-        <button type="submit"><a href="/signup">SignUp</a></button>
-        <button type="submit"><a href="/login">LogIn</a></button>
-        <button type="submit"><a href="/logout">LogOut</a></button>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>LostExpats.cz</title>
+  {% load static %}
+  {% csrf_token %}
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script.js"></script>
+</head>
+  
+<body>
+  <nav class="navbar">
+<div class="navbar-left">
+ <a href="#" class="navbar-title">LostExpats.cz</a>
+</div>
+<div class="navbar-right">
+ <form class="navbar-search-form">{% csrf_token %}
+<input type="text" placeholder="Search">
+<button type="submit"><i class="fa fa-search"></i></button>
+ </form>
+ {% csrf_token %}
+ <a href="#" class="navbar-login">Login</a>
+ <a href="#" class="navbar-signup">Signup</a>
 
-        <script src="" async defer></script>
-    </body>
+</div>
+  </nav>
+  
+  <div class="navbar-categories">
+<ul>
+ <li><a href="#">NEWS</a></li>
+ <li><a href="#">FOOD&DRINK</a></li>
+ <li><a href="#">EVENTS</a></li>
+ <li><a href="#">NIGHTLIFE</a></li>
+</ul>
+  </div>
+  <div class="navbar-mobile">
+  <ul>
+    <li><a href="#">NEWS</a></li>
+    <li><a href="#">FOOD&DRINK</a></li>
+    <li><a href="#">EVENTS</a></li>
+    <li><a href="#">NIGHTLIFE</a></li>
+  </ul>
+</div>
+<center>
+<div class="main-image">
+  <img src="{% static 'prague.jpg' %}" alt="prague" style="height: 400px; width:55%; ">
+</center>
+</div>
+<section id="news">
+		<h2>News</h2>
+    <center>
+		<div class="image-row">
+      <img src="{% static 'news1.jpeg' %}" alt="Food Image">
+			<div class="description">Description for News Image 1</div>
+		</div>
+		<div class="image-row">
+			<img src="{% static 'news2.jpeg' %}" alt="News Image 2">
+			<div class="description">Description for News Image 2</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'news3.webp' %}" alt="News Image 3">
+			<div class="description">Description for News Image 3</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'news4.webp' %}" alt="News Image 4">
+			<div class="description">Description for News Image 4</div>
+		</div>
+   </center>
+	</section>
+  
+  
+<section id="nightlife">
+		<h3>Nightlife</h3>
+    <center>
+		<div class="image-row">
+			<img src="{% static 'nightlife1.jpg' %}" alt="Nightlife Image 1">
+			<div class="description">Description for Nightlife Image 1</div>
+		</div>
+		<div class="image-row">
+			<img src="{% static 'nightlife2.jpg' %}" alt="Nightlife Image 2">
+			<div class="description">Description for Nightlife Image 2</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'nightlife3.jpg' %}" alt="Nightlife Image 3">
+			<div class="description">Description for Nightlife Image 3</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'nightlife4.jpeg' %}" alt="Nightlife Image 4">
+			<div class="description">Description for Nightlife Image 4</div>
+		</div>
+    </center>
+</section>
+  
+<section id="food">
+		<h4>Food &amp; Drinks</h4>
+    <center>
+		<div class="image-row">
+			<img src="{% static 'food1.jpg' %}" alt="Food Image 1">
+			<div class="description">Description for Food Image 1</div>
+		</div>
+		<div class="image-row">
+			<img src="{% static 'food2.jpg' %}" alt="Food Image 2">
+			<div class="description">Description for Food Image 2</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'food3.jpg' %}" alt="Food Image 3">
+			<div class="description">Description for Food Image 3</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'food4.jpg' %}" alt="Food Image 4">
+			<div class="description">Description for Food Image 4</div>
+    </center>
+		</div>
+
+</section>
+    
+<section id="events">
+		<h5>Events</h5>
+    <center>
+		<div class="image-row">
+			<img src="{% static 'events1.jpg' %}" alt="Events Image 1">
+			<div class="description">Description for Events Image 1</div>
+		</div>
+		<div class="image-row">
+			<img src="{% static 'events2.jpg' %}" alt="Events Image 2">
+			<div class="description">Description for Events Image 2</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'events3.jpg' %}" alt="Events Image 3">
+			<div class="description">Description for Events Image 2</div>
+		</div>
+    <div class="image-row">
+			<img src="{% static 'events4.jpg' %}" alt="Events Image 4">
+			<div class="description">Description for Events Image 2</div>
+		</div>
+    </center>
+</section>
+
+
+  <script src="script.js"></script>
+    
+    
+<style>
+* {box-sizing: border-box;}
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.main-image {display:block;}
+  img {vertical-align: middle;}
+  
+
+  
+
+
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-search-form {
+  display: flex;
+  margin-right: 10px;
+}
+
+.navbar-search-form input[type="text"] {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+}
+
+.navbar-search-form button[type="submit"] {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+.navbar-login, .navbar-signup {
+  display: block;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #fff;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-login:hover, .navbar-signup:hover {
+  background-color: #4d4d4d;
+}
+
+/* Navbar categories styles */
+.navbar-categories {
+  background-color: black;
+  padding: 10px;
+  color:white;
+  margin-left: 10px;
+  border-radius: 3px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-categories ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 10;
+  margin: 0;
+  color:white;
+}
+
+.navbar-categories li {
+  margin: 0 10px;
+}
+
+.navbar-categories a {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-categories a:hover {
+  background-color: #4d4d4d;
+}
+/* Navbar mobile styles */
+.navbar-mobile {
+display: none;
+background-color:black;
+padding: 10px;
+color: white;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.navbar-mobile ul {
+list-style: none;
+padding: 0;
+margin: 0;
+color: white;
+}
+
+.navbar-mobile li {
+margin-bottom: 10px;
+}
+
+.navbar-mobile a {
+display: block;
+padding: 5px;
+border-radius: 3px;
+text-decoration: none;
+color: white;
+}
+
+.navbar-mobile a:hover {
+background-color: #4d4d4d;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+.navbar-right {
+flex-direction: column;
+align-items: flex-end;
+}
+
+.navbar-search-form {
+margin-right: 0;
+margin-bottom: 10px;
+}
+
+.navbar-login, .navbar-signup {
+margin-left: 0;
+margin-bottom: 10px;
+}
+
+.navbar-hamburger {
+display: block;
+}
+
+.navbar-categories {
+display: none;
+}
+
+.navbar-mobile {
+display: block;
+}
+}
+
+@media screen and (max-width: 480px) {
+.navbar-title {
+font-size: 20px;
+}
+
+}
+
+  
+
+  
+  
+
+/* Reset default browser styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Set a background color for the entire page */
+body {
+  
+	background-color: #191919;
+	font-family: Arial, sans-serif;
+  color: #ebebeb;
+  
+}
+
+
+
+/* Style the header */
+header {
+	background-color: #ffffff;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+
+
+
+/* Style the sections */
+section {
+	padding: 50px;
+}
+
+section h2,h3,h4,h5 {
+	font-size: 32px;
+	margin-bottom: 30px;
+}
+ h2{
+  padding:0 ;
+  margin: 0;
+}
+.image-row {
+	display: inline-block;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	margin-bottom: 30px;
+}
+
+.image-row img {
+	width: 300px;
+	height: 200px;
+	max-width: 100%;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	object-fit: cover;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+a {
+  color: #fff;
+}
+
+h2{
+  color: #ffffff
+}
+
+description{
+  color: #ebebeb
+}
+
+  
+</style>
+  
+ 
+ 
+  
+</body>
+
+<footer>
+  <h3>Contact Us</h3>
+  <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
+</footer>
+
+
+
+
 </html>
+
+
