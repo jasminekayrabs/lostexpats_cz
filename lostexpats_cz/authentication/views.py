@@ -24,6 +24,7 @@ def render_news(request):
 
 # By adding csrf_protect here and %csrf_token% in .html files, Django will automatically generate and validate CSRF tokens for each form submission. The CSRF token will be included in the form submission and verified on the server-side, protecting against CSRF attacks.
 
+#FOR SIGNUP
 @csrf_protect
 #Taking user input on the back-end and saving it to the database
 def render_signup(request):
@@ -50,8 +51,10 @@ def render_signup(request):
 def render_login(request):
 
     if request.method == "POST":
+
         email = request.POST['email']
         pass1 = request.POST['pass1']
+
 
         #authenticating user: return a none response if user is not authenticated
         # the authentication is also the sanitisation of user input. This will help prevent SQL injections from being carried out successfully.
@@ -71,8 +74,9 @@ def render_login(request):
             messages.error(request, "Wrong email or password!")
             return redirect('home')
     return render(request, "authentication/login.html")
-
-
+   
+   
+#FOR LOGOUT
 def render_logout(request):
     logout(request)
     messages.success(request, "logged out")

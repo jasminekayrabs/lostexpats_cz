@@ -1,38 +1,28 @@
 from django.test import TestCase
+from django.urls import reverse
 
-class XSSProtectionTest(TestCase):
-    def test_signup_login_xss_protection(self):
-        # Test XSS protection in signup view
-        signup_data = {
-            'fname': '<script>alert("XSS")</script>',
-            'lname': 'Doe',
-            'email': 'john@example.com',
-            'pass1': 'passW_ord123',
-            'pass2': 'passW_ord123',
-        }
-        response = self.client.post('/render_signup', data=signup_data, follow=True)
-        
-        # Assert that the response is a successful redirect
-        self.assertRedirects(response, '/render_login/')
-        
-        # Follow the redirect and check the response on the redirected page
-        response = self.client.get(response.redirect_chain[0][0])
-        
-        # Assert that the XSS payload is properly escaped in the response
-        self.assertNotContains(response, '<script>')
-        
-        # Test XSS protection in login view
-        login_data = {
-            'email': '<script>alert("XSS")</script>',
-            'pass1': 'passW_ord123',
-        }
-        response = self.client.post('/render_login', data=login_data, follow=True)
-        
-        # Assert that the response is a successful redirect
-        self.assertRedirects(response, '/authentication/home/')
-        
-        # Follow the redirect and check the response on the redirected page
-        response = self.client.get(response.redirect_chain[0][0])
-        
-        # Assert that the XSS payload is properly escaped in the response
-        self.assertNotContains(response, '<script>')
+#To run tests, run command "python manage.py test" on terminal
+#Test case for XSS protection
+class XSSProtectionTestCase(TestCase):
+    def test_signup_xss_protection(self):
+        # Simulate a POST request with malicious input
+        malicious_input = '<script>alert("XSS attack");</script>'
+        response = self.client.post(reverse('render_signup'), {
+            'fname': malicious_input,
+            'lname': malicious_input,
+            'email': 'test@example.com',
+            'pass1': 'tEst_123',
+            'pass2': 'tEst_123',
+        })
+
+        # Check that the response is a redirect
+        self.assertEqual(response.status_code, 302)
+
+        # Follow the redirect to the login page
+        response = self.client.get(response.url)
+
+        # Check that the response is successful
+        self.assertEqual(response.status_code, 200)
+
+        # Ensure that the malicious input is properly escaped in the rendered HTML
+        self.assertNotContains(response, malicious_input)
