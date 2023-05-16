@@ -8,5 +8,7 @@ urlpatterns = [
     path("login", views.render_login, name="render_login"),
     path("logout", views.render_logout, name="render_logout"),
     path("fooddrinks", views.render_fooddrinks, name="render_fooddrinks"),
+    path("nightlife", views. render_nightlife, name="render_nightlife"),
+    path("news", views.render_news, name="render_news"),
 ]
 
