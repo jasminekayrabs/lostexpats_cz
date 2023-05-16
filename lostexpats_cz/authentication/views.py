@@ -3,12 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_protect
 from django.utils.html import mark_safe
 from django.middleware import csrf
-from django.forms import SignupForm, LoginForm
-
-
  
 # Create your views here.
 #render functions allow the pages to be run on the server
@@ -28,7 +25,6 @@ def render_news(request):
 # By adding csrf_protect here and %csrf_token% in .html files, Django will automatically generate and validate CSRF tokens for each form submission. The CSRF token will be included in the form submission and verified on the server-side, protecting against CSRF attacks.
 
 @csrf_protect
-
 #Taking user input on the back-end and saving it to the database
 def render_signup(request):
     if request.method == "POST":
@@ -41,30 +37,26 @@ def render_signup(request):
         myuser = User.objects.create_user(fname, email,password)
         myuser.first_name = fname
         myuser.last_name = lname 
-
         myuser.save()
 #printing succeful signup message
-        messages.success(request, "Your account has been created.")
-#redirecting user to login
+        messages.success(request, "Your çaccount has been created.")
+
         return redirect('render_login')
-
-        # render the signup form
-        return render(request, 'signup.html')
-
     return render(request, "authentication/signup.html")
 
+
 #FOR LOGIN
+@csrf_protect
 def render_login(request):
 
     if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            pass1 = form.cleaned_data['pass1']
-        #authenticating user: return a none response if user is not authenticated
-        # the authentication is also the sanitisation of user input. This will prevent SQL injections from being carried outsuccessfully.
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
 
-        # The below code pulls the email and password from the POST request (user input through login form). Then, the authenticate function takes care of authenticating user credentials against an authentication back end, which,  is the database
+        #authenticating user: return a none response if user is not authenticated
+        # the authentication is also the sanitisation of user input. This will help prevent SQL injections from being carried out successfully.
+
+        # The below code pulls the email and password from the POST request (user input through login form). Then, the authenticate function takes care of authenticating user credentials against an authentication back end, which is the database.
 
         user = authenticate(email = email, password = pass1)
 
@@ -78,11 +70,7 @@ def render_login(request):
         else:
             messages.error(request, "Wrong email or password!")
             return redirect('home')
-
-    else:
-        form = LoginForm()
-    
-    return render(request, "authentication/login.html", {'form': form})
+    return render(request, "authentication/login.html")
 
 
 def render_logout(request):
