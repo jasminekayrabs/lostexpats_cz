@@ -133,8 +133,8 @@ STATICFILES_DIRS = [
 # ...
 
 STATICFILES_DIRS = [
-    '/Users/saraali/Desktop/python_stuff/lostexpats_cz/static',
-]
+    '/lostexpats_cz/static',
+    ]
 
 # ...
 
