@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
+from django.utils.html import mark_safe
 from django.middleware import csrf
  
 # Create your views here.
@@ -50,13 +51,15 @@ def render_signup(request):
 def render_login(request):
 
     if request.method == "POST":
-        email = ['email']
-        pass1 = ['pass1']
+
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+
 
         #authenticating user: return a none response if user is not authenticated
-        # the authentication is also the sanitisation of user input. This will prevent SQL injections from being carried outsuccessfully.
+        # the authentication is also the sanitisation of user input. This will help prevent SQL injections from being carried out successfully.
 
-        # The below code pulls the email and password from the POST request (user input through login form). Then, the authenticate function takes care of authenticating user credentials against an authentication back end, which,  is the database
+        # The below code pulls the email and password from the POST request (user input through login form). Then, the authenticate function takes care of authenticating user credentials against an authentication back end, which is the database.
 
         user = authenticate(email = email, password = pass1)
 
