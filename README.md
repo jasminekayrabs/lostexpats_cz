@@ -8,13 +8,15 @@ Secure website designed to make life easier for english speaking foreigners in t
 
 # Requirements: 
 Python3.9
+Django
 
 # Documentation 
 
 # Project Installation:
+To install this project, run the command 'git clone https://github.com/jasminekayrabs/lostexpats_cz' on command line.
 
 # Running the project:
-
+Open the cloned folder and run the command 'python manage.py runserver' 
 
 
 # License:
