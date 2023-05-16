@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.utils.html import mark_safe
+from django.middleware import csrf
+from django.forms import SignupForm, LoginForm
+
 
  
 # Create your views here.
@@ -21,8 +25,11 @@ def render_news(request):
     return render(request, "authentication/news.html")
 
 
-#Taking user input on the back-end and saving it to the database
+# By adding csrf_protect here and %csrf_token% in .html files, Django will automatically generate and validate CSRF tokens for each form submission. The CSRF token will be included in the form submission and verified on the server-side, protecting against CSRF attacks.
+
 @csrf_protect
+
+#Taking user input on the back-end and saving it to the database
 def render_signup(request):
     if request.method == "POST":
         fname = request.POST['fname']
@@ -50,9 +57,10 @@ def render_signup(request):
 def render_login(request):
 
     if request.method == "POST":
-        email = request.POST['email']
-        pass1 = request.POST['pass1']
-
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            pass1 = form.cleaned_data['pass1']
         #authenticating user: return a none response if user is not authenticated
         # the authentication is also the sanitisation of user input. This will prevent SQL injections from being carried outsuccessfully.
 
@@ -71,9 +79,13 @@ def render_login(request):
             messages.error(request, "Wrong email or password!")
             return redirect('home')
 
-    return render(request, "authentication/login.html")
+    else:
+        form = LoginForm()
+    
+    return render(request, "authentication/login.html", {'form': form})
+
 
 def render_logout(request):
     logout(request)
-    messages.success(request, "looged out")
+    messages.success(request, "logged out")
     return redirect('home')
