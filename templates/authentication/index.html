@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width">
   <title>LostExpats.cz</title>
   {% load static %}
-  {% csrf_token %}
   <link href="style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="script.js"></script>
 </head>
@@ -16,14 +15,9 @@
  <a href="#" class="navbar-title">LostExpats.cz</a>
 </div>
 <div class="navbar-right">
- <form class="navbar-search-form">{% csrf_token %}
-<input type="text" placeholder="Search">
-<button type="submit"><i class="fa fa-search"></i></button>
- </form>
  
 <button type="submit"><a href="/signup">Signup</a></button>
 <button type="submit"><a href="/login">Login</a></button>
-
 
 </div>
   </nav>
@@ -190,26 +184,6 @@ html {
   align-items: center;
 }
 
-.navbar-search-form {
-  display: flex;
-  margin-right: 10px;
-}
-
-.navbar-search-form input[type="text"] {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  outline: none;
-}
-
-.navbar-search-form button[type="submit"] {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  background-color: black;
-  cursor: pointer;
-  color: white;
-}
 button[type="submit"] {
     background-color: #191919;
     
@@ -301,11 +275,6 @@ flex-direction: column;
 align-items: flex-end;
 }
 
-.navbar-search-form {
-margin-right: 0;
-margin-bottom: 10px;
-}
-
 .navbar-login, .navbar-signup {
 margin-left: 0;
 margin-bottom: 10px;
@@ -331,11 +300,6 @@ font-size: 20px;
 
 }
 
-  
-
-  
-  
-
 /* Reset default browser styles */
 * {
 	margin: 0;
@@ -352,8 +316,6 @@ body {
   
 }
 
-
-
 /* Style the header */
 header {
 	background-color: #ffffff;
@@ -368,8 +330,6 @@ header {
 	right: 0;
 	z-index: 999;
 }
-
-
 
 /* Style the sections */
 section {
