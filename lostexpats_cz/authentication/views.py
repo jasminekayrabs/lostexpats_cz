@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
-from django.views.decorators.csrf import csrf_protect
 from django.utils.html import mark_safe
-from django.middleware import csrf
+from django.middleware import csrf, csrf_protect
+from django.views.generic import TemplateView
  
 # Create your views here.
 #render functions allow the pages to be run on the server
@@ -81,3 +81,29 @@ def render_logout(request):
     logout(request)
     messages.success(request, "logged out")
     return redirect('home')
+   
+   
+# View function
+def index(request):
+    # Create an HTTP response with the message "Welcome to the landing page!"
+    response = HttpResponse("Welcome to the landing page!")
+
+    # Set a cookie named "my_cookie" with a value of "cookie_value"
+    response.set_cookie('my_cookie', 'cookie_value')
+
+    return response
+
+# Class-based view
+class LandingPageView(TemplateView):
+    # Specify the template name
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
+        # Call the superclass's get() method to generate the initial response
+        response = super().get(request, *args, **kwargs)
+
+        # Set a cookie named "my_cookie" with a value of "cookie_value"
+        response.set_cookie('my_cookie', 'cookie_value')
+
+        return response   
+  
