@@ -53,6 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'DENY'
+#The page cannot be displayed in a frame, regardless of the site attempting to do so.
+
 ROOT_URLCONF = 'lostexpats_cz.urls'
 
 TEMPLATES = [
