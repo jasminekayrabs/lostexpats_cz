@@ -1,55 +1,259 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Lostexpats</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+  <title><a href="/index">LostExpats.cz</a></title>
+  {% load static %}
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script.js"></script>
+</head>
+  
+<body>
+  <nav class="navbar">
+<div class="navbar-left">
+ <a href="/index" class="navbar-title">LostExpats.cz</a>
+</div>
+<div class="navbar-right">
+ 
+<button type="submit"><a href="/signup">Signup</a></button>
+<button type="submit"><a href="/login">Login</a></button>
 
-    <title>LostExpats.cz</title>
-   
-    </head>
-    <nav class="navbar">
-        <div class="navbar-left">
-         <a href="#" class="navbar-title">LostExpats.cz</a>
-        </div>
-        <div class="navbar-right">
-         <button type="submit"><a href="/login" class="navbar-login">Login</a></button>
-         <button type="submit"><a href="/signup" class="navbar-signup">SignUp</a></button>
-        
-        </div>
-          </nav>
-          
-          <div class="navbar-categories">
-        <ul>
-         <li><a href="#">NEWS</a></li>
-         <li><a href="#">FOOD&DRINK</a></li>
-         <li><a href="#">EVENTS</a></li>
-         <li><a href="#">NIGHTLIFE</a></li>
-        </ul>
+</div>
+  </nav>
+  
+  <div class="navbar-categories">
+<ul>
+ <li><a href="/news">NEWS</a></li>
+ <li><a href="/fooddrinks">FOOD & DRINK</a></li>
+ <li><a href="/events">EVENTS</a></li>
+ <li><a href="/nightlife">NIGHTLIFE</a></li>
+</ul>
+  </div>
+  <div class="navbar-mobile">
+  <ul>
+    <li><a href="/news">NEWS</a></li>
+    <li><a href="/fooddrinks">FOOD & DRINK</a></li>
+    <li><a href="/events">EVENTS</a></li>
+    <li><a href="/nightlife">NIGHTLIFE</a></li>
+  </ul>
+</div>
+
+</div>
+
+
+
+<div class="slideshow-container">
+    <div class="slide">
+      <img src="{% static 'food1.jpg' %}" alt="Image 1">
+      <div class="slide-text">Creme de la Creme</div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'food4.jpg' %}" alt="Image 2">
+      <div class="slide-text">LOsteria'</div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'cafe1.jpg' %}" alt="Image 3">
+      <div class="slide-text">Miners Coffee</div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+<section id="Picks of the week">
+		<h3>Our picks for the week</h3>
+    <center>
+        <div class="image-row">
+            <img src="{% static 'food1.jpg' %}" alt="Food Image">
+            <div class="overlay">
+              <div class="description">Description <br> Fakeaddress 231/2</div>
+            </div>
           </div>
-          <div class="navbar-mobile">
-          <ul>
-            <li><a href="#">NEWS</a></li>
-            <li><a href="#">FOOD&DRINK</a></li>
-            <li><a href="#">EVENTS</a></li>
-            <li><a href="#">NIGHTLIFE</a></li>
-          </ul>
+          
+		
+    
+    <div class="image-row">
+			<img src="{% static 'food2.jpg' %}" alt="News Image 2">
+            <div class="overlay">
+			<div class="description">Description <br> Fakeaddress 596/2</div>
+		</div>
         </div>
-<style>
+    <div class="image-row">
+			<img src="{% static 'food3.jpg' %}" alt="News Image 3">
+            <div class="overlay">
+			<div class="description">Description  <br> Fakeaddress 441/4</div>
+		</div>
+    </div>
+   </center>
+	</section>
+  
+  
+<section id="Student Frindly cafes">
+		<h3>Student Frindly cafes</h3>
+    <center>
 
+
+		<div class="image-row">
+			<img src="{% static 'cafe1.jpg' %}" alt="Nightlife Image 1">
+            <div class="overlay">
+                <div class="description">Description <br> Fakeaddress 638/5</div>		</div>
+        </div>
+		<div class="image-row">
+			<img src="{% static 'cafe2.jpg' %}" alt="Nightlife Image 2">
+            <div class ="overlay">
+                <div class="description">Description <br> Fakeaddress 373/4</div>		</div>
+    </div>
+    <div class="image-row">
+			<img src="{% static 'cafe3.jpg' %}" alt="Nightlife Image 3">
+            <div class ="overlay">
+                <div class="description">Description <br> Fakeaddress 938/3</div>		</div>
+        </div>
+    </center>
+</section>
+  
+<section id="Brunch">
+		<h3>Brunch</h3>
+    <center>
+		<div class="image-row">
+			<img src="{% static 'brunch1.jpg' %}" alt="Food Image 1">
+            <div class ="overlay">
+			<div class="description">Description <br> Address 192/2 </div>
+		</div>
+        </div>
+		<div class="image-row">
+			<img src="{% static 'brunch2.jpg' %}" alt="Food Image 2">
+            <div class ="overlay">
+                <div class="description">Description <br> Fakeaddress 362/3</div>		</div>
+        </div>
+    <div class="image-row">
+			<img src="{% static 'brunch3.jpg' %}" alt="Food Image 3">
+            <div class="overlay">
+                <div class="description">Description <br> Fakeaddress 482/1</div>		</div>
+    </div>
+    </center>
+		</div>
+
+</section>
+    
+<section id="Restraunts">
+		<h3>Restraunts</h3>
+    <center>
+		<div class="image-row">
+			<img src="{% static 'rest1.jpg' %}" alt="Events Image 1">
+            <div class="overlay">
+                <div class="description">Description <br> Fakeaddress 596/2</div>		</div>
+        </div>
+		<div class="image-row">
+			<img src="{% static 'rest2.jpg' %}" alt="Events Image 2">
+            <div class="overlay">
+                <div class="description">Description <br> Fakeaddress 892/4</div>		</div>
+        </div>
+    <div class="image-row">
+			<img src="{% static 'rest3.jpg' %}" alt="Events Image 3">
+            <div class="overlay">
+                <div class="description">Description <br> Fakeaddress 631/12</div>		</div>
+        </div>
+    </center>
+</section>
+
+
+  <script src="script.js"></script>
+    
+    
+<style>
 * {box-sizing: border-box;}
-body {font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
 .mySlides {display: none;}
 img {vertical-align: middle;}
-    /* Navbar styles */
-    body{
-  background-color: rgb(191, 101, 101);
-  color:white;
+
+html {
+  height: 100%;
+  width: 100%;
 }
+
+.main-image {display:block;}
+  img {vertical-align: middle;}
+  
+
+  
+  .slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Adjust the height as desired */
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-text {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  color: #ffffff;
+  font-size: 50px;
+}
+
+.active {
+  display: block;
+}
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Adjust the height as desired */
+  overflow: hidden;
+}
+
+.slide {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 50px; /* Adjust the font size as desired */
+  padding-top: 20px;
+  text-align: center;
+}
+
+
+.active {
+  display: block;
+}
+
+
 
 
 /* Navbar styles */
@@ -80,39 +284,25 @@ img {vertical-align: middle;}
   align-items: center;
 }
 
-.navbar-search-form {
-  display: flex;
-  margin-right: 10px;
-}
+button[type="submit"] {
+    background-color: #191919;
+    
+    color: white;
+    padding: 3px 3px;
+    margin: 0;
+    border: 1px solid #191919;
+    border-radius: 0px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    text-decoration: none !important;
+  }
+  button[type="submit"]:hover {
+    background-color: #4d4d4d;
+  }
 
-.navbar-search-form input[type="text"] {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  outline: none;
-}
-
-.navbar-search-form button[type="submit"] {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  background-color: black;
-  cursor: pointer;
-  color: white;
-}
-
-.navbar-login, .navbar-signup {
-  display: block;
-  padding: 5px;
-  margin-left: 10px;
-  border-radius: 3px;
-  text-decoration: none;
-  color: #fff;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-}
-
-.navbar-login:hover, .navbar-signup:hover {
-  background-color: #4d4d4d;
+  button[type="submit"] a {
+    text-decoration: none;
 }
 
 /* Navbar categories styles */
@@ -185,11 +375,6 @@ flex-direction: column;
 align-items: flex-end;
 }
 
-.navbar-search-form {
-margin-right: 0;
-margin-bottom: 10px;
-}
-
 .navbar-login, .navbar-signup {
 margin-left: 0;
 margin-bottom: 10px;
@@ -211,28 +396,155 @@ display: block;
 @media screen and (max-width: 480px) {
 .navbar-title {
 font-size: 20px;
-    }
 }
 
-  button[type="submit"] {
-    background-color: #333;
-    color: white;
-    padding: 3px 3px;
-    margin: 0;
-    border: 1px solid rgb(115, 102, 102);
-    border-radius: 40px;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-  }
-  button[type="submit"]:hover {
-    background-color: #4d4d4d;
-  }
+}
+
+/* Reset default browser styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Set a background color for the entire page */
+body {
+    background-color: #000000;
+	font-family: Arial, sans-serif;
+    color: #e2d0d0;
+  
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .6s ease;
+  background-color: #000000;
+  border: 2px solid #000000;
+
+}
+
+/* Style the header */
+header {
+	background-color: #ffffff;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+
+/* Style the sections */
+section {
+	padding: 50px;
+}
+
+section h2,h3,h4,h5 {
+	font-size: 32px;
+	margin-bottom: 40px;
+}
+ h2{
+  padding:0 ;
+  margin: 0;
+}
+.image-row {
+    position: relative;
+  display: inline-block;
+}
+
+.image-row:hover .overlay {
+  opacity: 0.7; /* Adjust the opacity as desired */
+}
+
+.image-row img {
+	width: 300px;
+	height: 200px;
+	max-width: 100%;
+    margin: 20px 20px 20px 20px;
+	object-fit: cover;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+a {
+  color: #fff;
+}
+
+h2{
+    padding-bottom: 20px;
+    color: #ffffff;
+}
+
+.description{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
   
 </style>
+  
+ 
+ 
+  
+</body>
+
+<footer>
+  <h3>Contact Us</h3>
+  <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
+</footer>
 
 
-    <body>
+<script>
 
-    </body>
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+
+function showSlide() {
+  slides[currentSlide].classList.add('active');
+}
+
+function hideSlides() {
+  slides.forEach(slide => slide.classList.remove('active'));
+}
+
+function nextSlide() {
+  hideSlides();
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide();
+}
+
+setInterval(nextSlide, 3000); // Change slide every 3 seconds
+
+</script>
+
 </html>
+
