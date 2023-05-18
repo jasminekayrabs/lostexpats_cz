@@ -29,7 +29,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+#Enable HTTPS enforcement
+SECURE_SSL_REDIRECT = True
+SSL_ENABLED = True
+SSL_CERTIFICATE = '/path/to/cert.pem'
+SSL_KEY = 'path/to/key.pem'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'authentication.apps.AuthenticationConfig',
     'django.contrib.staticfiles',
+    'sslserver',
 
 ]
 
@@ -53,8 +60,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 X_FRAME_OPTIONS = 'DENY'
-#The page cannot be displayed in a frame, regardless of the site attempting to do so.
+ #The page cannot be displayed in a frame, regardless of the site attempting to do so.
 
 ROOT_URLCONF = 'lostexpats_cz.urls'
 
