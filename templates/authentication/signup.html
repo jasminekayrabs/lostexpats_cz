@@ -2,43 +2,169 @@
 <html>
 <head>
   <title>SignUp Page</title>
-  <link rel="stylesheet" href="templates/authentication/signup.css">
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      margin:0;
+      padding:0;
+      font-family: sans-serif;
+      background: linear-gradient(#131923, #11171e);
+    }
+
+    .signup-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      padding: 40px;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,.5);
+      box-sizing: border-box;
+      box-shadow: 0 15px 25px rgba(0,0,0,.6);
+      border-radius: 10px;
+    }
+
+    .signup-box h1 {
+      margin: 0 0 30px;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    .signup-box .user-box {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .signup-box .user-box input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+      border-bottom: 1px solid #fff;
+      outline: none;
+      background: transparent;
+    }
+
+    .signup-box .user-box label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      pointer-events: none;
+      transition: .5s;
+    }
+
+    .signup-box .user-box input:focus ~ label,
+    .signup-box .user-box input:valid ~ label {
+      top: -20px;
+      left: 0;
+      color: rgb(67, 63, 63);
+      font-size: 12px;
+    }
+
+    .signup-box button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+      margin-top: 40px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #323b3c;
+      background: rgb(67, 63, 63);
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+      transition: .5s;
+    }
+
+    .signup-box button[type="submit"]:hover {
+      background: rgb(67, 63, 63);
+      color: #a1b5b6;
+    }
+
+    .signup-box a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #fff;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+
+    </style>
   
+  <script>
+    // JavaScript code
+    function validateForm() {
+      var password1 = document.getElementById("pass1").value;
+      var password2 = document.getElementById("pass2").value;
+
+      if (password1 !== password2) {
+        document.getElementById("error-message").style.display = "block";
+        return false;
+      } else {
+        document.getElementById("error-message").style.display = "none";
+        return true;
+      }
+    }
+  </script>
+
 
 </head>
  
 <body>
-<div class="login-container">
+<div class="signup-box">
     <h1>Sign-Up</h1>
-    <form action="/signup" method="post">
-        <!--A csrf token is used to prevent malicious attacks. It generates a token 
-        and ensures that any requests coming back in are cross-checked against this token-->
+    <form action="/signup" method="post" onsubmit="return validateForm()">
+         <!-- A csrf token is used to prevent malicious attacks. It generates a token 
+        and ensures that any requests coming back in are cross-checked against this token -->
     {% csrf_token %}
-
+    <div class="user-box">
+      <input type="text" id="fname" name="fname" required value="{{ fname|safe }}">
       <label for="">First Name</label>
-      <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
       <br>
+    </div>
+    <div class="user-box">
+      <input type="text" id="lname" name="lname" required value="{{ lname|safe }}">
       <label for="">Last Name</label>
-      <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
       <br>
+    </div>
+    <div class="user-box">
+      <input type="email" id="email" name="email" required value="{{ email|safe }}">
       <label for="">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email address" required>
       <br>
+    </div>
+    <div class="user-box">
+      <input type="password" id="pass1" name="pass1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
       <label for="">Password</label>
-      <input type="password" id="pass1" name="pass1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required  placeholder="Enter your password">
       <br>
+    </div>
+    <div class="user-box">
+      <input type="password" id="pass2" name="pass2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
       <label for="">Confirm Password</label>
-      <input type="password" id="pass2" name="pass2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Confirm your password" required>
+      <span id="error-message" class="error-message" style="display: none;">Passwords do not match</span>
       <br>
-      
-      <button type="submit">Sign Up</button>
+    </div>
+    <button type="submit">SignUp</button>
     </form>
-  </div>
-  
+  </div> 
 
 </body>
- 
 </html>
-
-<!DOCTYPE html>
-<html>
