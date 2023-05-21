@@ -1,105 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width">
+
+ <title><a href="/index">LostExpats.cz</a></title>
+ <h1>{{ title }}</h1>
+ {% load static %}
+ {% autoescape off %}
+<div>{{ trusted_html_content }}</div>
+{% endautoescape %}
+ <link href="style.css" rel="stylesheet" type="text/css" />
+ <script type="text/javascript" src="script.js"></script>
+</head>
+ 
+<body>
+ <nav class="navbar">
+<div class="navbar-left">
+	<div>{{ html_content|safe }}</div>
+	<div>{{ user_input|escape }}</div>
+ <a href="/index" class="navbar-title">LostExpats.cz</a>
+</div>
+<div class="navbar-right">
+ 
+<button type="submit"><a href="/signup">Signup</a></button>
+<button type="submit"><a href="/login">Login</a></button>
+
+</div>
+ </nav>
+ 
+ <div class="navbar-categories">
+	<div>{{ html_content|safe }}</div>
+<ul>
+ <li><a href="/news">NEWS</a></li>
+ <li><a href="/food">FOOD & DRINK</a></li>
+ <li><a href="/events">EVENTS</a></li>
+ <li><a href="/nightlife">NIGHTLIFE</a></li>
+</ul>
+ </div>
+ <div class="navbar-mobile">
+ <ul>
+ <li><a href="/news">NEWS</a></li>
+ <li><a href="/food">FOOD & DRINK</a></li>
+ <li><a href="/events">EVENTS</a></li>
+ <li><a href="/nightlife">NIGHTLIFE</a></li>
+ </ul>
+</div>
+
+</div>
+
+
+
+<div class="slideshow-container">
+	<div>{{ html_content|safe }}</div>
+ <div class="slide">
+ <img src="{% static 'news1.jpeg' %}" alt="Image 1">
+ <div class="slide-text">Protesters interfere With A Met Police</div>
+ </div>
+ <div class="slide">
+ <img src="{% static 'news2.jpeg' %}" alt="Image 2">
+ <div class="slide-text">Agricultural Operations</div>
+ </div>
+ <div class="slide">
+ <img src="{% static 'news3.webp' %}" alt="Image 3">
+ <div class="slide-text"> Sepsis Diagnosis Lags
+ </div>
+ </div>
+ </div>
+ 
+
+
+
+
+
+
+<section id="Picks of the week">
+ <h3>News for the week</h3>
+ <center>
+ <div class="image-row">
+ <img src="{% static 'sport.jpg' %}" alt="Food Image">
+    <div class="description">
+      <p>2023 Championship</p>
+      <p> <br>Updates from the round at Country Club
+		<br>BRT Championship leaderboard </p>
+    </div>
+  </div>
+ 
+ 
+ 
+ <div class="image-row">
+    <img src="{% static 'culture.jpg' %}" alt="Food Image">
+    <div class="description">
+      <p>Culture</p>
+      <p> <br> Nicky’s propulsive basslines worked in perfect tandem with 
+		<br>Maddy Ber’s piano parts to create the Emmy’ singular sound</p>
+    </div>
+ </div>
+
+ <div class="image-row">
+ <img src="{% static 'fashion.jpg' %}" alt="Food Image">
+ <div class="description">Fashion 
+     <p> <br> Lilly Rose and Tommy Murty take careful 
+		<br>approach to M1 power dressing</p></div>
+ </div>
+
+ <div class="image-row">
+    <img src="{% static 'boxing.jpg' %}" alt="Food Image">
+    <div class="description">
+      <p>Boxing</p>
+      <p> <br> Katy Kert braced for ‘hardest fight of career’ 
+		<br>against Manu Illk.
+	     <br>Ireland’s most beloved sporting personality faces a  
+		 <br>challenge in her Dublin homecoming on Monday night </p>
+    </div>
+ </div>
+ </center>
+ </section>
+ 
+
+
+
+ <script src="script.js"></script>
+ 
+ 
 <style>
-    body{
-  padding: 0;
-	margin: 0;
-	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+* {box-sizing: border-box;}
+body {
+ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+html {
+ height: 100%;
+ width: 100%;
 }
+
+.main-image {display:block;}
+ img {vertical-align: middle;}
+ 
+
+ 
+ .slideshow-container {
+ position: relative;
+ width: 100%;
+ height: 300px; /* Adjust the height as desired */
+ overflow: hidden;
+}
+
+.slide {
+ display: none;
+ position: absolute;
+ width: 100%;
+ height: 100%;
+}
+
+.slide img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}
+
+.slide-text {
+ position: absolute;
+ top: 20px;
+ bottom: 20px;
+ left: 20px;
+ color: #a71111;
+ font-size: 50px;
+}
+
+.active {
+ display: block;
+}
+.slideshow-container {
+ position: relative;
+ width: 100%;
+ height: 300px; /* Adjust the height as desired */
+ overflow: hidden;
+}
+
+.slide {
+ padding-top: 20px;
+ padding-left: 20px;
+ padding-right: 20px;
+ display: none;
+ position: absolute;
+ width: 100%;
+ height: 100%;
+}
+
+.slide img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}
+
+.slide-text {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ color: #ffffff;
+ font-size: 50px; /* Adjust the font size as desired */
+ padding-top: 20px;
+ text-align: center;
+}
+
+
+.active {
+ display: block;
+}
+
+
 
 
 /* Navbar styles */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: black;
-  color: #ffffff;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 10px;
+ background-color: black;
+ color: #fff;
 }
 
 .navbar-left {
-  display: flex;
-  align-items: center;
+ display: flex;
+ align-items: center;
 }
 
 .navbar-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #fff;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+ font-size: 24px;
+ font-weight: bold;
+ text-decoration: none;
+ color: #fff;
+ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
-
 
 .navbar-right {
-  display: flex;
-  align-items: center;
+ display: flex;
+ align-items: center;
 }
 
-.navbar-search-form {
-  display: flex;
-  margin-right: 10px;
-}
+button[type="submit"] {
+ background-color: #191919;
+ 
+ color: white;
+ padding: 3px 3px;
+ margin: 0;
+ border: 1px solid #191919;
+ border-radius: 0px;
+ cursor: pointer;
+ width: 100%;
+ text-align: center;
+ text-decoration: none !important;
+ }
+ button[type="submit"]:hover {
+ background-color: #4d4d4d;
+ }
 
-.navbar-search-form input[type="text"] {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  outline: none;
-}
-
-.navbar-search-form button[type="submit"] {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  background-color: black;
-  cursor: pointer;
-  color: white;
-}
-
-.navbar-login, .navbar-signup {
-  display: block;
-  padding: 5px;
-  margin-left: 10px;
-  border-radius: 3px;
-  text-decoration: none;
-  color: #fff;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-}
-
-.navbar-login:hover, .navbar-signup:hover {
-  background-color: #4d4d4d;
+ button[type="submit"] a {
+ text-decoration: none;
 }
 
 /* Navbar categories styles */
 .navbar-categories {
-  background-color: black;
-  padding: 10px;
-  color:white;
-  margin-left: 10px;
-  border-radius: 3px;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+ background-color: black;
+ padding: 10px;
+ color:white;
+ margin-left: 10px;
+ border-radius: 3px;
+ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 .navbar-categories ul {
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-  padding: 10;
-  margin: 0;
-  color:white;
+ display: flex;
+ justify-content: space-between;
+ list-style: none;
+ padding: 10;
+ margin: 0;
+ color:white;
 }
 
 .navbar-categories li {
-  margin: 0 10px;
+ margin: 0 10px;
 }
 
 .navbar-categories a {
-  text-decoration: none;
-  color: white;
+ text-decoration: none;
+ color: white;
 }
 
 .navbar-categories a:hover {
-  background-color: #4d4d4d;
+ background-color: #4d4d4d;
 }
 /* Navbar mobile styles */
 .navbar-mobile {
@@ -107,7 +300,7 @@ display: none;
 background-color:black;
 padding: 10px;
 color: white;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 .navbar-mobile ul {
@@ -140,11 +333,6 @@ flex-direction: column;
 align-items: flex-end;
 }
 
-.navbar-search-form {
-margin-right: 0;
-margin-bottom: 10px;
-}
-
 .navbar-login, .navbar-signup {
 margin-left: 0;
 margin-bottom: 10px;
@@ -169,434 +357,159 @@ font-size: 20px;
 }
 
 }
-.website-header{
-	padding: 20px;
-	height: 80px;
-	display: flex;
-	flex-wrap: wrap;
+
+/* Reset default browser styles */
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
 }
-.website-header img{
-	float: left;
-	width: 50px;
-	height: 50px;	
-	margin: 0 30px;
+
+/* Set a background color for the entire page */
+body {
+ background-color: #000000;
+ font-family: Arial, sans-serif;
+ color: #e2d0d0;
+ 
 }
-.website-header h1{
-	margin: auto 0;
+
+
+.overlay {
+ position: absolute;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: 100%;
+ width: 100%;
+ opacity: 0;
+ transition: .6s ease;
+ background-color: #000000;
+ border: 2px solid #000000;
+
 }
-.icons{
-	text-align: right;
-	flex-grow: 1;
+
+/* Style the header */
+header {
+ background-color: #ffffff;
+ padding: 20px;
+ box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 999;
 }
-.icons i{
-	margin: 0 7px;
-	cursor: pointer;
+
+/* Style the sections */
+section {
+ padding: 50px;
 }
-nav{
-	background-color: black;
-	height: 50px;
-	margin-bottom: 20px;
+
+section h2,h3,h4,h5 {
+ font-size: 32px;
+ margin-bottom: 40px;
 }
-nav ul{
-	margin: 20px 0 0 0;
+ h2{
+ padding:0 ;
+ margin: 0;
 }
-.navbar-n li{
-	list-style: none;
-	display: inline-block;
-	padding: 10px;
-}
-.navbar-n li a{
-	color: #fff;
-	text-decoration: none;
-	font-size: 20px;
-	text-transform: uppercase;
-	font-weight: 800;
+
+.image-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background-color: black;
-  
-}
-.navbar-n li a:hover{
-	color:#e08b6c;
-}
-.breaking-news{
-	padding: 0 30px 0 60px;
-	display: flex;
-}
-#btext{
-	width: 200px;
-	font-size: 16px;
-	text-transform: uppercase;
-	color:#e08b6c;
-	font-weight: 600;
-	margin: auto 0;
-}
-.nav-link {
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-  padding: 10;
-  margin: 0;
-  color:white;
-}
-.breaking-news{
-	padding: 30px;
-	color: #fff;
-	text-decoration: none;	
-	font-weight: 800;
-}
-.breaking-news:hover,.icons i:hover{
-	color:#e08b6c;
-	cursor: pointer;
-}
-.bntime{
-	display: inline-block;
-	color: rgba(255,255,255,0.5);
-	padding: 0 10px;
-	font-size: 12px;
-}
-#popular-news{
-	display: flex;
-	flex-wrap: wrap;
-	margin: 30px 5%;
-}
-#popular-news h2{
-	margin: 0;
-	padding: 5px;
-	color: #fff;
-}
-#featured h2{
-	background-color: black;
-}
-#latest h2{
-	background-color: darkred;
-}
-#our-picks h2{
-	background-color: darkblue;
-}
-#featured{
-	flex: 2;
-}
-#latest,#our-picks{
-	flex: 1;
-}
-#popular-news img{
-	width: 100%;
-	filter: brightness(0.7);
-	transition-duration: 500ms;
-}
-.carousel, .news-container{
-	position: relative;
-}
-.carousel-text{
-	position: absolute;
-	word-wrap: normal;
-	bottom: 5px;
-	z-index: 2;
-	color: #fff;
-	font-size: 24px;
-	font-weight: bolder;
-	padding: 0 10px;
-	transition-duration: 500ms;
-}
-.news-container .carousel-text{
-	font-size: 18px;
-}
-.carousel-date{
-	display: block;
-	text-align: center;
-	font-size: 14px;
-	color: rgba(255,255,255,0.7);
-	font-weight: 300;
-}
-section{
-	cursor: pointer;
-}
-.news-container:hover > .carousel-text{
-	bottom: 10px;
-}
-.news-container:hover > img{
-	filter: brightness(0.4);
-}
-.more-news{
-	background-color: black;
-	display: flex;
-	flex-wrap: wrap;
-	padding: 0 5%;
-	justify-content: space-between;
-	color: #fff;
-}
-.news-section{
-	display: flex;
-	flex-wrap: wrap;
-	flex-basis: 70%;
-	justify-content: space-between;
-}
-.world h2{	
-	background-color: #b2175b;
-}
-.sport h2{
-	background-color: #3c1b75;
-}
-.world h2, .sport h2{
-    margin: 10px 0 0 0;
-	padding: 0 10px;
+  position: relative
 }
 
-.more-news img{
-	width: 100%;
-	height: 250px;
+.image-row img {
+  width: 450px; /* Adjust the width as needed */
+  padding: 20px 20px 20px 20px;
 }
-.world,.sport{
-	flex-basis: 45%;
+
+.image-row .description {
+  position: absolute;
+  top: 50%;
+  left: calc(45% + 10px); /* Adjust the spacing between the image and text as needed */
+  transform: translateY(-50%);
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+
 }
-aside{
-	width: 90%;
-	padding: 10px;
-	flex-basis: 25%;
-	border: 1px solid #fff;
-	border-radius: 5px;
-	margin: auto 0;
+
+footer {
+ background-color: #333;
+ color: #fff;
+ padding: 20px;
 }
-p{
-	text-align: justify;
+
+h3 {
+ margin: 0;
+ font-size: 30px;
+ text-transform: uppercase;
 }
-.recent-news{
-	display: flex;
+
+a {
+ color: #fff;
 }
-.recent-news img{
-	width: 70px;
-	height: 70px; 
-	margin: 10px;
+
+h2{
+ padding-bottom: 20px;
+ color: #ffffff;
 }
-.recent-news p{
-	font-size: 14px;
-	font-weight: bold;
-	margin: auto;
+
+.description{
+ position: absolute;
+ top: 50%;
+ /* left: 50%; */
+ transform: translate(-50%, -50%);
+ color: #FFFFFF;
+ font-size: 20px;
+ font-weight: bold;
+ text-align: center;
+ width: 100%;
 }
-.social-links{
-	display: flex;
-	flex-wrap: wrap;
-	padding: 5%;
-	justify-content: space-between;
-}
-.social-links section{
-	flex-basis: 30%;
-}
-.icons-footer i{
-	font-size: 37px;
-	padding: 5px;
-}
-.instagram img{
-	padding: 5px;
-}
-.footer-buttons{
-	display: block;
-	border: 1px solid #2196f3;
-	color: #2196f3;
-	font-size: 14px;
-	font-weight: bolder;
-	background-color: white;
-	margin: 20px auto;
-	padding: 10px 20px;
-	cursor: pointer;
-}
-.footer-buttons:hover{
-	color: #fff;
-	border: 1px solid #fff;
-	background-color: #2196f3;
-}
-.copyright{
-	width: 100%;
-	background-color: black;
-	color: #fff;
-	padding: 5px;
-	text-align: center;
-}
-@media only screen and (max-width: 600px) {
-	.breaking-news{	
-		padding: 10px;
-		flex-wrap: wrap;
-	}
-	#featured{
-		flex: auto;
-	}	
-	.news-section, aside, .news-section article,.social-links section{
-		flex-basis: 100%;		
-	}
-	aside{
-		border-width: 0;
-	}
-	.social-links section{
-		margin-top: 100px;
-	}
-	.website-header img{
-		width: 35px;
-		height: 35px;
-		padding: 5px;
-	}
-	.website-header h1{
-		font-size: 15px;
-	}
-	.icons{
-		flex-basis: 100%;
-	}
-	.navbar-collapse{
-		background-color: black;
-		z-index: 16;
-	}
-	.navbar-toggler-icon{
-		background-image: url(images/menu.jpg);
-		z-index: 16;
-	}
-}
+
+ 
 </style>
-<head>
-  <!-- ... -->
-    {% csp_nonce %}
-<title>LostExpats.cz</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" integrity="sha512-HHsOC+h3najWR7OKiGZtfhFIEzg5VRIPde0kB0bG2QRidTQqf+sbfcxCTB16AcFB93xMjnBIKE29/MjdzXE+qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="main.js"></script>
-  
-</head>
-<nav class="navbar">
-<div class="navbar-left">
- <a href="#" class="navbar-title">LostExpats.cz</a>
-</div>
-<div class="navbar-right">
- <form class="navbar-search-form">
-<input type="text" placeholder="Search">
-<button type="submit"><i class="fa fa-search"></i></button>
- </form>
- <a href="#" class="navbar-login">Login</a>
- <a href="#" class="navbar-signup">Signup</a>
+ 
+ 
+ 
+ 
+</body>
 
-</div>
-  </nav>
-  
-  <div class="navbar-categories">
-<ul>
- <li><a href="#">NEWS</a></li>
- <li><a href="#">FOOD&DRINK</a></li>
- <li><a href="#">EVENTS</a></li>
- <li><a href="#">NIGHTLIFE</a></li>
-</ul>
-  </div>
-  <div class="navbar-mobile">
-  <ul>
-    <li><a href="#">NEWS</a></li>
-    <li><a href="#">FOOD&DRINK</a></li>
-    <li><a href="#">EVENTS</a></li>
-    <li><a href="#">NIGHTLIFE</a></li>
-  </ul>
-</div>
-  <main>
-			<article id="popular-news">
-				<div id="featured">
-					<h2>FEATURED</h2>
-					<section class="popular-news-carousel">
-						<div id="carousel" class="carousel slide" data-ride="carousel">
-						  
-						  <div class="carousel-inner">
-							<div class="carousel-item active">
-							  <img class="d-block w-100" src="images/carousel1.jpg" alt="First slide">
-								<div class="carousel-caption d-none d-md-block">
-									
-								 </div>
-							</div>
-					
-						</div>
-                            </div>
-					</section>
-					
-                </div>
-				<div id="latest">
-					<h2>LATEST</h2>
-					<section class="news">
-						<div class="news-container">
-							<img src="images/carousel1.jpg">
-										
-						</div>						
-					</section>
-					<section class="news">
-						<div class="news-container">
-							<img src="images/carousel2.jpg">
-									
-						</div>						
-					</section>
-				</div>
-				<div id="our-picks">
-					<h2>OUR PICKS</h2>
-					<section class="news">
-						<div class="news-container">
-							<img src="images/carousel3.jpg">
-									
-						</div>						
-					</section>
-					<section class="news">
-						<div class="news-container">
-							<img src="images/carousel1.jpg">
-										
-						</div>						
-					</section>
-				</div>
-			</article>
-			<section class="more-news">
-				<div class="news-section">
-					<article class="world">
-						<h2>WORLD</h2>
-						<img src="images/world1.jpg">
-						<h3>Syria crisis: Obama rejects US military intervention</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Proin in tellus sit amet nibh dignissim sagittis. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Phasellus rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. </p>
-					</article>
-					<article class="sport">
-						<h2>SPORT</h2>
-						<img src="images/sport1.jpg">
-						<h3>Lisboa Triathlon 2017</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam egestas wisi a erat. Proin in tellus sit amet nibh dignissim sagittis. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Phasellus rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. </p>
-					</article>
-				</div>
-				
-				<aside>
-					<h4>RECENT</h4>
-					<div class="recent-news">
-						<img src="images/article1.jpg">
-						<p>2018 Mercedes-AMG C63 Coupe Makes its Debut</p>
-					</div>
-					<div class="recent-news">
-						<img src="images/aside2.jpg">
-						<p>2018 Mercedes-AMG C63 Coupe Makes its Debut</p>
-					</div>
-					<div class="recent-news">
-						<img src="images/aside3.jpg">
-						<p>2018 Mercedes-AMG C63 Coupe Makes its Debut</p>
-					</div>
-					<div class="recent-news">
-						<img src="images/aside4.jpg">
-						<p>2018 Mercedes-AMG C63 Coupe Makes its Debut</p>
-					</div>
-					<div class="recent-news">
-						<img src="images/aside5.jpg">
-						<p>2018 Mercedes-AMG C63 Coupe Makes its Debut</p>
-					</div>
-				</aside>
-			</section>
-		</main>
-		
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	
-<style>
-* {box-sizing: border-box;}
-body {font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
-.mySlides {display: none;}
-img {vertical-align: middle;}
+<footer>
+ <h3>Contact Us</h3>
+ <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
+</footer>
 
-	
-	
+
+<script>
+
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+
+function showSlide() {
+ slides[currentSlide].classList.add('active');
+}
+
+function hideSlides() {
+ slides.forEach(slide => slide.classList.remove('active'));
+}
+
+function nextSlide() {
+ hideSlides();
+ currentSlide = (currentSlide + 1) % slides.length;
+ showSlide();
+}
+
+setInterval(nextSlide, 3000); // Change slide every 3 seconds
+
+</script>
+
+</html>
