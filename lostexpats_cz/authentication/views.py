@@ -27,6 +27,9 @@ def render_events(request):
     return render(request, "authentication/events.html")
 
 
+def render_index(request):
+    return render(request, "authentication/index.html")
+
 
 
 #FOR SIGNUP
