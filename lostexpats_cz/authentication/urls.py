@@ -10,5 +10,6 @@ urlpatterns = [
     path("fooddrinks", views.render_fooddrinks, name="render_fooddrinks"),
     path("nightlife", views. render_nightlife, name="render_nightlife"),
     path("news", views.render_news, name="render_news"),
+    path("events", views.render_events, name="render_events"),
 ]
 
