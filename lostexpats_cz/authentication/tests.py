@@ -67,6 +67,7 @@ class CSRFProtectionTestCase(TestCase):
         self.signup_url = reverse('render_signup')
         self.login_url = reverse('render_login')
 
+        #SIGNUP
     def test_signup_csrf_protection(self):
         response = self.client.get(self.signup_url, follow=True)
         self.assertEqual(response.status_code, 200)
@@ -81,6 +82,7 @@ class CSRFProtectionTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)  # Expect a redirect (302) status code
 
+        #LOGIN
     def test_login_csrf_protection(self):
         # Create a user for authentication
         user = User.objects.create_user(username='testuser', password='testpassword')
@@ -98,3 +100,67 @@ class CSRFProtectionTestCase(TestCase):
         )
         # Expect a redirect (302) status code
         self.assertEqual(response.status_code, 200)
+        
+        
+#TEST FOR SQL INJECTIONS
+class AuthenticationTestCase(TestCase):
+    def setUp(self):
+        self.signup_url = reverse('render_signup')
+        self.login_url = reverse('render_login')
+        self.home_url = reverse('home')
+        self.user_data = {
+            'fname': 'John',
+            'lname': 'Doe',
+            'email': 'johndoe@example.com',
+            'pass1': 'password123',
+            'pass2': 'password123',
+        }
+
+        #SIGNUP
+    def test_signup_sql_injection(self):
+        # Craft a payload with SQL injection
+        payload = {
+            'fname': 'John',
+            'lname': 'Doe',
+            'email': "johndoe@example.com' OR 1=1; --",
+            'pass1': 'password123',
+            'pass2': 'password123',
+        }
+        response = self.client.post(self.signup_url, data=payload)
+        
+        # Verify that the user was not created
+        self.assertEqual(response.status_code, 301)
+        self.assertFalse(User.objects.filter(email=payload['email']).exists())
+
+        #LOGIN
+    def test_login_sql_injection(self):
+        # Create a test user
+        User.objects.create_user(
+            username='johndoe',
+            email='johndoe@example.com',
+            password='password123',
+        )
+        
+        # Craft a payload with SQL injection
+        payload = {
+            'email': "johndoe@example.com' OR 1=1; --",
+            'pass1': 'password123',
+        }
+        response = self.client.post(self.login_url, data=payload)
+        
+        # Verify that the login failed and user was not authenticated
+        self.assertEqual(response.status_code, 301)
+        
+        #SIGNUP AND LOGIN
+    def test_valid_signup_and_login(self):
+        # Perform a valid signup
+        response = self.client.post(self.signup_url, data=self.user_data)
+        
+        # Verify that the user was created and redirected to login
+        self.assertEqual(response.status_code, 301)
+        
+        # Perform a valid login
+        response = self.client.post(self.login_url, data=self.user_data)
+        
+        # Verify that the login was successful and user was authenticated
+        self.assertEqual(response.status_code, 301)
