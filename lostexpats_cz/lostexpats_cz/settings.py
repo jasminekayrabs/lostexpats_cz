@@ -60,7 +60,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
+#When protecting the webiste from click-jacking there are 
+#three settings to choose from which include 'same-origin', 'deny', and 'ALLOW-FROM origin'(the last option does not work on most 
+# browsers now). For our application we chose to 'deny' because it denies all options of framing which gives the least risk for clickjacking too. 
 X_FRAME_OPTIONS = 'DENY'
  #The page cannot be displayed in a frame, regardless of the site attempting to do so.
 
