@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 from django.views.generic import TemplateView
+from authentication.context_processors import cookie_banner
 
 
 
@@ -30,6 +31,9 @@ def render_events(request):
 def render_index(request):
     return render(request, "authentication/index.html")
 
+# context_processors.py
+def cookie_banner(request):
+    return {'cookie_banner': True}
 
 
 #FOR SIGNUP
