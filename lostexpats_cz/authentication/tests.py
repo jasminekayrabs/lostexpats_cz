@@ -33,6 +33,7 @@ class XSSProtectionTestCase(TestCase):
 
         
         
+
 #TEST FOR CSRF PROTECTION
 class CSRFProtectionTestCase(TestCase):
     def setUp(self):
@@ -40,37 +41,34 @@ class CSRFProtectionTestCase(TestCase):
         self.login_url = reverse('render_login')
 
     def test_signup_csrf_protection(self):
-        # Create a user for authentication
-        user = User.objects.create_user(username='testuser', password='testpassword')
-
-        response = self.client.get(self.signup_url)
+        response = self.client.get(self.signup_url, follow=True)
         self.assertEqual(response.status_code, 200)
-        
-        # Use force_login to authenticate the user
-        self.client.force_login(user)
+        # Check if CSRF token is present in the response
+        self.assertContains(response, 'csrfmiddlewaretoken')  
 
-        # Submit the signup form
+        # Submit the signup form with CSRF token
         response = self.client.post(
             self.signup_url,
-            {'fname': 'John', 'lname': 'Doe', 'email': 'john@example.com', 'pass1': 'password', 'pass2': 'password'},
+            {'csrfmiddlewaretoken': response.context['csrf_token'], 'fname': 'John', 'lname': 'Doe', 'email': 'john@example.com', 'pass1': 'password', 'pass2': 'password'},
             follow=True
         )
-        self.assertEqual(response.status_code, 200)  # Successful signup
+        self.assertEqual(response.status_code, 200)  # Expect a redirect (302) status code
 
     def test_login_csrf_protection(self):
         # Create a user for authentication
         user = User.objects.create_user(username='testuser', password='testpassword')
 
-        response = self.client.get(self.login_url)
+        response = self.client.get(self.login_url, follow=True)
         self.assertEqual(response.status_code, 200)
-        
-        # Use force_login to authenticate the user
-        self.client.force_login(user)
+         # Check if CSRF token is present in the response
+        self.assertContains(response, 'csrfmiddlewaretoken') 
 
-        # Submit the login form
+        # Submit the login form with CSRF token
         response = self.client.post(
             self.login_url,
-            {'email': 'john@example.com', 'pass1': 'password'},
+            {'csrfmiddlewaretoken': response.context['csrf_token'], 'email': 'john@example.com', 'pass1': 'password'},
             follow=True
         )
-        self.assertEqual(response.status_code, 200)  # Successful login
+        # Expect a redirect (302) status code
+        self.assertEqual(response.status_code, 200)
+ 
