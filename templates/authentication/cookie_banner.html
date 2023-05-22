@@ -1,0 +1,15 @@
+<!-- cookie_banner.html -->
+<!DOCTYPE html>
+<div class="cookie-banner" {% if show_cookie_banner %}>
+    <p>This website uses cookies. By continuing to browse, you consent to the use of cookies.</p>
+    <button class="cookie-accept">Accept</button>
+</div>
+
+<script>
+    document.querySelector('.cookie-accept').addEventListener('click', function() {
+        document.querySelector('.cookie-banner').style.display = 'none';
+        // Set a cookie to remember the acceptance
+        document.cookie = 'cookie_accepted=true; max-age=31536000; path=/';
+    });
+</script>
+{% endif %}
