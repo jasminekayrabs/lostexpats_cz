@@ -11,5 +11,7 @@ urlpatterns = [
     path("nightlife", views. render_nightlife, name="render_nightlife"),
     path("news", views.render_news, name="render_news"),
     path("events", views.render_events, name="render_events"),
+    path("index", views.render_index, name="render_index"),
+
 ]
 
