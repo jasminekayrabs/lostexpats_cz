@@ -23,6 +23,9 @@ def render_nightlife(request):
 def render_news(request):
     return render(request, "authentication/news.html")
 
+def render_events(request):
+    return render(request, "authentication/events.html")
+
 
 
 
