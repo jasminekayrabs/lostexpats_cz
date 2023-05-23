@@ -4,6 +4,7 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width">
 
+
  <title><a href="/index">LostExpats.cz</a></title>
  <h1>{{ title }}</h1>
  {% load static %}
@@ -23,8 +24,12 @@
 </div>
 <div class="navbar-right">
  
+<form method="POST">
+	{% csrf_token %}
+	<!-- form fields -->
 <button type="submit"><a href="/signup">Signup</a></button>
 <button type="submit"><a href="/login">Login</a></button>
+</form>
 
 </div>
  </nav>
@@ -424,10 +429,20 @@ section h2,h3,h4,h5 {
   position: relative
 }
 
+@media (max-width: 1000px) {
+  .image-row  {
+    display: block;
+    text-align: center;
+  }}
+
+
+
 .image-row img {
   width: 450px; /* Adjust the width as needed */
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
 }
+
+
 
 .image-row .description {
   position: absolute;
@@ -441,7 +456,16 @@ section h2,h3,h4,h5 {
   width: 100%;
 
 }
+@media (max-width: 1000px) {
+  .image-row .description {
+    position: static;
+    text-align: center;
+    margin-top: 100px;
+    padding: 10px;
+    font-size: 16px;
 
+  }
+}
 footer {
  background-color: #333;
  color: #fff;
