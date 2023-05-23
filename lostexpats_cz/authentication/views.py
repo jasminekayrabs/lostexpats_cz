@@ -8,7 +8,11 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 from django.views.generic import TemplateView
 from authentication.context_processors import cookie_banner
+import logging 
 
+
+
+logger = logging.getLogger('user_login')
 
 
 #render functions allow the pages to be run on the server
