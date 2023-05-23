@@ -2,6 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.html import escape
+import logging
+import os
+from django.conf import settings
 
 
 
@@ -164,3 +167,25 @@ class AuthenticationTestCase(TestCase):
         
         # Verify that the login was successful and user was authenticated
         self.assertEqual(response.status_code, 301)
+       
+    
+class LoggingTest(TestCase):
+    def test_logging_file(self):
+        # Define the log file path
+        log_file_path = os.path.join(settings.BASE_DIR, 'logs', 'user_login.log')
+
+        # Ensure the log file exists
+        self.assertTrue(os.path.exists('logs/user_login.log'))
+
+        # Configure the logger
+        logger = logging.getLogger('user_login')
+        logger.setLevel(logging.INFO)
+
+        # Log a test message
+        logger.info('This is a test log message')
+
+        # Read the log file and check if the test message is present
+        with open(log_file_path, 'r') as file:
+            log_contents = file.read()
+            self.assertIn('This is a test log message', log_contents)
+    
