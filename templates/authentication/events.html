@@ -5,7 +5,13 @@
  <meta name="viewport" content="width=device-width">
 
  <title><a href="/index">LostExpats.cz</a></title>
+ <h1>{{ title }}</h1>
  {% load static %}
+ {% autoescape off %}
+<div>{{ trusted_html_content }}</div>
+{% endautoescape %}
+<div>{{ html_content|safe }}</div>
+<div>{{ user_input|escape }}</div>
  <link href="style.css" rel="stylesheet" type="text/css" />
  <script type="text/javascript" src="script.js"></script>
 </head>
@@ -17,12 +23,17 @@
 </div>
 <div class="navbar-right">
  
+<form method="POST">
+    {% csrf_token %}
+    <!-- form fields -->
 <button type="submit"><a href="/signup">Signup</a></button>
 <button type="submit"><a href="/login">Login</a></button>
+</form>
 
 </div>
  </nav>
  
+
  <div class="navbar-categories">
 <ul>
  <li><a href="/news">NEWS</a></li>
@@ -95,8 +106,10 @@
  <div class="image-row">
  <img src="{% static 'waling-tour.jpg' %}" alt="Food Image">
  <div class="description">Walking Tour 
-     <p> <br>Our walking tour transports you back in time as you learn the secrets 
-    <br>and tales that have formed Prague into the alluring destination it is today. 
+     <p> <br>Our walking tour transports you  
+        <br> back in timeas you learn the secrets 
+    <br>and tales that have formed Prague into the alluring 
+    <br>destination it is today. 
     <br>The trip is led by qualified and enthusiastic local guides. 
     <br>Discover the city's medieval origins, its fascinating legends, 
     <br>and the recognizable skyline icons.</p></div>
@@ -108,10 +121,9 @@
       <p>Master Class</p>
       <p> <br> Attending a master class is an investment in 
         <br>oneself rather than merely gaining knowledge. 
-        <br>It offers the chance to hone abilities, pick up novel viewpoints, 
-        <br>and develop deep relationships with people who have similar interests. 
-        <br>The knowledge gained in a master class permeates all facets of life and 
-        <br>goes far beyond the walls of the classroom. </p>
+        <br>It offers the chance to hone abilities  
+        <br>and develop deep relationships with people 
+        <br>who have similar interests.  </p>
     </div>
  </div>
  <div class="image-row">
@@ -432,10 +444,20 @@ section h2,h3,h4,h5 {
   position: relative
 }
 
+@media (max-width: 1000px) {
+  .image-row  {
+    display: block;
+    text-align: center;
+  }}
+
+
+
 .image-row img {
   width: 450px; /* Adjust the width as needed */
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
 }
+
+
 
 .image-row .description {
   position: absolute;
@@ -448,6 +470,16 @@ section h2,h3,h4,h5 {
   text-align: left;
   width: 100%;
 
+}
+@media (max-width: 1000px) {
+  .image-row .description {
+    position: static;
+    text-align: center;
+    margin-top: 100px;
+    padding: 10px;
+    font-size: 16px;
+
+  }
 }
 
 footer {
