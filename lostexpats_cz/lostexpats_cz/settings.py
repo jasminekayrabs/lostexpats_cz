@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from django import apps
 from pathlib import Path
 import os 
-
+import logging.handlers
+import logging 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -175,6 +176,30 @@ CSP_FRAME_SRC = ("'self'",)
 
 
 # settings.py
+
+# Configure the logging settings
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/user_login.log',
+            'formatter': 'standard',
+        },
+    },
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'INFO',
+    },
+}
 
 
 # ...
