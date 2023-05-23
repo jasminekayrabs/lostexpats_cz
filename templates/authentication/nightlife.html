@@ -320,8 +320,10 @@
 </head>
 
 <body>
+    <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="navbar-left">
+      <!-- Website Title -->
       <a href="#" class="navbar-title">LostExpats.cz</a>
       {% load static %}
       {% csrf_token %}
@@ -329,16 +331,13 @@
 
      </div>
      <div class="navbar-right">
-       <form class="navbar-search-form">
-         <input type="text" placeholder="Search">
-         <button type="submit"><i class="fa fa-search"></i></button>
-       </form>
+         <!-- Login and Signup Links -->
        <a href="#" class="navbar-login">Login</a>
        <a href="#" class="navbar-signup">Signup</a>
 
      </div>
     </nav>
-
+     <!-- Categories -->
     <div class="navbar-categories">
       <ul>
         <li><a href="#">NEWS</a></li>
@@ -347,6 +346,7 @@
        <li><a href="#">NIGHTLIFE</a></li>
      </ul>
     </div>
+     <!-- Mobile Categories -->
     <div class="navbar-mobile">
      <ul>
         <li><a href="#">NEWS</a></li>
@@ -356,42 +356,33 @@
      </ul>
     </div>
 
-
-
-
-
-
-
+      <!-- Slideshow -->
     <div class="slideshow-container">
-
+       <!-- Slide 1 -->
       <div class="mySlides fade">
-
         <img src="cera.jpg" style="width:100%">
-
       </div>
-
+      <!-- Slide 2 -->
       <div class="mySlides fade">
-
         <img src="latino.jpg" style="width:100%">
-
       </div>
-
+       <!-- Slide 3 -->
       <div class="mySlides fade">
         <div class="numbertext">3 / 3</div>
         <img src="roxy.jpg" style="width:100%">
-
       </div>
 
     </div>
     <br>
-
+     <!-- Slide Indicators -->
     <div style="text-align:center">
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
-
+      <!-- JavaScript -->
     <script>
+        // Slideshow Logic
       let slideIndex = 0;
       showSlides();
 
@@ -399,34 +390,35 @@
         let i;
         let slides = document.getElementsByClassName("mySlides");
         let dots = document.getElementsByClassName("dot");
+         // Hide all slides
         for (i = 0; i < slides.length; i++) {
           slides[i].style.display = "none";
         }
+        // Increment slideIndex and reset if it exceeds the number of slides
         slideIndex++;
         if (slideIndex > slides.length) {slideIndex = 1}
+        // Remove "active" class from all dots
         for (i = 0; i < dots.length; i++) {
           dots[i].className = dots[i].className.replace(" active", "");
         }
+        // Show the current slide and add "active" class to the corresponding dot
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
-        setTimeout(showSlides, 2000); // Change image every 2 seconds
+         // Call the function again after 2 seconds to change the slide
+        setTimeout(showSlides, 2000); 
       }
     </script>
 
-
-
-
-
-
-
-
+<!-- Collapsible section displaying techno clubs of June -->
 
     <button class="collapsible">TECHNO CLUBS OF JUNE</button>
     <div class="content">
       <h1>ROXY </h1>
+      <!-- Carousel displaying a club-->
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '1roxy.jpg' %}" alt="Image 1">
             <div class="carousel-detail">
               SKREAM<br>
@@ -441,6 +433,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static '2roxy.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               GIORGIA ANGIULI<br>
@@ -455,6 +448,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static '3roxy.jpeg' %} " alt="Image 2">
             <div class="carousel-detail">
               ELDERBROOK<br>
@@ -467,6 +461,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static '4roxy.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               ELDERBROOK<br>
@@ -479,6 +474,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static '5roxy.jpg'%}" alt="Image 2">
             <div class="carousel-detail">ELDERBROOK<br>
               22.05<br>
@@ -490,6 +486,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static '6roxy.jpg'%}" alt="Image 2">
             <div class="carousel-detail">ELDERBROOK<br>
               22.05<br>
@@ -501,6 +498,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static '7roxy.png'%}" alt="Image 2">
             <div class="carousel-detail">ELDERBROOK<br>
               22.05<br>
@@ -512,6 +510,7 @@
 
           </div>
         </div>
+             <!-- Carousel buttons for going through the carousel to see the rest of the images-->
         <div class="carousel-controls">
           <button class="carousel-prev">&lt;</button>
           <button class="carousel-next">&gt;</button>
@@ -521,6 +520,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic1.png'%}" alt="Image 1">
             <div class="carousel-detail">
                 <a href="https://www.epicprague.com/program/1523/n-o-i-s-e" class="carousel-title">N.O.I.S.E</a><br>
@@ -535,6 +535,7 @@
           </div>
           
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic2.png' %}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.epicprague.com/program/1545/tv-noise" class="carousel-title">TV NOISE</a><br>
@@ -548,6 +549,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic3.png'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.epicprague.com/program/1565/groovebox" class="carousel-title">GROOVE BOX</a><br>
@@ -561,6 +563,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static  'epic4.png'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.epicprague.com/program/1475/will-sparks" class="carousel-title">WILL SPARKS</a><br>
@@ -574,6 +577,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic5.png'%}" alt="Image 2">
             <div class="carousel-detail"><br>
                <a href="https://www.epicprague.com/program/1507/space-92-epic-in-the-dark" class="carousel-title">SPACE 92</a><br>
@@ -587,6 +591,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic6.png'%}" alt="Image 2">
             <div class="carousel-detail"><br>
                <a href="https://www.epicprague.com/program/1471/sub-zero-project" class="carousel-title">SUB ZERO PROJECT</a><br>
@@ -600,6 +605,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic7.png' %}" alt="Image 2">
             <div class="carousel-detail"><br>
                <a href="https://www.epicprague.com/program/1563/ministry-of-house" class="carousel-title">MINISTRY OF HOUSE</a><br>
@@ -613,6 +619,7 @@
           </div>
           
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static  'epic8.png' %}" alt="Image 2">
             <div class="carousel-detail"><br>
                <a href="https://www.epicprague.com/program/1509/richard-durand-en-trance" class="carousel-title">RICHARD DURAND</a><br>
@@ -626,6 +633,7 @@
 
           </div>
         </div>
+         <!-- Carousel buttons for going through the carousel to see the rest of the images-->
         <div class="carousel-controls">
           <button class="carousel-prev">&lt;</button>
           <button class="carousel-next">&gt;</button>
@@ -637,6 +645,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ALT2.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/932303197972855" class="carousel-title">Daytime Psy Trance</a><br>
@@ -652,6 +661,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'alt1.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.facebook.com/events/932303197972855" class="carousel-title">ATG VLNY</a><br>
@@ -674,6 +684,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs1.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/927542391892915/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22page%22%7D]%7D" class="carousel-title">Shimmi & AstralKid22</a>
@@ -690,6 +701,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs2.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.facebook.com/events/772800654240737/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22page%22%7D]%7D" class="carousel-title">rumble society x fuchs2</a>
@@ -705,6 +717,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs3.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="facebook.com/events/1355748288706284" class="carousel-title">the take off kiki ball</a>
@@ -722,6 +735,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs4.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/1007160113984855/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22page%22%7D]%7D" class="carousel-title">F2 presents</a>
@@ -730,6 +744,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs5.jpg' %}" alt="Image 2">
             <div class="carousel-detail"><br>
              <a href="" class="carousel-title"></a>
@@ -738,6 +753,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs6.jpg' %}" alt="Image 2">
             <div class="carousel-detail"><br>
                 <a href="" class="carousel-title"></a>
@@ -753,6 +769,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali1.jpg' %}" alt="Image 1">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/769097164909867" class="carousel-title">ANORMAL</a><br>
@@ -770,6 +787,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali5.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/2548598441963940" class="carousel-title">PRIAUM</a><br>
@@ -788,6 +806,7 @@
           </div>
 
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali3.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/159637776863945" class="carousel-title">
@@ -806,6 +825,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static  'ankali4.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/1297263691211975" class="carousel-title">Planeta Pravda</a><br>
@@ -820,6 +840,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali2.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/155921127405178" class="carousel-title">AQUEERIUS</a><br>
@@ -847,6 +868,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplexmon.webp'%}" alt="Image 1">
             <div class="carousel-detail">
               <a href="https://www.duplex.cz/duplex-events" class="carousel-title">MAGIC MONDAY</a><br>
@@ -864,6 +886,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplextue.webp'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.duplex.cz/duplex-events" class="carousel-title">TUESDAY MUSIC THERAPY</a><br>
@@ -880,6 +903,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplexwed.webp' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.duplex.cz/duplex-events" class="carousel-title"></a>WOW STUDENT WEDNESDAY<br>
@@ -896,6 +920,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplexthur.webp' %}" alt="Image 2">
             <div class="carousel-detail">
              <a href="https://www.duplex.cz/duplex-events" class="carousel-title">2HURSDAY</a><br>
@@ -908,6 +933,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplexfri.webp' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.duplex.cz/duplex-events" class="carousel-title">DUPLEX ON FRIDAY</a><br>
@@ -920,6 +946,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplexsat.webp'%}" alt="Image 2">
             <div class="carousel-detail"><br>
               <a href="https://www.duplex.cz/duplex-events" class="carousel-title">DUPLEX ON SATURDAY</a><br>
@@ -932,6 +959,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplexsun.webp' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.duplex.cz/duplex-events" class="carousel-title">SUNDAYSERVICE</a><br>
@@ -944,6 +972,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'duplnervo26.webp' %}" alt="Image 7">
             <div class="carousel-detail">
               <a href="https://www.duplex.cz/duplex-event" class="carousel-title"></a><br>
@@ -952,6 +981,7 @@
 
           </div>
         </div>
+         <!-- Carousel buttons for going through the carousel to see the rest of the images-->
         <div class="carousel-controls">
           <button class="carousel-prev">&lt;</button>
           <button class="carousel-next">&gt;</button>
@@ -961,6 +991,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static ALT2.jpg %}" alt="Image 1">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -970,6 +1001,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'alt1.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
              <a href="" class="carousel-title"></a><br>
@@ -988,6 +1020,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '1roxy.jpg' %}" alt="Image 1">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -995,6 +1028,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '2roxy.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
              <a href="" class="carousel-title"></a><br>
@@ -1002,6 +1036,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '3roxy.jpeg' %}" alt="Image 2">
             <div class="carousel-detail">
              <a href="" class="carousel-title"></a><br>
@@ -1009,6 +1044,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '4roxy.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1016,15 +1052,16 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '5roxy.jpg'%}" alt="Image 2">
             <div class="carousel-detail">ELDERBROOK<br>
             <a href="" class="carousel-title"></a><br>
-              
-              
+                
             </div>
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '6roxy.jpg' %}" alt="Image 2">
             <div class="carousel-detail"><br>
               <a href="" class="carousel-title"></a><br>
@@ -1033,16 +1070,16 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static '7roxy.png' %}" alt="Image 2">
             <div class="carousel-detail"><br>
               <a href="" class="carousel-title"></a><br>
                          
             </div>
-
           </div>
         </div>
         <div class="carousel-controls">
-
+           <!-- Carousel buttons for going through the carousel to see the rest of the images-->
           <button class="carousel-prev">&lt;</button>
           <button class="carousel-next">&gt;</button>
         </div>
@@ -1053,6 +1090,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{% static 'ankali1.jpg' %}" alt="Image 1">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1060,6 +1098,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src=" {%static 'ankali5.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1069,6 +1108,7 @@
           </div>
 
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src=" {%static 'ankali3.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title">
@@ -1077,6 +1117,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali4.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1084,6 +1125,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali2.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1096,6 +1138,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali1.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1103,6 +1146,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali5.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a>
@@ -1112,6 +1156,7 @@
           </div>
 
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali3.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title">
@@ -1120,6 +1165,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali4.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
@@ -1127,13 +1173,14 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static 'ankali2.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title"></a><br>
               
             </div>
           </div>
-  
+           <!-- Carousel buttons for going through the carousel to see the rest of the images-->
           <div class="carousel-controls">
             <button class="carousel-prev">&lt;</button>
             <button class="carousel-next">&gt;</button>
@@ -1148,6 +1195,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="" alt="Image 1">
             <div class="carousel-detail">
               <a href="" class="carousel-title">CLOCK TOWER</a><br>
@@ -1156,6 +1204,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static '2roxy.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title">THE PRAGUE CRAWL</a><br>
@@ -1164,6 +1213,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="{%static '3roxy.jpeg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="" class="carousel-title">DRUNKEN MONKEY</a><br>
@@ -1171,7 +1221,7 @@
             </div>
 
           </div>
-          
+           <!-- Carousel buttons for going through the carousel to see the rest of the images-->
           <div class="carousel-controls">
             <button class="carousel-prev">&lt;</button>
             <button class="carousel-next">&gt;</button>
@@ -1185,133 +1235,136 @@
 
     
     <style>
+      /* Styles for the collapsible section  */
       .collapsible {
-        background-color: black;
-        color: white;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: middle;
-        outline: none;
-        font-size: 20px;
-        transition: 0.4s;
+        background-color: black;      /* Set background color to black */
+        color: white;                 /* Set text color to white */
+        cursor: pointer;              /* Set cursor to pointer on hover */
+        padding: 18px;                /* Add padding */
+        width: 100%;                  /* Set width to 100% */
+        border: none;                 /* Remove border */
+        text-align: middle;           /* Align text in the middle */
+        outline: none;                /* Remove outline */
+        font-size: 20px;              /* Set font size */
+        transition: 0.4s;             /* Add transition effect */
       }
 
       .collapsible:hover {
-        background-color: #1c1b1b;
+        background-color: #1c1b1b;     /* Change background color on hover */
       }
-
+       /* Styles for the collapsible section content */
       .content {
-        padding: 0 18px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
+        padding: 0 18px;                       /* Add padding */
+        max-height: 0;                         /* Set maximum height to 0 */
+        overflow: hidden;                      /* Hide overflow */
+        transition: max-height 0.2s ease-out;  /* Add transition effect */
       }
-
+      
+      /* Styles for the active collapsible section */
       .collapsible.active {
-        background-color: #black;
+        background-color: #black;     /* Set background color to black for active section */
       }
 
       .collapsible.active:hover {
-        background-color: #1c1b1b;
+        background-color: #1c1b1b;    /* Change background color on hover for active section */
+}
       }
 
       .collapsible.active+.content {
-        max-height: 1000px;
-        /* Adjust this value to fit the content */
+        max-height: 1000px;           /* Adjust maximum height to fit the content for active section */     
       }
-
+      /* Styles for the carousel container */
       .carousel {
         position: relative;
       }
-
+      /* Styles for the carousel row */
       .carousel-row {
-        display: flex;
-        overflow: hidden;
-        align-items: center;
+        display: flex;              /* Set display to flex */
+        overflow: hidden;           /* Hide overflow */
+        align-items: center;        /* Align items in the center */
       }
-
+      
+/* Styles for each carousel item */
       .carousel-item {
-        flex: 0 0 auto;
-        margin-right: 10px;
-        width: 200px;
-        height: 200px;
-        position: relative;
+        flex: 0 0 auto;            /* Set flex properties */
+        margin-right: 10px;        /* Add right margin */    
+        width: 200px;              /* Set width */
+        height: 200px;             /* Set height */
+        position: relative;        /* Set position to relative */
       }
-
+/* Styles for the carousel images */
       .carousel-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        width: 100%;              /* Set width to 100% */
+        height: 100%;             /* Set height to 100% */
+        object-fit: cover;        /* Adjust image fit */
       }
 
+/* Styles for the carousel item details */
       .carousel-detail {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        margin: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        transition: .5s ease;
-        opacity: 0;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position: absolute;       /* Set position to absolute */
+        bottom: 0;                /* Position at the bottom */
+        left: 0;                  /* Position at the left */
+        width: 100%;              /* Set width to 100% */
+        height: 100%;             /* Set height to 100% */
+        padding: 10px;            /* Add padding */
+        margin: 0;                /* Remove margin */
+        background-color: rgba(0, 0, 0, 0.7  /* Set background color */
+        color: #fff;              /* Set text color */
+        font-size: 14px;          /* Set font size */
+        font-weight: bold;        /* Set font weight */
+        text-align: center;       /* Align text in the center */
+        transition: .5s ease;     /* Add transition effect */
+        opacity: 0;               /* Set opacity to 0 */
+        top: 50%;                 /* Position at the center vertically */
+        left: 50%;                /* Position at the center horizontally */
+        transform: translate(-50%, -50%); /* Translate to center */
         -ms-transform: translate(-50%, -50%);
-        text-align: center;
+        text-align: center;        /* Align text in the center */
       }
 
       .carousel-item:hover .carousel-detail {
-        opacity: 1;
+        opacity: 1;               /* Set opacity to 1 on hover */
       }
       .carousel-title,
-      .carousel-ticket{
-        
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
+      .carousel-ticket{   
+        color: #fff;              /* Set text color to white */
+        font-size: 14px;          /* Set font size */
+        font-weight: bold;        /* Set font weight */
+        text-align: center;       /* Align text in the center */
       }
       .carousel-controls {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        position: absolute;       /* Set position to absolute */
+        top: 50%;                 /* Position at the center vertically */
+        left: 0;                  /* Position at the left */
+        right: 0;                 /* Position at the right */
+        transform: translateY(-50%); /* Translate to center vertically */
+        display: flex;             /* Set display to flex */
+        justify-content: space-between;  /* Add space between items */
+        align-items: center;        /* Align items in the center */
       }
 
       .carousel-prev,
       .carousel-next {
-        background-color: #fff;
-        color: #333;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: box-shadow 0.2s ease-in-out;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        background-color: #fff;     /* Set background color to white */
+        color: #333;                /* Set text color */
+        border: none;               /* Remove border */
+        border-radius: 50%;         /* Set border radius to circle */
+        width: 40px;                /* Set width */
+        height: 40px;               /* Set height */
+        font-size: 20px;            /* Set font size */
+        font-weight: bold;          /* Set font weight */
+        cursor: pointer;            /* Set cursor to pointer */
+        transition: box-shadow 0.2s ease-in-out; /* Add transition effect */
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);  /* Add box shadow */
       }
 
       .carousel-prev:hover,
       .carousel-next:hover {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.16);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.16); /* Change box shadow on hover */
       }
 
       .carousel-prev {
-        margin-right: 10px;
+        margin-right: 10px; /* Add right margin */
       }
     </style>
     <script>
