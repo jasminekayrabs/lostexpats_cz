@@ -1,0 +1,7 @@
+2023-05-23 21:24:33 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-05-23 21:24:38 [WARNING] django.request: Not Found: /style.css
+2023-05-23 21:24:38 [WARNING] django.request: Not Found: /script.js
+2023-05-23 21:24:49 [WARNING] django.request: Not Found: /script.js
+2023-05-23 21:24:49 [WARNING] django.request: Not Found: /style.css
+2023-05-23 21:32:26 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-05-23 21:39:45 [INFO] user_login: This is a test log message
