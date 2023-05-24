@@ -10,6 +10,13 @@
 </head>
   
 <body>
+<!-- cookie banner -->
+  {% if show_cookie_banner %}
+
+        {% include 'authentication/cookie_banner.html' %}
+
+  {% endif %}
+
   <nav class="navbar">
 <div class="navbar-left">
  <a href="#" class="navbar-title">LostExpats.cz</a>
