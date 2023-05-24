@@ -99,9 +99,8 @@ def render_login(request):
     return render(request, "authentication/login.html")
 
 #FOR LOGOUT
-def render_logout(request):
+def logout_view(request):
     logout(request)
-    messages.success(request, "logged out")
     return redirect('home')
 
 #Session cookies
