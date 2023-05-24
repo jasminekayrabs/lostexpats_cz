@@ -10,25 +10,24 @@
 </head>
   
 <body>
-    {% if show_cookie_banner %}
-
-        {% include 'authentication/cookie_banner.html' %}
-
-  {% endif %}
   <nav class="navbar">
 <div class="navbar-left">
  <a href="#" class="navbar-title">LostExpats.cz</a>
 </div>
-{% if user.is_authenticated %}
-      <button type="submit"><a href="/logout">Logout</a></button>
-    {% else %}
-      <button type="submit"><a href="/signup">Signup</a></button>
-      <button type="submit"><a href="/login">Login</a></button>
-    {% endif %}
+<div class="navbar-right">
+  {% if user.is_authenticated %}
+  <form action="/logout" method="POST">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+  {% else %}
+  <button type="submit"><a href="/signup">SignUp</a></button>
+  <button type="submit"><a href="/login">Login</a></button>
+  {% endif %}
 
 </div>
   </nav>
-  
+
   <div class="navbar-categories">
 <ul>
  <li><a href="/news">NEWS</a></li>
@@ -141,7 +140,16 @@
 </section>
 
 
-  <script src="script.js"></script>
+<script>
+  function openSignup() {
+  console.log("Opening Signup modal");
+  document.getElementById("signupModal").style.display = "block";
+}
+
+function closeSignup() {
+  document.getElementById("signupModal").style.display = "none";
+}
+</script>
     
     
 <style>
@@ -159,9 +167,6 @@ html {
 .main-image {display:block;}
   img {vertical-align: middle;}
   
-
-  
-
 
 /* Navbar styles */
 .navbar {
@@ -211,7 +216,6 @@ button[type="submit"] {
   button[type="submit"] a {
     text-decoration: none;
 }
-
 /* Navbar categories styles */
 .navbar-categories {
   background-color: black;
@@ -317,11 +321,13 @@ font-size: 20px;
 /* Set a background color for the entire page */
 body {
   
-	background-color: #191919;
+	background-color: #000;
 	font-family: Arial, sans-serif;
   color: #ebebeb;
   
 }
+
+
 
 /* Style the header */
 header {
@@ -337,7 +343,6 @@ header {
 	right: 0;
 	z-index: 999;
 }
-
 /* Style the sections */
 section {
 	padding: 50px;
@@ -390,23 +395,12 @@ h2{
 description{
   color: #ebebeb
 }
-
-  
 </style>
-  
- 
- 
-  
 </body>
 
 <footer>
   <h3>Contact Us</h3>
   <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
 </footer>
-
-
-
-
 </html>
-
-
+    
