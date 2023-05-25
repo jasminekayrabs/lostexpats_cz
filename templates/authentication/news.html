@@ -5,28 +5,32 @@
  <meta name="viewport" content="width=device-width">
 
 
- <title><a href="/index">LostExpats.cz</a></title>
- <h1>{{ title }}</h1>
- {% load static %}
- {% autoescape off %}
-<div>{{ trusted_html_content }}</div>
-{% endautoescape %}
- <link href="style.css" rel="stylesheet" type="text/css" />
- <script type="text/javascript" src="script.js"></script>
-</head>
- 
-<body>
- <nav class="navbar">
-<div class="navbar-left">
-	<div>{{ html_content|safe }}</div>
-	<div>{{ user_input|escape }}</div>
- <a href="/index" class="navbar-title">LostExpats.cz</a>
-</div>
-<div class="navbar-right">
- 
+  <!-- The header -->
+  <title><a href="/index">LostExpats.cz</a></title>
+  <h1>{{ title }}</h1>
+  {% load static %}
+  <!--  ensure that static files are served securely and efficiently. -->
+  {% autoescape off %}
+  <!-- to prevent cross-site scripting (XSS) attacks. -->
+ <div>{{ trusted_html_content }}</div>
+ <!-- to avoid escaping the HTML content and allows it to be rendered as raw HTML. -->
+ {% endautoescape %}
+ <div>{{ html_content|safe }}</div>
+ <!-- to avoid escaping the HTML content and allows it to be rendered as raw HTML. -->
+ <div>{{ user_input|escape }}</div>
+ <!-- helps prevent potential cross-site scripting (XSS) attacks by rendering the user input as plain text. -->
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="script.js"></script>
+ </head>
+  
+ <body>
+  <nav class="navbar">
+ <div class="navbar-left">
+  <a href="/index" class="navbar-title">LostExpats.cz</a>
+ </div>
+ <div class="navbar-right">
+  
 <form method="POST">
-	{% csrf_token %}
-	<!-- form fields -->
 <button type="submit"><a href="/signup">Signup</a></button>
 <button type="submit"><a href="/login">Login</a></button>
 </form>
@@ -34,8 +38,9 @@
 </div>
  </nav>
  
+ <!-- categories -->
+
  <div class="navbar-categories">
-	<div>{{ html_content|safe }}</div>
 <ul>
  <li><a href="/news">NEWS</a></li>
  <li><a href="/food">FOOD & DRINK</a></li>
@@ -55,6 +60,7 @@
 </div>
 
 
+<!-- slideshow -->
 
 <div class="slideshow-container">
 	<div>{{ html_content|safe }}</div>
@@ -78,6 +84,7 @@
 
 
 
+<!-- Pictures and describtion -->
 
 <section id="Picks of the week">
  <h3>News for the week</h3>
@@ -120,6 +127,8 @@
     </div>
  </div>
  </center>
+  <!-- to horizontally center the content within its container -->
+
  </section>
  
 
@@ -127,7 +136,8 @@
 
  <script src="script.js"></script>
  
- 
+  <!-- css -->
+
 <style>
 * {box-sizing: border-box;}
 body {
@@ -513,27 +523,36 @@ h2{
 </footer>
 
 
+<!-- controls a slideshow functionality on a web page. -->
 <script>
 
-const slides = document.querySelectorAll('.slide');
-let currentSlide = 0;
-
-function showSlide() {
- slides[currentSlide].classList.add('active');
-}
-
-function hideSlides() {
- slides.forEach(slide => slide.classList.remove('active'));
-}
-
-function nextSlide() {
- hideSlides();
- currentSlide = (currentSlide + 1) % slides.length;
- showSlide();
-}
-
-setInterval(nextSlide, 3000); // Change slide every 3 seconds
-
+  const slides = document.querySelectorAll('.slide');
+  // Finds html elements with the slide class
+  let currentSlide = 0;
+  // It keeps track of the index of the currently displayed slide.
+  
+  
+  function showSlide() {
+   slides[currentSlide].classList.add('active');
+  }
+  // By adding the "active" class, the corresponding slide is visually highlighted or made visible.
+  
+  
+  function hideSlides() {
+   slides.forEach(slide => slide.classList.remove('active'));
+  }
+  // By removing the "active" class from all slides, it hides or deactivates their visibility.
+  
+  
+  function nextSlide() {
+   hideSlides();
+   currentSlide = (currentSlide + 1) % slides.length;
+   showSlide();
+  }
+  // % operation - use to cycle through the slides
+  
+  setInterval(nextSlide, 3000); // Change slide every 3 seconds
+  
 </script>
 
 </html>
