@@ -4,14 +4,21 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width">
 
+
+ <!-- The header -->
  <title><a href="/index">LostExpats.cz</a></title>
  <h1>{{ title }}</h1>
  {% load static %}
+ <!--  ensure that static files are served securely and efficiently. -->
  {% autoescape off %}
+ <!-- to prevent cross-site scripting (XSS) attacks. -->
 <div>{{ trusted_html_content }}</div>
+<!-- to avoid escaping the HTML content and allows it to be rendered as raw HTML. -->
 {% endautoescape %}
 <div>{{ html_content|safe }}</div>
+<!-- to avoid escaping the HTML content and allows it to be rendered as raw HTML. -->
 <div>{{ user_input|escape }}</div>
+<!-- helps prevent potential cross-site scripting (XSS) attacks by rendering the user input as plain text. -->
  <link href="style.css" rel="stylesheet" type="text/css" />
  <script type="text/javascript" src="script.js"></script>
 </head>
@@ -33,7 +40,7 @@
 </div>
  </nav>
  
-
+<!-- categories -->
  <div class="navbar-categories">
 <ul>
  <li><a href="/news">NEWS</a></li>
@@ -51,10 +58,9 @@
  </ul>
 </div>
 
-</div>
 
 
-
+<!-- slideshow -->
 <div class="slideshow-container">
  <div class="slide">
  <img src="{% static 'events3.jpg' %}" alt="Image 1">
@@ -76,7 +82,7 @@
 
 
 
-
+<!-- Pictures and describtion -->
 <section id="Picks of the week">
  <h3>Events for the week</h3>
  <center>
@@ -134,7 +140,8 @@
           <br> Prague Bus Tours arranges tours throughout the city. 
           <br>On tours, guides will be with you. </p>
     </div>
- </center>
+ </center> 
+ <!-- to horizontally center the content within its container -->
  </section>
  
 
@@ -142,7 +149,7 @@
 
  <script src="script.js"></script>
  
- 
+ <!-- css -->
 <style>
 * {box-sizing: border-box;}
 body {
@@ -528,25 +535,33 @@ h2{
  <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
 </footer>
 
-
+<!-- controls a slideshow functionality on a web page. -->
 <script>
 
 const slides = document.querySelectorAll('.slide');
+// Finds html elements with the slide class
 let currentSlide = 0;
+// It keeps track of the index of the currently displayed slide.
+
 
 function showSlide() {
  slides[currentSlide].classList.add('active');
 }
+// By adding the "active" class, the corresponding slide is visually highlighted or made visible.
+
 
 function hideSlides() {
  slides.forEach(slide => slide.classList.remove('active'));
 }
+// By removing the "active" class from all slides, it hides or deactivates their visibility.
+
 
 function nextSlide() {
  hideSlides();
  currentSlide = (currentSlide + 1) % slides.length;
  showSlide();
 }
+// % operation - use to cycle through the slides
 
 setInterval(nextSlide, 3000); // Change slide every 3 seconds
 
