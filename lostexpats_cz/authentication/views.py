@@ -80,9 +80,27 @@ def render_signup(request):
         domain = current_site.domain
         uid = urlsafe_base64_encode(force_bytes(myuser.pk))
         activation_url = f"http://{domain}{reverse('activate_account', kwargs={'uidb64': uid, 'token': token})}"
+     
+        # Render email template with context
+        email_context = {
+            'user': myuser,
+            'activation_url': activation_url,
+        }
+        email_message = render_to_string('authentication/activation_email.html', email_context)
+          
+        # Send activation email
+        subject = 'Activate your account'
+        message = render_to_string('authentication/activation_email.html', {
+            'user': myuser,
+            'activation_url': activation_url,
+        })
+        send_mail(subject, '', settings.DEFAULT_FROM_EMAIL, [myuser.email], html_message=email_message)
 
-        return redirect('render_login')
+        return redirect('activation_sent')
     return render(request, "authentication/signup.html")
+
+def activation_sent(request):
+    return render(request, 'authentication/activation_sent.html')
 
 
 # #FOR LOGIN
