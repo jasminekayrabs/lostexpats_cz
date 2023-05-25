@@ -1,0 +1,25 @@
+<!-- test for Clickjacking -->
+
+<!-- 
+1. Prepare an HTML test page:
+Create a new HTML file on your local machine.
+Add an iframe element to the HTML file, pointing to the URL of the page you 
+want to test for clickjacking protection in your Django application.-->
+
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Clickjacking Test Page</h1>
+  <iframe src="http://127.0.0.1:8000/" width="800" height="600"></iframe>
+</body>
+</html>
+
+<!-- 
+2. Start a local server:
+Use a tool like Python's http.server module to start a local server to serve your HTML test page.
+3. Open the test page:
+Open a web browser and navigate to the URL of your HTML test page.
+4. Inspect the behavior:
+If clickjacking protection is enabled, the browser should prevent the page from loading within the iframe.
+Check if the content of the page you are testing is not visible or accessible within the iframe on the test page.
+This indicates that clickjacking protection is working as expected. --> 
