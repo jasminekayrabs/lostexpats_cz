@@ -16,6 +16,36 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
 import logging 
+from django.views.decorators.clickjacking import xframe_options_sameorigin
+from django.views.decorators.clickjacking import xframe_options_deny
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.contrib.auth.decorators import user_passes_test
+from django.db import models
+from django.utils.html import mark_safe
+from django.middleware import csrf
+
+
+
+
+from datetime import datetime, timedelta
+
+
+
+
+
+@xframe_options_exempt
+def ok_to_load_in_a_frame(request):
+    return HttpResponse("This page is safe to load in a frame on any site.")
+
+@xframe_options_deny
+def view_one(request):
+    return HttpResponse("I won't display in any frame!")
+
+
+@xframe_options_sameorigin
+def view_two(request):
+    return HttpResponse("Display in a frame if it's from the same origin as me.")
+
 
 
 #To store user logs in Log files
