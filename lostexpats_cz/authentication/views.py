@@ -8,10 +8,17 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 from django.views.generic import TemplateView
 from authentication.context_processors import cookie_banner
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
 import logging 
 
 
-
+#To store user logs in Log files
 logger = logging.getLogger('user_login')
 
 
@@ -35,7 +42,7 @@ def render_events(request):
 def render_index(request):
     return render(request, "authentication/index.html")
 
-# context_processors.py
+# context_processors.py for cookie banner
 def cookie_banner(request):
     return {'cookie_banner': True}
 
@@ -48,16 +55,31 @@ def cookie_banner(request):
 @csrf_protect
 def render_signup(request):
     if request.method == "POST":
+     
+        #Retrieve form data
         fname = escape(request.POST['fname'])
         lname = escape(request.POST['lname'])
         email = escape(request.POST['email'])
         password = request.POST['pass1']
         pass2 = request.POST['pass2']
-#to create a user
-        myuser = User.objects.create_user(fname, email,password)
+     
+         #Create user object
+        myuser = User.objects.create_user(username=fname, email=email, password=password)
+        myuser.email = email
         myuser.first_name = fname
         myuser.last_name = lname 
+          #Set user as inactive
+        myuser.is_active = False 
         myuser.save()
+          
+        # Generate activation token
+        token = default_token_generator.make_token(myuser)
+          
+        # Build activation URL
+        current_site = get_current_site(request)
+        domain = current_site.domain
+        uid = urlsafe_base64_encode(force_bytes(myuser.pk))
+        activation_url = f"http://{domain}{reverse('activate_account', kwargs={'uidb64': uid, 'token': token})}"
 
         return redirect('render_login')
     return render(request, "authentication/signup.html")
