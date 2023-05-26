@@ -19,15 +19,8 @@ import logging
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.clickjacking import xframe_options_deny
 from django.views.decorators.clickjacking import xframe_options_exempt
-from django.contrib.auth.decorators import user_passes_test
 from django.db import models
-from django.utils.html import mark_safe
-from django.middleware import csrf
 
-
-
-
-from datetime import datetime, timedelta
 
 
 
@@ -132,6 +125,22 @@ def render_signup(request):
 def activation_sent(request):
     return render(request, 'authentication/activation_sent.html')
 
+#Activate account
+def activate_account(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Your account has been activated. You can now log in.')
+        return redirect('render_login')
+    else:
+        messages.error(request, 'Invalid activation link.')
+        return redirect('home')
 
 # #FOR LOGIN
 #  the escape function is applied to the email and pass1 variables to ensure that any user-generated content is properly escaped and treated as plain text. This helps protect against potential XSS attacks.
