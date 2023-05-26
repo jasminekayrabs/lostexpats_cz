@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 from django.views.generic import TemplateView
@@ -64,11 +65,6 @@ def render_events(request):
 
 def render_index(request):
     return render(request, "authentication/index.html")
-
-# context_processors.py for cookie banner
-def cookie_banner(request):
-    return {'cookie_banner': True}
-
 
 #FOR SIGNUP
 # By adding csrf_protect here and %csrf_token% in .html files, Django will automatically generate and validate CSRF tokens for each form submission. The CSRF token will be included in the form submission and verified on the server-side, protecting against CSRF attacks.
@@ -178,6 +174,7 @@ def render_login(request):
     return render(request, "authentication/login.html")
 
 #FOR LOGOUT
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('home')
