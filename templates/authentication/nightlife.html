@@ -197,7 +197,8 @@
       cursor: pointer;
       color: white;
     }
-
+    
+    .navbar-logout,
     .navbar-login,
     .navbar-signup {
       display: block;
@@ -209,6 +210,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
 
+    .navbar-logout:hover,
     .navbar-login:hover,
     .navbar-signup:hover {
       background-color: #4d4d4d;
@@ -290,6 +292,7 @@
         margin-bottom: 10px;
       }
 
+      .navbar-logout,
       .navbar-login,
       .navbar-signup {
         margin-left: 0;
@@ -333,8 +336,15 @@
          <input type="text" placeholder="Search">
          <button type="submit"><i class="fa fa-search"></i></button>
        </form>
-       <a href="#" class="navbar-login">Login</a>
-       <a href="#" class="navbar-signup">Signup</a>
+       {% if user.is_authenticated %}
+       <form action="logout" method="POST">
+        {% csrf_token %}
+        <a href="/logout" class="navbar-logout">Logout</a>
+       </form>
+       {% else %}
+       <a href="/login" class="navbar-login">Login</a>
+       <a href="/signup" class="navbar-signup">Signup</a>
+       {% endif %}
 
      </div>
     </nav>
