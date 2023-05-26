@@ -81,6 +81,11 @@ def render_signup(request):
         email = escape(request.POST['email'])
         password = request.POST['pass1']
         pass2 = request.POST['pass2']
+        
+        #FOR TERMS AND CONDITIONS
+        if not terms_accepted:
+            messages.error(request, 'Please accept the Terms and Conditions.')
+            return redirect('signup')
      
          #Create user object
         myuser = User.objects.create_user(username=fname, email=email, password=password)
@@ -118,6 +123,7 @@ def render_signup(request):
         return redirect('activation_sent')
     return render(request, "authentication/signup.html")
 
+#RENDER ACTIVATION SENT PAGE
 def activation_sent(request):
     return render(request, 'authentication/activation_sent.html')
 
