@@ -14,5 +14,6 @@ urlpatterns = [
     path("index", views.render_index, name="render_index"),
     path('activate/<str:uidb64>/<str:token>/', activate_account, name='activate_account'),
     path('activation_sent/', activation_sent, name='activation_sent'),
+    path("terms", render_terms, name="render_terms"),
 ]
 
