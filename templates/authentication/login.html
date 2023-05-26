@@ -105,7 +105,7 @@
       font-size: 14px;
       margin-top: 5px;
     }
-
+    
     /* Additional styles for input fields */
     .login-box input[type="email"],
     .login-box input[type="password"] {
@@ -128,9 +128,10 @@
 </head>
 
 <body>
+  <!-- take user input  -->
   <div class="login-box">
     <h1>Log-in</h1>
-    <form action="/login" method="post">
+    <form action="/login" method="POST">
       {% csrf_token %}
       <div class="user-box">
         <input type="email" id="email" name="email" required>
@@ -141,6 +142,7 @@
         <label for="">Password</label>
       </div>
       <button type="submit">Log-in</button>
+      <!-- display error message if user is not authenticated -->
       {% if messages %}
       <div class="message error">
         <span class="close-btn">&times;</span>
