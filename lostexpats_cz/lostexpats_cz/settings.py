@@ -175,7 +175,14 @@ CSP_FONT_SRC = ("'self'", "fonts.gstatic.com", "cdn.jsdelivr.net")
 CSP_CONNECT_SRC = ("'self'",)
 CSP_FRAME_SRC = ("'self'",)
 
-
+# CONFIGURE APP EMAIL BACKEND
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server's hostname or IP address
+EMAIL_PORT = 587  # Replace with the appropriate port number
+EMAIL_HOST_USER = 'lostexpatscz@gmail.com'  # Replace with your SMTP server's username
+EMAIL_HOST_PASSWORD = 'rnsbqsvowbnvkdro'  # Replace with your SMTP server's password
+EMAIL_USE_TLS = True  # Set to True if your SMTP server requires a TLS connection
+DEFAULT_FROM_EMAIL = 'lostexpatscz@gmail.com' 
 
 
 # settings.py
