@@ -91,22 +91,34 @@
       color: #a1b5b6;
     }
 
-    .signup-box a {
+    .signup-box a :hover{
       display: block;
       text-align: center;
       margin-top: 20px;
       color: #fff;
       font-size: 14px;
-      text-decoration: none;
+      text-decoration: underline;
     }
 
 
-    .error-message {
+    .signup-box error-message {
       color: red;
       font-size: 14px;
       margin-top: 5px;
     }
 
+    p{
+      color: #fff;
+      text-align: center;
+    }
+    .signup-box a{
+      color: #95c1ea;
+    }
+
+    .terms-label {
+      display: inline-block;
+      margin-top: 10px;
+    }
 
     </style>
   
@@ -162,9 +174,24 @@
       <span id="error-message" class="error-message" style="display: none;">Passwords do not match</span>
       <br>
     </div>
+      <!-- TERMS AND CONDITION -->
+    <div class="user-box">
+      <input type="checkbox" id="termsCheckbox" name="terms" required>
+      <label for="termsCheckbox">I agree to the <a href="/terms">Terms and Conditions</a></label>
+    </div>
     <button type="submit">SignUp</button>
     </form>
   </div> 
+
+  <script>
+    function validateForm() {
+      if (!document.getElementById('termsCheckbox').checked) {
+        alert('Please accept the Terms and Conditions.');
+        return false;
+      }
+      return true;
+    }
+  </script>
 
 </body>
 </html>
