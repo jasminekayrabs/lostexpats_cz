@@ -25,6 +25,8 @@ from django.db import models
 
 
 
+def secure_view(request):
+        return render(request, 'secure.html')
 
 
 @xframe_options_exempt
