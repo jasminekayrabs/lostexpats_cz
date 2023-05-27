@@ -8,11 +8,9 @@ Lostexpats_cz
 Secure website designed to make life easier for english speaking foreigners in the Czech Republic. It is a website for news, events happening in prague, nightlife as well as restaurants and cafes.
 
 # Requirements: 
-- Python3.9
-- Django
+- [Python3.9](https://www.python.org)
+- [Django](https://docs.djangoproject.com/en/4.2/)
 - Virtual Environment
-
-# Documentation 
 
 # Project Installation:
 To install this project, run the following command on your command line;
