@@ -37,6 +37,10 @@ SSL_CERTIFICATE = '/path/to/cert.pem'
 SSL_KEY = 'path/to/key.pem'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 86400  # 24 hours
+
 # Application definition
 
 INSTALLED_APPS = [
