@@ -3,26 +3,32 @@ Secure Application Development Software Project
 
 # Project Title: 
 Lostexpats_cz
+
 # Description: 
 Secure website designed to make life easier for english speaking foreigners in the Czech Republic. It is a website for news, events happening in prague, nightlife as well as restaurants and cafes.
 
 # Requirements: 
 - Python3.9
 - Django
+- Virtual Environment
 
 # Documentation 
 
 # Project Installation:
-To install this project, run the following command on command line;
-'''
+To install this project, run the following command on your command line;
+```bash
 git clone https://github.com/jasminekayrabs/lostexpats_cz
-'''
+```
 
 # Running the project:
 Open the cloned folder and run the command 
-'''
-python manage.py runserver
-'''
+```bash
+>>> python manage.py runserver
+```
+
+# Link to Website
+
+
 
 # License:
 Copyright © 2023 Jasmine K., Sara M., Veronika K., Mia P.
