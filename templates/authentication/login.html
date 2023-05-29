@@ -1,5 +1,5 @@
 <!-- This is the login page. It allows the user to input their required info and validates it. It also has a link that takes user to the reset pssword page. The page is protected against Sql injection attacks, XSS attacks, as well as Cross site request forgery. -->
-
+<!-- BY JASMINE -->
 <head>
   <title>Login Page</title>
 
@@ -136,15 +136,14 @@
     <form action="/login" method="POST">
       {% csrf_token %}
       <div class="user-box">
-        <input type="email" id="email" name="email" required>
-        <label for="">Email Address</label>
+        <input type="username" id="username" name="username" requiredvalue="{{ username|safe }}">
+        <label for="">Username</label>
       </div>
       <div class="user-box">
         <input type="password" id="pass1" name="pass1" required>
         <label for="">Password</label>
       </div>
       <button type="submit">Log-in</button>
-      <!-- linkk to reset password page -->
       <a href="{% url 'password_reset' %}">Forgot Password?</a>
       <!-- display error message if user is not authenticated -->
       {% if messages %}
