@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 from django.views.generic import TemplateView
-from authentication.context_processors import cookie_banner
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -20,7 +19,13 @@ import logging
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.clickjacking import xframe_options_deny
 from django.views.decorators.clickjacking import xframe_options_exempt
-from django.db import models
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+)
 
 
 
@@ -171,16 +176,60 @@ def render_login(request):
         if user is not None:
             # User is authenticated, log them in
             login(request, user)
-            return HttpResponseRedirect(reverse('home'))
 
         else:
             # User authentication failed, display error message
             messages.error(request, "Wrong email or password!")
             return redirect('home')
     
-    email = escape(request.POST.get('email', ''))
-    return render(request, "authentication/login.html")
+    else:
+        email = escape(request.POST.get('email', ''))
+        # return render(request, "authentication/login.html")
+        form = AuthenticationForm(request)
 
+    # Render the login template with the form,, password reset form, email, and success message
+    password_reset_form = PasswordResetView.as_view(
+        template_name='authentication/password_reset.html',
+        email_template_name='authentication/password_reset_email.html',
+        success_url=reverse('password_reset_done')
+    )(request=request)
+
+    return render(
+        request,
+        "authentication/login.html",
+        {
+            'form': form,
+            'password_reset_form': password_reset_form,
+            'email': email,
+            'success_message': success_message,
+        }
+    )
+
+# View function for rendering reset password page
+class CustomPasswordResetView(PasswordResetView):
+    # Specify the template name for the password reset form
+    template_name = 'authentication/password_reset.html'
+    # Specify the template name for reset password email
+    email_template_name = 'authentication/password_reset_email.html'
+    # Specify the success url after the password reset is initiated
+    success_url = 'reset_password/done/'
+
+# Function for the Reset password done page
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    # Specify the template name for reset password done page
+    template_name = 'authentication/reset_password_done.html'
+
+# Function for the Reset password confirm page
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    # Specify the template name for reset password confirm page
+    template_name = 'authentication/password_reset_confirm.html'
+    # Specify the success url after the password reset is confirmed
+    success_url = 'reset_password/complete/'
+
+# Function for the Reset password complete page
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    # Specify the template name for reset password complete page
+    template_name = 'authentication/password_reset_complete.html'
 #FOR LOGOUT
 @login_required
 def logout_view(request):
@@ -197,6 +246,7 @@ def index(request):
      return response
 
  # Class-based view
+ # For the cookies on the home page
 class LandingPageView(TemplateView):
      # Specify the template name
      template_name = 'index.html'
