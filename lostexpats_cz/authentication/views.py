@@ -29,11 +29,7 @@ from django.contrib.auth.views import (
 
 
 
-
-def secure_view(request):
-        return render(request, 'secure.html')
-
-
+#Veronika
 @xframe_options_exempt
 def ok_to_load_in_a_frame(request):
     return HttpResponse("This page is safe to load in a frame on any site.")
@@ -47,9 +43,7 @@ def view_one(request):
 def view_two(request):
     return HttpResponse("Display in a frame if it's from the same origin as me.")
 
-
-
-#To store user logs in Log files
+#To store user logs in Log files By Sara
 logger = logging.getLogger('user_login')
 
 
@@ -60,6 +54,9 @@ def home(request):
 def render_fooddrinks(request):
     return render(request, "authentication/fooddrinks.html")
 
+def render_terms(request):
+    return render(request, "authentication/t&c.html")
+
 def render_nightlife(request):
     return render(request, "authentication/nightlife.html")
 
@@ -69,11 +66,14 @@ def render_news(request):
 def render_events(request):
     return render(request, "authentication/events.html")
 
-
 def render_index(request):
     return render(request, "authentication/index.html")
 
-#FOR SIGNUP
+def secure_view(request):
+        return render(request, 'secure.html')
+
+
+# SIGNUP BY JASMINE
 # By adding csrf_protect here and %csrf_token% in .html files, Django will automatically generate and validate CSRF tokens for each form submission. The CSRF token will be included in the form submission and verified on the server-side, protecting against CSRF attacks.
 
 # By applying the escape function to the user-generated input, you ensure that any HTML tags or special characters are properly escaped and treated as plain text.
@@ -81,44 +81,44 @@ def render_index(request):
 @csrf_protect
 def render_signup(request):
     if request.method == "POST":
-     
         #Retrieve form data
         fname = escape(request.POST['fname'])
-        lname = escape(request.POST['lname'])
+        username = escape(request.POST['username'])
         email = escape(request.POST['email'])
         password = request.POST['pass1']
         pass2 = request.POST['pass2']
-        
+        terms_accepted = request.POST.get('terms', False) == 'on'
+
         #FOR TERMS AND CONDITIONS
         if not terms_accepted:
             messages.error(request, 'Please accept the Terms and Conditions.')
             return redirect('signup')
-     
-         #Create user object
+        
+        #create a user object
         myuser = User.objects.create_user(username=fname, email=email, password=password)
         myuser.email = email
-        myuser.first_name = fname
-        myuser.last_name = lname 
-          #Set user as inactive
+        myuser.full_name = fname
+        myuser.user_name = username 
+            #Set user as inactive
         myuser.is_active = False 
         myuser.save()
-          
+
         # Generate activation token
         token = default_token_generator.make_token(myuser)
-          
-        # Build activation URL
+
+        #Build activation URL
         current_site = get_current_site(request)
         domain = current_site.domain
         uid = urlsafe_base64_encode(force_bytes(myuser.pk))
         activation_url = f"http://{domain}{reverse('activate_account', kwargs={'uidb64': uid, 'token': token})}"
-     
+
         # Render email template with context
         email_context = {
             'user': myuser,
             'activation_url': activation_url,
         }
         email_message = render_to_string('authentication/activation_email.html', email_context)
-          
+
         # Send activation email
         subject = 'Activate your account'
         message = render_to_string('authentication/activation_email.html', {
@@ -130,11 +130,11 @@ def render_signup(request):
         return redirect('activation_sent')
     return render(request, "authentication/signup.html")
 
-#RENDER ACTIVATION SENT PAGE
+#RENDER ACTIVATION SENT PAGE BY JASMINE
 def activation_sent(request):
     return render(request, 'authentication/activation_sent.html')
 
-#Activate account
+#Activate account BY JASMINE
 def activate_account(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -144,21 +144,25 @@ def activate_account(request, uidb64, token):
 
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
-        user.save()
+        user.save() 
         messages.success(request, 'Your account has been activated. You can now log in.')
         return redirect('render_login')
     else:
         messages.error(request, 'Invalid activation link.')
         return redirect('home')
 
-# #FOR LOGIN
+
+
+# # LOGIN BY JASMINE
 #  the escape function is applied to the email and pass1 variables to ensure that any user-generated content is properly escaped and treated as plain text. This helps protect against potential XSS attacks.
 @csrf_protect
 def render_login(request):
      # Retrieve success message from query parameters
     success_message = request.GET.get('success_message')
+    user = None #Initialise user variable to none
+
     if request.method == "POST":
-        email = escape(request.POST['email'])
+        username = escape(request.POST['username'])
         pass1 = escape(request.POST['pass1'])
 
 # The 'authenticate' function in Django is used for user authentication. It takes in a set of credentials (in this case email and password) and verifies whether they correspond to a valid user in the system. It enhances the security of the authentication process by verifying user credentials and protecting against common attack vectors. The function returns a user object if the authentication is successful or None if the authentication fails.
@@ -170,12 +174,13 @@ def render_login(request):
 # The below code pulls the email and password from the POST request (user input through login form). Then, the authenticate function takes care of authenticating user credentials against the authentication back end.
  
         ## Use parameterized queries to protect against SQL injection
-        user = authenticate(request, email = email, password = pass1)
+        user = authenticate(request, username = username, password = pass1)
 
         
         if user is not None:
             # User is authenticated, log them in
             login(request, user)
+            return redirect('home')
 
         else:
             # User authentication failed, display error message
@@ -187,12 +192,18 @@ def render_login(request):
         # return render(request, "authentication/login.html")
         form = AuthenticationForm(request)
 
+        if request.user.is_authenticated:
+            return redirect('home')
+
     # Render the login template with the form,, password reset form, email, and success message
     password_reset_form = PasswordResetView.as_view(
         template_name='authentication/password_reset.html',
         email_template_name='authentication/password_reset_email.html',
         success_url=reverse('password_reset_done')
     )(request=request)
+
+    # Check if the user is authenticated and pass the login status to the template
+    is_authenticated = request.user.is_authenticated
 
     return render(
         request,
@@ -202,10 +213,12 @@ def render_login(request):
             'password_reset_form': password_reset_form,
             'email': email,
             'success_message': success_message,
+            'user': user,
+            'is_authenticated': is_authenticated, # Pass the login status to the template
         }
     )
 
-# View function for rendering reset password page
+# View function for rendering reset password page BY JASMINE
 class CustomPasswordResetView(PasswordResetView):
     # Specify the template name for the password reset form
     template_name = 'authentication/password_reset.html'
@@ -214,29 +227,30 @@ class CustomPasswordResetView(PasswordResetView):
     # Specify the success url after the password reset is initiated
     success_url = 'reset_password/done/'
 
-# Function for the Reset password done page
+# Function for the Reset password done page BY JASMINE
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     # Specify the template name for reset password done page
     template_name = 'authentication/reset_password_done.html'
 
-# Function for the Reset password confirm page
+# Function for the Reset password confirm page BY JASMINE
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     # Specify the template name for reset password confirm page
     template_name = 'authentication/password_reset_confirm.html'
     # Specify the success url after the password reset is confirmed
     success_url = 'reset_password/complete/'
 
-# Function for the Reset password complete page
+# Function for the Reset password complete page BY JASMINE
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     # Specify the template name for reset password complete page
     template_name = 'authentication/password_reset_complete.html'
-#FOR LOGOUT
+
+# LOGOUT BY JASMINE
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('home')
 
-#Session cookies
+#Session cookies BY SARA
 def index(request):
      # Create an HTTP response with the message "Welcome to the landing page!"
      response = HttpResponse("Welcome to the landing page!")
@@ -245,7 +259,7 @@ def index(request):
      response.set_cookie('my_cookie', 'cookie_value')
      return response
 
- # Class-based view
+ # Class-based view BY SARA
  # For the cookies on the home page
 class LandingPageView(TemplateView):
      # Specify the template name
