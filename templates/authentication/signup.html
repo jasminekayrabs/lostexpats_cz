@@ -1,6 +1,6 @@
 <!-- Signup page, protected against Sql injection attacks, cross site request forgery, and XSS attacks -->
 <!-- It contains a form where user enters the requied information and agrees to the terms and conditions -->
-
+<!-- BY JASMINE -->
 
 <!DOCTYPE html>
 <html>
@@ -145,6 +145,8 @@
 
 </head>
  
+
+<!-- Taking user input -->
 <body>
 <div class="signup-box">
     <h1>Sign-Up</h1>
@@ -154,12 +156,12 @@
     {% csrf_token %}
     <div class="user-box">
       <input type="text" id="fname" name="fname" required value="{{ fname|safe }}">
-      <label for="">First Name</label>
+      <label for="">Full Name</label>
       <br>
     </div>
     <div class="user-box">
-      <input type="text" id="lname" name="lname" required value="{{ lname|safe }}">
-      <label for="">Last Name</label>
+      <input type="text" id="username" name="username" required value="{{ username|safe }}">
+      <label for="">Username</label>
       <br>
     </div>
     <div class="user-box">
