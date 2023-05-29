@@ -1,3 +1,5 @@
+<!-- This is the login page. It allows the user to input their required info and validates it. It also has a link that takes user to the reset pssword page. The page is protected against Sql injection attacks, XSS attacks, as well as Cross site request forgery. -->
+
 <head>
   <title>Login Page</title>
 
@@ -142,6 +144,8 @@
         <label for="">Password</label>
       </div>
       <button type="submit">Log-in</button>
+      <!-- linkk to reset password page -->
+      <a href="{% url 'password_reset' %}">Forgot Password?</a>
       <!-- display error message if user is not authenticated -->
       {% if messages %}
       <div class="message error">
