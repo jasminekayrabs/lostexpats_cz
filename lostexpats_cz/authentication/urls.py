@@ -1,3 +1,5 @@
+"""BY JASMINE AND SARA"""
+
 from django.urls import path
 from authentication import views
 from .views import activate_account, activation_sent, render_terms, CustomPasswordResetView
@@ -13,6 +15,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("signup", views.render_signup, name="render_signup"),
     path("login", views.render_login, name="render_login"),
+    path('login/', views.render_login, name='login'),
     path('logout', views.logout_view, name='logout'),
     path("fooddrinks", views.render_fooddrinks, name="render_fooddrinks"),
     path("nightlife", views. render_nightlife, name="render_nightlife"),
@@ -27,6 +30,5 @@ urlpatterns = [
     path('activation_sent/', activation_sent, name='activation_sent'),
     path("terms", render_terms, name="render_terms"),
     path('secure/', views.secure_view, name='secure_view'),
-
 ]
 
