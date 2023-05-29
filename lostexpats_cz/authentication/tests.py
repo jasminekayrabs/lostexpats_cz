@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.html import escape
@@ -188,4 +188,26 @@ class LoggingTest(TestCase):
         with open(log_file_path, 'r') as file:
             log_contents = file.read()
             self.assertIn('This is a test log message', log_contents)
+            
+            
+class SessionManagementTest(TestCase):
+    def test_secure_session(self):
+    # Create a client and make a request to a secured view or URL
+        response = self.client.get(reverse('secure_view'))
+
+    # Assert that the response status code is as expected
+        self.assertEqual(response.status_code, 301)
+
+    # Get the 'sessionid' cookie from the response
+        sessionid_cookie = response.cookies.get('sessionid')
+
+        if sessionid_cookie:
+        # Assert that the sessionid cookie has the secure flag
+           self.assertTrue(sessionid_cookie.get('secure'))
+
+        # Assert that the sessionid cookie has the httponly flag
+           self.assertTrue(sessionid_cookie.get('httponly'))
+
+
+
     
