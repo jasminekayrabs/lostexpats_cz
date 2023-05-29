@@ -17,22 +17,21 @@
 
   {% endif %}
 
-  <nav class="navbar">
-<div class="navbar-left">
- <a href="#" class="navbar-title">LostExpats.cz</a>
-</div>
-<div class="navbar-right">
-  {% if user.is_authenticated %}
-  <form action="/logout" method="POST">
-    {% csrf_token %}
-    <button type="submit"><a href="/logout">Logout</a></button>
-  </form>
-  {% else %}
-  <button type="submit"><a href="/signup">SignUp</a></button>
-  <button type="submit"><a href="/login">Login</a></button>
-  {% endif %}
-
-</div>
+<nav class="navbar">
+    <div class="navbar-left">
+      <a href="#" class="navbar-title">LostExpats.cz</a>
+    </div>
+    <div class="navbar-right">
+      {% if user.is_authenticated %}
+      <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+      {% else %}
+      <button type="submit"><a href="/signup">SignUp</a></button>
+      <button type="submit"><a href="/login">Login</a></button>
+      {% endif %}
+    </div>
   </nav>
 
   <div class="navbar-categories">
