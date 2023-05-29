@@ -208,6 +208,4 @@ class SessionManagementTest(TestCase):
         # Assert that the sessionid cookie has the httponly flag
            self.assertTrue(sessionid_cookie.get('httponly'))
 
-
-
     
