@@ -29,6 +29,56 @@ from django.contrib.auth.views import (
 
 
 
+#COOKIES BY MIA
+def save_cookie_consent(request):
+    if request.method == 'POST':
+        session_id= request.session.session_key
+        functional = request.POST.get('functional')
+        advertising = request.POST.get('advertising')
+        analytics = request.POST.get('analytics')
+        essential = request.POST.get('essential')
+        
+
+        # Save the cookie consent preferences to the database
+        consent = CookieConsent.objects.create(
+            session_id = session_id,
+            functional=functional,
+            advertising=advertising,
+            analytics=analytics,
+            essential=essential
+        )
+        #Redirect to the index view to handle the POST request
+        return redirect('home')
+
+        # Optionally, you can perform additional actions based on the consent data
+        # For example, you can update user preferences or execute certain functionality
+
+        return render(request, 'index.html', {'consent_success': True})
+
+    # Handle GET requests
+    return render(request, 'index.html')
+
+     
+
+
+    
+from django.http import JsonResponse
+from .models import CookieConsent
+
+def save_cookie_preferences(request):
+    preferences = request.POST.getlist('preferences[]')
+
+    # Save the preferences to the database
+    cookie_consent, created = CookieConsent.objects.get_or_create(id=1)
+    cookie_consent.functional = 'functional' in preferences
+    cookie_consent.advertising = 'advertising' in preferences
+    cookie_consent.analytics = 'analytics' in preferences
+    cookie_consent.essential = 'essential' in preferences
+    cookie_consent.save()
+
+    return JsonResponse({'success': True})
+
+
 #Veronika
 @xframe_options_exempt
 def ok_to_load_in_a_frame(request):
@@ -249,15 +299,6 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 def logout_view(request):
     logout(request)
     return redirect('home')
-
-#Session cookies BY SARA
-def index(request):
-     # Create an HTTP response with the message "Welcome to the landing page!"
-     response = HttpResponse("Welcome to the landing page!")
-
-     # Set a cookie named "my_cookie" with a value of "cookie_value"
-     response.set_cookie('my_cookie', 'cookie_value')
-     return response
 
  # Class-based view BY SARA
  # For the cookies on the home page
