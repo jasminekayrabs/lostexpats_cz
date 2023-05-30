@@ -3,6 +3,8 @@
 from django.urls import path
 from authentication import views
 from .views import activate_account, activation_sent, render_terms, CustomPasswordResetView
+from .views import save_cookie_consent
+from .views import save_cookie_preferences
 from .views import (
     CustomPasswordResetDoneView,
     CustomPasswordResetConfirmView,
@@ -30,5 +32,7 @@ urlpatterns = [
     path('activation_sent/', activation_sent, name='activation_sent'),
     path("terms", render_terms, name="render_terms"),
     path('secure/', views.secure_view, name='secure_view'),
+    path('save-cookie-preferences/', save_cookie_preferences, name='save_cookie_preferences'),
+    path('save-cookie-consent/', save_cookie_consent, name='save_cookie_consent'),
 ]
 
