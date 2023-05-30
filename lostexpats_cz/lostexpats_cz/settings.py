@@ -14,6 +14,7 @@ from pathlib import Path
 import os 
 import logging.handlers
 import logging 
+from django.http import HttpResponse 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +49,10 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 # Ensures that the CSRF (Cross-Site Request Forgery) cookie is only sent over HTTPS
 
+# session data will be stored in the database.
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+SESSION_COOKIE_AGE = 86400  # 24 hours
 
 # Application definition
 
@@ -214,6 +219,8 @@ DEFAULT_FROM_EMAIL = 'lostexpatscz@gmail.com'
 
 
 # settings.py
+# Ensure the logs directory exists
+os.makedirs(os.path.dirname('logs/user_login.log'), exist_ok=True)
 
 # Define a function to set a cookie in the HTTP response
 def set_cookie(request):
