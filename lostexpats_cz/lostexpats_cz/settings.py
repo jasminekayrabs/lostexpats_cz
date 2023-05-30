@@ -30,16 +30,24 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-#Enable HTTPS enforcement
 SECURE_SSL_REDIRECT = True
+# Redirects all HTTP requests to HTTPS for secure communication
+
 SSL_ENABLED = True
+# Indicates that SSL (Secure Sockets Layer) is enabled
+
 SSL_CERTIFICATE = '/path/to/cert.pem'
-SSL_KEY = 'path/to/key.pem'
+# Specifies the path to the SSL certificate file
+
+SSL_KEY = '/path/to/key.pem'
+# Specifies the path to the SSL key file
+
 SESSION_COOKIE_SECURE = True
+# Ensures that the session cookie is only sent over HTTPS
+
 CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_COOKIE_AGE = 86400  # 24 hours
+# Ensures that the CSRF (Cross-Site Request Forgery) cookie is only sent over HTTPS
+
 
 # Application definition
 
@@ -56,14 +64,22 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Enforces security measures in the Django application
     'django.middleware.security.SecurityMiddleware',
+    # Enables support for Django sessions
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # Provides common HTTP request and response operations
     'django.middleware.common.CommonMiddleware',
+    # Adds protection against Cross-Site Request Forgery (CSRF) attacks
     'django.middleware.csrf.CsrfViewMiddleware',
+    # Handles user authentication and sets the 'user' attribute in the request
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # Handles messages (e.g., success messages, error messages) between requests
     'django.contrib.messages.middleware.MessageMiddleware',
+    # Protects against clickjacking attacks by setting the X-Frame-Options header
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 #When protecting the webiste from click-jacking there are 
 #three settings to choose from which include 'same-origin', 'deny', and 'ALLOW-FROM origin'(the last option does not work on most 
@@ -76,23 +92,31 @@ X_FRAME_OPTIONS = 'DENY'
 
 ROOT_URLCONF = 'lostexpats_cz.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ["templates"],
+        # Specifies the directories where Django looks for template files
         'APP_DIRS': True,
+        # Determines whether Django looks for template files in installed apps
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                # Adds the debug context processor for template debugging
                 'django.template.context_processors.request',
+                # Adds the request context processor for accessing request data in templates
                 'django.contrib.auth.context_processors.auth',
+                # Adds the auth context processor for including authentication-related data in templates
                 'django.contrib.messages.context_processors.messages',
+                # Adds the messages context processor for including messages framework data in templates
                 'authentication.context_processors.cookie_banner',
-
+                # Adds a custom context processor 'cookie_banner' from the 'authentication' app
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'lostexpats_cz.wsgi.application'
 
@@ -191,9 +215,21 @@ DEFAULT_FROM_EMAIL = 'lostexpatscz@gmail.com'
 
 # settings.py
 
+# Define a function to set a cookie in the HTTP response
+def set_cookie(request):
+    # Create a new HttpResponse object
+    response = HttpResponse()
+    # Set a cookie named 'cookie_name' with the value 'cookie_value'
+    response.set_cookie('cookie_name', value='cookie_value')
+    # Return the HttpResponse object with the cookie set
+    return response
+
 # Configure the logging settings
 LOGGING = {
+    # This key specifies the version of the logging configuration.
     'version': 1,
+    # This key determines whether existing loggers should be disabled 
+    # when the configuration is applied.
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
@@ -203,12 +239,15 @@ LOGGING = {
             'formatter': 'standard',
         },
     },
+    #  This key is a dictionary of log formatters. 
+    # In this case, there is only one formatter defined, named 'standard'.
     'formatters': {
         'standard': {
             'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
     },
+    #  'file' handler should be used and sets the log level to 'INFO'.
     'root': {
         'handlers': ['file'],
         'level': 'INFO',
