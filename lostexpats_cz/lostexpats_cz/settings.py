@@ -19,6 +19,10 @@ from django.http import HttpResponse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECURE_HSTS_SECONDS = 31536000 #1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
