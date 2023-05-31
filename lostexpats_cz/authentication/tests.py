@@ -217,3 +217,22 @@ class HSTSTestCase(TestCase):
         hsts_header = response.headers['Strict-Transport-Security']
         self.assertEqual(hsts_header, 'max-age=31536000; includeSubDomains')
     
+    
+  
+# X frame options 
+# pip install requests  
+import requests
+# Defining the URL to test
+url = "http://127.0.0.1:8000/"  
+# Sending the HTTP request and retrieving the response headers
+try:
+    response = requests.get(url)
+    x_frame_options = response.headers.get("X-Frame-Options")
+# Checking the presence of the "X-Frame-Options" header
+    if x_frame_options is None:
+        print("X-Frame-Options header is missing")
+    else:
+        print(f"X-Frame-Options header value: {x_frame_options}")
+# Handling exceptions
+except requests.exceptions.RequestException as e:
+    print(f"An error occurred: {str(e)}")
