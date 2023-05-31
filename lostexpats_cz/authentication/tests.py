@@ -5,6 +5,9 @@ from django.utils.html import escape
 import logging
 import os
 from django.conf import settings
+import requests
+from lostexpats_cz.referrer_policy_middleware import ReferrerPolicyMiddleware
+
 
 
 
@@ -217,3 +220,32 @@ class HSTSTestCase(TestCase):
         hsts_header = response.headers['Strict-Transport-Security']
         self.assertEqual(hsts_header, 'max-age=31536000; includeSubDomains')
     
+
+# TESTING REFFERER POLICY BY VERONIKA 
+class ReferrerPolicyTestCase(TestCase): 
+    
+    # defines a test method within class:
+    def test_referrer_policy(self):
+        
+    # creates an instance of the class, passing None as the argument:
+        middleware = ReferrerPolicyMiddleware(None)
+    
+    # sends a GET request to the URL associated:
+        request = self.client.get(reverse('home'))
+        
+    # simulates the middleware processing the request and generating a response:
+        response = middleware(request)
+        
+    # asserts that the attribute of the object is equal to 200, 
+    # indicating a successful HTTP response:
+        self.assertEqual(response.status_code, 200)
+        
+    # checks if the response contains the specified header:
+        self.assertIn('Referrer-Policy', response.headers)
+        
+    # retrieves the value of the header from the attribute of the response object 
+    # and assigns it to the variable:
+        referrer_policy_header = response.headers['Referrer-Policy']
+        
+    # checks if the Referrer policy header value in the response matches the expected value:
+        self.assertEqual(referrer_policy_header, 'no-referrer')
