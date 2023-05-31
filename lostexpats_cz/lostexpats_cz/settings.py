@@ -87,6 +87,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     # Protects against clickjacking attacks by setting the X-Frame-Options header
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Safeguards user privacy 
+    'lostexpets_cz.referrer_middleware.ReferrerPolicyMiddleware',
 ]
 
 
