@@ -5,240 +5,26 @@
   <meta name="viewport" content="width=device-width">
   <title>LostExpats.cz</title>
   {% load static %}
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="script.js"></script>
- <style>
-    /* Style for the pop-up cookie overlay */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color:rgba(0, 0, 0, 0.4);
-        color: white;
-        z-index: 9999;
-    }
-
-    .popup {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: gray;
-        padding: 20px;
-    }
-
-  </style>
-  <div class="overlay" id="cookieOverlay">
-    <div class="popup">
-        <h3>Cookie Notification</h3>
-        <p>This website uses cookies. Please manage your cookie preferences below:</p>
-        <button onclick="openManageCookies()">Manage Cookies</button>
-        <button onclick="acceptCookies()">Accept</button>
-        <button onclick="rejectCookies()">Reject</button>
-    </div>
-</div>
 
 
-<div class="overlay" id="manageCookiesOverlay" style="display: none;">
-  <div class="popup">
-      <h3>Manage Cookies</h3>
-      <p>Select the types of cookies you want to enable:</p>
-      <label>
-          <input type="checkbox" name="cookies" value="functional"> Functional
-      </label>
-      <label>
-          <input type="checkbox" name="cookies" value="advertising"> Advertising
-      </label>
-      <label>
-          <input type="checkbox" name="cookies" value="analytics"> Analytics
-      </label>
-      <label>
-          <input type="checkbox" name="cookies" value="essential"> Essential
-      </label>
-      <button onclick="saveCookiePreferences()">Save Preferences</button>
-  </div>
-</div>
-<script>
-  
 </script>
 
+  <nav class="navbar">
+<div class="navbar-left">
+ <a href="#" class="navbar-title">LostExpats.cz</a>
+</div>
+<div class="navbar-right">
+ {% csrf_token %}
+ <button type="submit"><a href="/signup">SignUp</a></button>
+ <button type="submit"><a href="/login">Login</a></button>
 
-<script>
-
-
-  function openManageCookies() {
-    document.getElementById('cookieOverlay').style.display = 'none';
-    document.getElementById('manageCookiesOverlay').style.display = 'block';
-  }
-
-
-   function rejectCookies() {
-    // Save the cookie rejection to the database (db.sqlite3)
-    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-  
-  
-    fetch('/save-cookie-consent/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-        },
-        body: JSON.stringify({ consent: false }),
-    })
-    .then(response => {
-        if (response.ok) {
-            // Success! Handle any UI changes or notifications here.
-            console.log('Cookie rejection saved successfully!');
-            // Close the overlay
-            document.getElementById('cookieOverlay').style.display = 'none';
-        } else {
-            // Error handling if saving the rejection failed.
-            console.error('Failed to save cookie rejection.');
-        }
-    })
-    .catch(error => {
-        // Error handling if the fetch request failed.
-        console.error('An error occurred while saving the cookie rejection:', error);
-    });
-  } 
-
-
-  
-
-  function saveCookiePreferences() {
-    // Get the selected cookie preferences and save them to the database (db.sqlite3)
-    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-  
-    // Implement the necessary logic here to retrieve the selected cookie preferences
-    const checkboxes = document.getElementsByName('cookies');
-    const selectedPreferences = Array.from(checkboxes)
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => checkbox.value);
-  
-    fetch('/save-cookie-preferences/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken,
-      },
-      body: JSON.stringify({ preferences: selectedPreferences }),
-    })
-      .then(response => {
-        if (response.ok) {
-          // Success! Handle any UI changes or notifications here.
-          console.log('Cookie preferences saved successfully!');
-          // Close the popup
-          var overlay = document.getElementById('manageCookiesOverlay');
-          overlay.style.display = 'none';
-        } else {
-          // Error handling if saving the preferences failed.
-          console.error('Failed to save cookie preferences.');
-        }
-      })
-      .catch(error => {
-        // Error handling if the fetch request failed.
-        console.error('An error occurred while saving the cookie preferences:', error);
-      });
-  }
-  
-  
-  
-  
-function acceptCookies() {
-    // Save the cookie acceptance to the database (db.sqlite3)
-    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-  
-  
-    fetch('/save-cookie-consent/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-        },
-        body: JSON.stringify({ consent: true }),
-    })
-    .then(response => {
-        if (response.ok) {
-            // Success! Handle any UI changes or notifications here.
-            console.log('Cookie acceptance saved successfully!');
-            // Close the overlay
-            document.getElementById('cookieOverlay').style.display = 'none';
-        } else {
-            // Error handling if saving the consent failed.
-            console.error('Failed to save cookie acceptance.');
-        }
-    })
-    .catch(error => {
-        // Error handling if the fetch request failed.
-        console.error('An error occurred while saving the cookie acceptance:', error);
-    });
-  }
-  
-function rejectCookies() {
-    // Save the cookie rejection to the database (db.sqlite3)
-    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-  
-  
-    fetch('/save-cookie-consent/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-        },
-        body: JSON.stringify({ consent: false }),
-    })
-    .then(response => {
-        if (response.ok) {
-            // Success! Handle any UI changes or notifications here.
-            console.log('Cookie rejection saved successfully!');
-            // Close the overlay
-            document.getElementById('cookieOverlay').style.display = 'none';
-        } else {
-            // Error handling if saving the rejection failed.
-            console.error('Failed to save cookie rejection.');
-        }
-    })
-    .catch(error => {
-        // Error handling if the fetch request failed.
-        console.error('An error occurred while saving the cookie rejection:', error);
-    });
-  }
-  
-</script>
-	
-</head>
-  
-<body>
-<!-- cookie banner -->
-  {% if show_cookie_banner %}
-
-        {% include 'authentication/cookie_banner.html' %}
-
-  {% endif %}
-
-<nav class="navbar">
-    <div class="navbar-left">
-      <a href="#" class="navbar-title">LostExpats.cz</a>
-    </div>
-    <div class="navbar-right">
-      {% if user.is_authenticated %}
-      <form action="{% url 'logout' %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-      </form>
-      {% else %}
-      <button type="submit"><a href="/signup">SignUp</a></button>
-      <button type="submit"><a href="/login">Login</a></button>
-      {% endif %}
-    </div>
+</div>
   </nav>
 
   <div class="navbar-categories">
 <ul>
  <li><a href="/news">NEWS</a></li>
- <li><a href="/fooddrinks">FOOD&DRINK</a></li>
+ <li><a href="/food">FOOD&DRINK</a></li>
  <li><a href="/events">EVENTS</a></li>
  <li><a href="/nightlife">NIGHTLIFE</a></li>
 </ul>
@@ -257,92 +43,92 @@ function rejectCookies() {
 </center>
 </div>
 <section id="news">
-		<h2>News</h2>
+    <h2>News</h2>
     <center>
-		<div class="image-row">
+    <div class="image-row">
       <img src="{% static 'news1.jpeg' %}" alt="Food Image">
-			<div class="description">Description for News Image 1</div>
-		</div>
-		<div class="image-row">
-			<img src="{% static 'news2.jpeg' %}" alt="News Image 2">
-			<div class="description">Description for News Image 2</div>
-		</div>
+      <div class="description">Description for News Image 1</div>
+    </div>
     <div class="image-row">
-			<img src="{% static 'news3.webp' %}" alt="News Image 3">
-			<div class="description">Description for News Image 3</div>
-		</div>
+      <img src="{% static 'news2.jpeg' %}" alt="News Image 2">
+      <div class="description">Description for News Image 2</div>
+    </div>
     <div class="image-row">
-			<img src="{% static 'news4.webp' %}" alt="News Image 4">
-			<div class="description">Description for News Image 4</div>
-		</div>
+      <img src="{% static 'news3.webp' %}" alt="News Image 3">
+      <div class="description">Description for News Image 3</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'news4.webp' %}" alt="News Image 4">
+      <div class="description">Description for News Image 4</div>
+    </div>
    </center>
-	</section>
+  </section>
   
   
 <section id="nightlife">
-		<h3>Nightlife</h3>
+    <h3>Nightlife</h3>
     <center>
-		<div class="image-row">
-			<img src="{% static 'nightlife1.jpg' %}" alt="Nightlife Image 1">
-			<div class="description">Description for Nightlife Image 1</div>
-		</div>
-		<div class="image-row">
-			<img src="{% static 'nightlife2.jpg' %}" alt="Nightlife Image 2">
-			<div class="description">Description for Nightlife Image 2</div>
-		</div>
     <div class="image-row">
-			<img src="{% static 'nightlife3.jpg' %}" alt="Nightlife Image 3">
-			<div class="description">Description for Nightlife Image 3</div>
-		</div>
+      <img src="{% static 'nightlife1.jpg' %}" alt="Nightlife Image 1">
+      <div class="description">Description for Nightlife Image 1</div>
+    </div>
     <div class="image-row">
-			<img src="{% static 'nightlife4.jpeg' %}" alt="Nightlife Image 4">
-			<div class="description">Description for Nightlife Image 4</div>
-		</div>
+      <img src="{% static 'nightlife2.jpg' %}" alt="Nightlife Image 2">
+      <div class="description">Description for Nightlife Image 2</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'nightlife3.jpg' %}" alt="Nightlife Image 3">
+      <div class="description">Description for Nightlife Image 3</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'nightlife4.jpeg' %}" alt="Nightlife Image 4">
+      <div class="description">Description for Nightlife Image 4</div>
+    </div>
     </center>
 </section>
   
 <section id="food">
-		<h4>Food &amp; Drinks</h4>
+    <h4>Food &amp; Drinks</h4>
     <center>
-		<div class="image-row">
-			<img src="{% static 'food1.jpg' %}" alt="Food Image 1">
-			<div class="description">Description for Food Image 1</div>
-		</div>
-		<div class="image-row">
-			<img src="{% static 'food2.jpg' %}" alt="Food Image 2">
-			<div class="description">Description for Food Image 2</div>
-		</div>
     <div class="image-row">
-			<img src="{% static 'food3.jpg' %}" alt="Food Image 3">
-			<div class="description">Description for Food Image 3</div>
-		</div>
+      <img src="{% static 'food1.jpg' %}" alt="Food Image 1">
+      <div class="description">Description for Food Image 1</div>
+    </div>
     <div class="image-row">
-			<img src="{% static 'food4.jpg' %}" alt="Food Image 4">
-			<div class="description">Description for Food Image 4</div>
+      <img src="{% static 'food2.jpg' %}" alt="Food Image 2">
+      <div class="description">Description for Food Image 2</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'food3.jpg' %}" alt="Food Image 3">
+      <div class="description">Description for Food Image 3</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'food4.jpg' %}" alt="Food Image 4">
+      <div class="description">Description for Food Image 4</div>
     </center>
-		</div>
+    </div>
 
 </section>
     
 <section id="events">
-		<h5>Events</h5>
+    <h5>Events</h5>
     <center>
-		<div class="image-row">
-			<img src="{% static 'events1.jpg' %}" alt="Events Image 1">
-			<div class="description">Description for Events Image 1</div>
-		</div>
-		<div class="image-row">
-			<img src="{% static 'events2.jpg' %}" alt="Events Image 2">
-			<div class="description">Description for Events Image 2</div>
-		</div>
     <div class="image-row">
-			<img src="{% static 'events3.jpg' %}" alt="Events Image 3">
-			<div class="description">Description for Events Image 2</div>
-		</div>
+      <img src="{% static 'events1.jpg' %}" alt="Events Image 1">
+      <div class="description">Description for Events Image 1</div>
+    </div>
     <div class="image-row">
-			<img src="{% static 'events4.jpg' %}" alt="Events Image 4">
-			<div class="description">Description for Events Image 2</div>
-		</div>
+      <img src="{% static 'events2.jpg' %}" alt="Events Image 2">
+      <div class="description">Description for Events Image 2</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'events3.jpg' %}" alt="Events Image 3">
+      <div class="description">Description for Events Image 2</div>
+    </div>
+    <div class="image-row">
+      <img src="{% static 'events4.jpg' %}" alt="Events Image 4">
+      <div class="description">Description for Events Image 2</div>
+    </div>
     </center>
 </section>
 
@@ -358,13 +144,14 @@ function closeSignup() {
 }
 </script>
     
-    
 <style>
 * {box-sizing: border-box;}
 body {
+  background-color: black;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
 .mySlides {display: none;}
 img {vertical-align: middle;}
+
 
 html {
   height: 100%;
@@ -520,16 +307,16 @@ font-size: 20px;
 
 /* Reset default browser styles */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Set a background color for the entire page */
 body {
   
-	background-color: #000;
-	font-family: Arial, sans-serif;
+  background-color: black;
+  font-family: Arial, sans-serif;
   color: #ebebeb;
   
 }
@@ -538,51 +325,50 @@ body {
 
 /* Style the header */
 header {
-	background-color: #ffffff;
-	padding: 20px;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 999;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
 }
 /* Style the sections */
 section {
-	padding: 50px;
+  padding: 50px;
 }
 
 section h2,h3,h4,h5 {
-	font-size: 32px;
-	margin-bottom: 30px;
+  font-size: 32px;
+  margin-bottom: 30px;
 }
  h2{
   padding:0 ;
   margin: 0;
 }
 .image-row {
-	display: inline-block;
-	flex-wrap: nowrap;
-	overflow-x: auto;
-	margin-bottom: 30px;
+  display: inline-block;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin-bottom: 30px;
 }
 
 .image-row img {
-	width: 300px;
-	height: 200px;
-	max-width: 100%;
-	margin-right: 20px;
-	margin-bottom: 20px;
-	object-fit: cover;
+  width: 300px;
+  height: 200px;
+  max-width: 100%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  object-fit: cover;
 }
 
 footer {
   background-color: #333;
   color: #fff;
-  text-align: center;
   padding: 20px;
 }
 
@@ -609,7 +395,230 @@ description{
 <footer>
   <h3>Contact Us</h3>
   <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
-  <p>&copy; 2023 Lostexpatscz. All rights reserved.</p>
 </footer>
+
+</html><!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>LostExpats.cz</title>
+  {% load static %}
+ 
+  <style>
+    /* Style for the pop-up overlay */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0, 0, 0, 0.4);
+        color: white;
+        z-index: 9999;
+    }
+
+
+    .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: gray;
+        padding: 20px;
+    }
+
+
+  </style>
+  <div class="overlay" id="cookieOverlay">
+    <div class="popup">
+        <h3>Cookie Notification</h3>
+        <p>This website uses cookies. Please manage your cookie preferences below:</p>
+        <button onclick="openManageCookies()">Manage Cookies</button>
+        <button onclick="acceptCookies()">Accept</button>
+        <button onclick="rejectCookies()">Reject</button>
+    </div>
+</div>
+
+
+
+
+<div class="overlay" id="manageCookiesOverlay" style="display: none;">
+  <div class="popup">
+      <h3>Manage Cookies</h3>
+      <p>Select the types of cookies you want to enable:</p>
+      <label>
+          <input type="checkbox" name="cookies" value="functional"> Functional
+      </label>
+      <label>
+          <input type="checkbox" name="cookies" value="advertising"> Advertising
+      </label>
+      <label>
+          <input type="checkbox" name="cookies" value="analytics"> Analytics
+      </label>
+      <label>
+          <input type="checkbox" name="cookies" value="essential"> Essential
+      </label>
+      <button onclick="saveCookiePreferences()">Save Preferences</button>
+  </div>
+</div>
+<script>
+ 
+</script>
+
+
+
+
+<script>
+
+
+
+
+  function openManageCookies() {
+    document.getElementById('cookieOverlay').style.display = 'none';
+    document.getElementById('manageCookiesOverlay').style.display = 'block';
+  }
+
+
+
+
+   function rejectCookies() {
+    // Save the cookie rejection to the database (db.sqlite3)
+    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+ 
+ 
+    fetch('/save-cookie-consent/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify({ consent: false }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Success! Handle any UI changes or notifications here.
+            console.log('Cookie rejection saved successfully!');
+            // Close the overlay
+            document.getElementById('cookieOverlay').style.display = 'none';
+        } else {
+            // Error handling if saving the rejection failed.
+            console.error('Failed to save cookie rejection.');
+        }
+    })
+    .catch(error => {
+        // Error handling if the fetch request failed.
+        console.error('An error occurred while saving the cookie rejection:', error);
+    });
+  }
+
+
+
+
+ 
+
+
+  function saveCookiePreferences() {
+    // Get the selected cookie preferences and save them to the database (db.sqlite3)
+    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+ 
+    // Implement the necessary logic here to retrieve the selected cookie preferences
+    const checkboxes = document.getElementsByName('cookies');
+    const selectedPreferences = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+ 
+    fetch('/save-cookie-preferences/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken,
+      },
+      body: JSON.stringify({ preferences: selectedPreferences }),
+    })
+      .then(response => {
+        if (response.ok) {
+          // Success! Handle any UI changes or notifications here.
+          console.log('Cookie preferences saved successfully!');
+          // Close the popup
+          var overlay = document.getElementById('manageCookiesOverlay');
+          overlay.style.display = 'none';
+        } else {
+          // Error handling if saving the preferences failed.
+          console.error('Failed to save cookie preferences.');
+        }
+      })
+      .catch(error => {
+        // Error handling if the fetch request failed.
+        console.error('An error occurred while saving the cookie preferences:', error);
+      });
+  }
+ 
+ 
+
+  function acceptCookies() {
+  // Save the cookie acceptance to the database (db.sqlite3)
+  const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+  fetch('/save-cookie-consent/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ consent: true }),
+  })
+    .then(response => {
+      if (response.ok) {
+        // Success! Handle any UI changes or notifications here.
+        console.log('Cookie acceptance saved successfully!');
+        // Close the overlay
+        document.getElementById('cookieOverlay').style.display = 'none';
+      } else {
+        // Error handling if saving the consent failed.
+        console.error('Failed to save cookie acceptance.');
+      }
+    })
+    .catch(error => {
+      // Error handling if the fetch request failed.
+      console.error('An error occurred while saving the cookie acceptance:', error);
+    });
+}
+
+function rejectCookies() {
+    // Save the cookie rejection to the database (db.sqlite3)
+    const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+ 
+ 
+    fetch('/save-cookie-consent/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify({ consent: false }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Success! Handle any UI changes or notifications here.
+            console.log('Cookie rejection saved successfully!');
+            // Close the overlay
+            document.getElementById('cookieOverlay').style.display = 'none';
+        } else {
+            // Error handling if saving the rejection failed.
+            console.error('Failed to save cookie rejection.');
+        }
+    })
+    .catch(error => {
+        // Error handling if the fetch request failed.
+        console.error('An error occurred while saving the cookie rejection:', error);
+    });
+  }
+ 
+</script>
+
+
+
+
 </html>
-    
+
