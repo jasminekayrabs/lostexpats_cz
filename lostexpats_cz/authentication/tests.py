@@ -207,5 +207,13 @@ class SessionManagementTest(TestCase):
 
         # Assert that the sessionid cookie has the httponly flag
            self.assertTrue(sessionid_cookie.get('httponly'))
-
+            
+            
+class HSTSTestCase(TestCase):
+    def test_hsts_redirection(self):
+        response = self.client.get(reverse('home'), secure=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Strict-Transport-Security', response.headers)
+        hsts_header = response.headers['Strict-Transport-Security']
+        self.assertEqual(hsts_header, 'max-age=31536000; includeSubDomains')
     
