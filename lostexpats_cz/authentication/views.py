@@ -160,7 +160,8 @@ def render_signup(request):
         current_site = get_current_site(request)
         domain = current_site.domain
         uid = urlsafe_base64_encode(force_bytes(myuser.pk))
-        activation_url = f"http://{domain}{reverse('activate_account', kwargs={'uidb64': uid, 'token': token})}"
+        protocol = 'https' if request.is_secure() else 'http'
+        activation_url = f"{protocol}://{domain}{reverse('activate_account', kwargs={'uidb64': uid, 'token': token})}"
 
         # Render email template with context
         email_context = {
@@ -275,7 +276,7 @@ class CustomPasswordResetView(PasswordResetView):
     # Specify the template name for reset password email
     email_template_name = 'authentication/password_reset_email.html'
     # Specify the success url after the password reset is initiated
-    success_url = 'reset_password/done/'
+    success_url = '/reset_password/done/'
 
 # Function for the Reset password done page BY JASMINE
 class CustomPasswordResetDoneView(PasswordResetDoneView):
@@ -287,7 +288,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     # Specify the template name for reset password confirm page
     template_name = 'authentication/password_reset_confirm.html'
     # Specify the success url after the password reset is confirmed
-    success_url = 'reset_password/complete/'
+    success_url = '/reset_password/complete/'
 
 # Function for the Reset password complete page BY JASMINE
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
