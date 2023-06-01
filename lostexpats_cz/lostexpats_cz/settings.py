@@ -19,6 +19,7 @@ from django.http import HttpResponse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Done by sara 
 SECURE_HSTS_SECONDS = 31536000 #1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
@@ -47,8 +48,12 @@ SSL_CERTIFICATE = '/path/to/cert.pem'
 SSL_KEY = '/path/to/key.pem'
 # Specifies the path to the SSL key file
 
+
+
+# Done by sara 
 SESSION_COOKIE_SECURE = True
 # Ensures that the session cookie is only sent over HTTPS
+
 
 #serve site over HTTPS even if requests are forwarded from a proxy or load balancer
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -59,6 +64,8 @@ CSRF_COOKIE_SECURE = True
 # session data will be stored in the database.
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
+
+# Done by sara 
 SESSION_COOKIE_AGE = 86400  # 24 hours
 
 # Application definition
@@ -94,14 +101,18 @@ MIDDLEWARE = [
 
 
 #When protecting the webiste from click-jacking there are 
-#three settings to choose from which include 'same-origin', 'deny', and 'ALLOW-FROM origin'(the last option does not work on most 
+#three settings to choose from which include 'same-origin', '§', and 'ALLOW-FROM origin'(the last option does not work on most 
 # browsers now). For our application we chose to 'deny' because it denies all options of framing which gives the least risk for clickjacking too. 
 SESSION_COOKIE_SAMESITE = 'Strict'
+
+# Done by sara 
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
  #The page cannot be displayed in a frame, regardless of the site attempting to do so.
 
+    
+    
 ROOT_URLCONF = 'lostexpats_cz.urls'
 
 
@@ -229,6 +240,8 @@ DEFAULT_FROM_EMAIL = 'lostexpatscz@gmail.com'
 # Ensure the logs directory exists
 os.makedirs(os.path.dirname('logs/user_login.log'), exist_ok=True)
 
+
+# Done by sara 
 # Define a function to set a cookie in the HTTP response
 def set_cookie(request):
     # Create a new HttpResponse object
@@ -238,6 +251,8 @@ def set_cookie(request):
     # Return the HttpResponse object with the cookie set
     return response
 
+
+# Done by sara 
 # Configure the logging settings
 LOGGING = {
     # This key specifies the version of the logging configuration.
