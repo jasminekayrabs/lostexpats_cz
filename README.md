@@ -10,6 +10,8 @@ Secure website designed to make life easier for english speaking foreigners in t
 # Requirements: 
 - [Python3.9](https://www.python.org)
 - [Django](https://docs.djangoproject.com/en/4.2/)
+- flask
+- requests
 - Virtual Environment
 
 # Project Installation:
