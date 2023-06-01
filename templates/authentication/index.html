@@ -23,24 +23,26 @@ The landing page has multiple security measures which are
 
 {% endif %}
 
-  <nav class="navbar">
-<div class="navbar-left">
- <a href="#" class="navbar-title">LostExpats.cz</a>
-</div>
-<div class="navbar-right">
-  {% if user.is_authenticated %}
-  <form action="/logout" method="POST">
+<nav class="navbar">
+  <div class="navbar-left">
+    <a href="#" class="navbar-title">LostExpats.cz</a>
+  </div>
+  <div class="navbar-right">
+    {% if user.is_authenticated %}
+    <form action="/logout" method="POST">
     {% csrf_token %}
-    <button type="submit">Logout</button>
-    <button type="submit"><a href="/logout">Logout</a></button>
+      <button type="submit"><a href="/logout">Logout</a></button>
   </form>
   {% else %}
   <button type="submit"><a href="/signup">SignUp</a></button>
- <button type="submit"><a href="/login">Login</a></button>
+  <button type="submit"><a href="/login">Login</a></button>
 {% endif %}
-</div>
-  </nav>
-
+  </div>
+</nav>
+  
+  
+  
+  
   <div class="navbar-categories">
 <ul>
  <li><a href="/news">NEWS</a></li>
@@ -390,6 +392,8 @@ footer {
   background-color: #333;
   color: #fff;
   padding: 20px;
+  text-align: center;
+
 }
 
 h3 {
@@ -414,7 +418,8 @@ description{
 
 <footer>
   <h3>Contact Us</h3>
-  <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
+  <p>If you have any questions or comments, please <a href="mailto:lostexpatscz@gmail.com">email us</a>.</p>
+  <p>&copy; 2023. All rights reserved</p>
 </footer>
 
 </html>
