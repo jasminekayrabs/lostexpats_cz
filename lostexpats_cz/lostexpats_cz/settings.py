@@ -19,6 +19,9 @@ from django.http import HttpResponse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DEFAULT_HOST = 'host_patterns'
+ROOT_HOSTCONF = 'lostexpats_cz.hosts'
+
 SECURE_HSTS_SECONDS = 31536000 #1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
@@ -69,6 +72,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'django.contrib.staticfiles',
     'sslserver',
+    'django_hosts',
 
 ]
 
@@ -87,6 +91,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     # Protects against clickjacking attacks by setting the X-Frame-Options header
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Safeguards user privacy
+    'lostexpats_cz.referrer_middleware.ReferrerPolicyMiddleware',
 ]
 
 
