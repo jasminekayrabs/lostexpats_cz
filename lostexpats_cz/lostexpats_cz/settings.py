@@ -50,6 +50,9 @@ SSL_KEY = '/path/to/key.pem'
 SESSION_COOKIE_SECURE = True
 # Ensures that the session cookie is only sent over HTTPS
 
+#serve site over HTTPS even if requests are forwarded from a proxy or load balancer
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CSRF_COOKIE_SECURE = True
 # Ensures that the CSRF (Cross-Site Request Forgery) cookie is only sent over HTTPS
 
