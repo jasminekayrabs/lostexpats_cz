@@ -1,4 +1,5 @@
 # REFERRER POLICY BY VERONIKA 
+from django.utils.deprecation import MiddlewareMixin
 
 class ReferrerPolicyMiddleware:
 # initializes the middleware instance and assigns the get_response parameter to the self.get_response attribute:
