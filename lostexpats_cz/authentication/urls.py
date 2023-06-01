@@ -1,5 +1,3 @@
-"""BY JASMINE AND SARA"""
-
 from django.urls import path
 from authentication import views
 from .views import activate_account, activation_sent, render_terms, CustomPasswordResetView
@@ -28,7 +26,7 @@ urlpatterns = [
     path('reset_password/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset_password/confirm/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_password/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    path('activate/<str:uidb64>/<str:token>/', activate_account, name='activate_account'),
+    path('activate/<uidb64>/<token>/', activate_account, name='activate_account'),
     path('activation_sent/', activation_sent, name='activation_sent'),
     path("terms", render_terms, name="render_terms"),
     path('secure/', views.secure_view, name='secure_view'),
