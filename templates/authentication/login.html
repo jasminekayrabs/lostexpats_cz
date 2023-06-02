@@ -132,7 +132,11 @@
 <body>
   <!-- take user input  -->
   <div class="login-box">
+    {% block content%}
     <h1>Log-in</h1>
+     {% if axes_locked_out %}
+    <p>Your account is temporarily locked. Please try again later.</p>
+    {% endif %}
     <form action="/login" method="POST">
       {% csrf_token %}
       <div class="user-box">
@@ -144,6 +148,7 @@
         <label for="">Password</label>
       </div>
       <button type="submit">Log-in</button>
+      {% endblock %}
       <a href="{% url 'password_reset' %}">Forgot Password?</a>
       <!-- display error message if user is not authenticated -->
       {% if messages %}
