@@ -8,7 +8,8 @@ class MyModel(models.Model):
     lname = models.CharField(max_length=30, default='')
     email = models.EmailField()
     date = models.DateField(default=datetime.date.today)
-
+# encryting the database 
+    sensitive_data = encrypt(models.CharField(max_length=50))
 
 #Defining cookies
 class CookieType(models.Model):
