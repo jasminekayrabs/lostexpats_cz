@@ -273,7 +273,7 @@ CSP_FONT_SRC = ("'self'", "fonts.gstatic.com", "cdn.jsdelivr.net")
 CSP_CONNECT_SRC = ("'self'",)
 CSP_FRAME_SRC = ("'self'",)
 
-# CONFIGURE APP EMAIL BACKEND
+# CONFIGURE APP EMAIL BACKEND DONE BY JASMINE
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server's hostname or IP address
 EMAIL_PORT = 587  # Replace with the appropriate port number
@@ -281,6 +281,10 @@ EMAIL_HOST_USER = 'lostexpatscz@gmail.com'  # Replace with your SMTP server's us
 EMAIL_HOST_PASSWORD = 'rnsbqsvowbnvkdro'  # Replace with your SMTP server's password
 EMAIL_USE_TLS = True  # Set to True if your SMTP server requires a TLS connection
 DEFAULT_FROM_EMAIL = 'lostexpatscz@gmail.com' 
+
+#serve site over HTTPS even if requests are forwarded from a proxy or load balancer BY JASMINE
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 
 
