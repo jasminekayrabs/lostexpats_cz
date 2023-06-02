@@ -72,8 +72,21 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'django.contrib.staticfiles',
     'sslserver',
+    'axes',
 
 ]
+# Enable Django Axes
+AXES_ENABLED = True  
+
+# Set the number of login attempts before blocking an IP address or user account
+AXES_FAILURE_LIMIT = 5
+
+# Set the time duration in minutes during which login attempts are counted
+AXES_COOLOFF_TIME = 1
+
+# Set the type of cache backend to be used for storing login attempt records
+AXES_CACHE = 'axes.backends.cache.AxesCache'
+
 
 MIDDLEWARE = [
     # Enforces security measures in the Django application
@@ -225,7 +238,7 @@ EMAIL_USE_TLS = True  # Set to True if your SMTP server requires a TLS connectio
 DEFAULT_FROM_EMAIL = 'lostexpatscz@gmail.com' 
 
 
-# settings.py
+
 # Ensure the logs directory exists
 os.makedirs(os.path.dirname('logs/user_login.log'), exist_ok=True)
 
@@ -265,6 +278,13 @@ LOGGING = {
     'root': {
         'handlers': ['file'],
         'level': 'INFO',
+    },
+    # Specify the logging configuration for Django Axes
+    'loggers': {
+        'axes.watch_login': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
     },
 }
 
