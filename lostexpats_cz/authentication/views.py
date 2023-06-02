@@ -26,8 +26,29 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView,
 )
+from axes.decorators import axes_dispatch
 
+# DJANGO AXES BY MIA
+#  When a user account exceeds the allowed number of failed login attempts, 
+# Django Axes can temporarily lock the account, preventing any further login attempts for a specified duration.
+@axes_dispatch
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Authentication successful
+            login(request, user)
+            return redirect('home')  
+        else:
+            # Authentication failed
+            error_message = "Invalid username or password."
+            return render(request, 'login.html', {'error_message': error_message})
+    else:
+        return render(request, 'login.html')
 
 #COOKIES BY MIA
 def save_cookie_consent(request):
@@ -50,8 +71,7 @@ def save_cookie_consent(request):
         #Redirect to the index view to handle the POST request
         return redirect('home')
 
-        # Optionally, you can perform additional actions based on the consent data
-        # For example, you can update user preferences or execute certain functionality
+       
 
         return render(request, 'index.html', {'consent_success': True})
 
