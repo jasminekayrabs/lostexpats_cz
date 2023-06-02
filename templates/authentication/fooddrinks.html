@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- This is the food and drinks page created by Sara 
+using HTML and CSS when you hover over the photos you will find out 
+more about the restaurant/cafe  -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -14,21 +17,26 @@
 
   <!-- navigation bar -->
   <nav class="navbar">
-<div class="navbar-left">
- <a href="/index" class="navbar-title">LostExpats.cz</a>
-</div>
-<div class="navbar-right">
- 
-<button type="submit"><a href="/signup">Signup</a></button>
-<button type="submit"><a href="/login">Login</a></button>
-
-</div>
+    <div class="navbar-left">
+      <a href="#" class="navbar-title">LostExpats.cz</a>
+    </div>
+    <div class="navbar-right">
+      {% if user.is_authenticated %}
+      <form action="/logout" method="POST">
+      {% csrf_token %}
+        <button type="submit"><a href="/logout">Logout</a></button>
+    </form>
+    {% else %}
+    <button type="submit"><a href="/signup">SignUp</a></button>
+    <button type="submit"><a href="/login">Login</a></button>
+  {% endif %}
+    </div>
   </nav>
   
   <div class="navbar-categories">
 <ul>
  <li><a href="/news">NEWS</a></li>
- <li><a href="/food">FOOD & DRINK</a></li>
+ <li><a href="/fooddrinks">FOOD & DRINK</a></li>
  <li><a href="/events">EVENTS</a></li>
  <li><a href="/nightlife">NIGHTLIFE</a></li>
 </ul>
@@ -70,7 +78,9 @@
 
 
 
-
+<!-- 
+category is picks of the week. Restraunts/cafes chosen by the team behind 
+LostExpats  -->
 
 <section id="Picks of the week">
 		<h3>Our picks for the week</h3>
@@ -99,7 +109,9 @@
    </center>
 	</section>
   
-  
+   <!-- 
+category is Student Friendly Cafes. Cafes chosen by the team behind 
+LostExpats  --> 
 <section id="Student Frindly cafes">
 		<h3>Student Frindly cafes</h3>
     <center>
@@ -122,6 +134,9 @@
         </div>
     </center>
 </section>
+ <!-- 
+category is Brunch. Brunch cafes chosen by the team behind 
+LostExpats  --> 
   
 <section id="Brunch">
 		<h3>Brunch</h3>
@@ -495,6 +510,8 @@ footer {
   background-color: #333;
   color: #fff;
   padding: 20px;
+  text-alight: center;
+	
 }
 
 h3 {
@@ -534,7 +551,8 @@ h2{
 
 <footer>
   <h3>Contact Us</h3>
-  <p>If you have any questions or comments, please <a href="mailto:726sara@gmail.com">email us</a>.</p>
+  <p>If you have any questions or comments, please <a href="mailto:lostexpatscz@gmail.com">email us</a>.</p>
+  <p>&copy; 2023. All rights reserved</p>
 </footer>
 
 
