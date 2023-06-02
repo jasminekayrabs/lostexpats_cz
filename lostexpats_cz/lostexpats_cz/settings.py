@@ -79,7 +79,37 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'django.contrib.staticfiles',
     'sslserver',
+    'axes',
 
+]
+# Enable Django Axes
+AXES_ENABLED = True  
+
+# Set the number of login attempts before blocking an IP address or user account
+AXES_FAILURE_LIMIT = 5
+
+# Set the time duration in minutes during which login attempts are counted
+AXES_COOLOFF_TIME = 1
+
+# Set the type of cache backend to be used for storing login attempt records
+AXES_CACHE = 'axes.backends.cache.AxesCache'
+
+
+
+# This setting is used to specify the authentication backends that Django should use for authenticating users.
+AUTHENTICATION_BACKENDS = [
+    # responsible for integrating Django Axes with the authentication system. 
+    # It allows Axes to intercept and handle login attempts, track failed attempts, and enforce lockouts 
+    'axes.backends.AxesStandaloneBackend',
+    # default authentication backend provided by Django. it authenticates users against the Django user model 
+    'django.contrib.auth.backends.ModelBackend',
+    
+]
+
+# cryptography
+ENCRYPTED_FIELDS = [
+    'models.MyModel.sensitive_data',
+    
 ]
 
 MIDDLEWARE = [
@@ -97,6 +127,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     # Protects against clickjacking attacks by setting the X-Frame-Options header
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Locks the user out from the account after a certain number of tries
+    'axes.middleware.AxesMiddleware'
+]
 ]
 
 
