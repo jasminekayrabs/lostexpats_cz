@@ -1,11 +1,83 @@
 <!DOCTYPE html>
 <html>
-
-<head>
   <title>LostExpats.cz</title>
- 
-  <style>
-    .container {
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <!-- Website Title -->
+      <a href="/index" class="navbar-title">LostExpats.cz</a>
+      {% load static %}
+      {% csrf_token %}
+      {{ user_input|safe }}
+  <!--  ensure that static files are served securely and efficiently. -->
+    {% autoescape off %}
+  <!-- to prevent cross-site scripting (XSS) attacks. -->
+ <div>{{ trusted_html_content }}</div>
+ <!-- to avoid escaping the HTML content and allows it to be rendered as raw HTML. -->
+    {% endautoescape %}
+ <div>{{ html_content|safe }}</div>
+ <!-- to avoid escaping the HTML content and allows it to be rendered as raw HTML. -->
+ <div>{{ user_input|escape }}</div>
+ <!-- helps prevent potential cross-site scripting (XSS) attacks by rendering the user input as plain text. -->
+    </div>
+    <div class="navbar-right">
+     
+      
+      <!-- Login and Signup Links -->
+      <a href="/login" class="navbar-login">Login</a>
+      <a href="/signup" class="navbar-signup">Signup</a>
+    </div>
+  </nav>
+
+  <!-- Categories -->
+  <div class="navbar-categories">
+    <ul>
+      <li><a href="/news">NEWS</a></li>
+      <li><a href="/fooddrinks">FOOD&DRINK</a></li>
+      <li><a href="/events">EVENTS</a></li>
+      <li><a href="/nightlife">NIGHTLIFE</a></li>
+    </ul>
+  </div>
+
+  <!-- Mobile Categories -->
+  <div class="navbar-mobile">
+    <ul>
+      <li><a href="#">NEWS</a></li>
+      <li><a href="#">FOOD&DRINK</a></li>
+      <li><a href="#">EVENTS</a></li>
+      <li><a href="#">NIGHTLIFE</a></li>
+    </ul>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="slideshow-container">
+    <!-- Slide 1 -->
+    <div class="mySlides fade">
+      <img src="{% static 'slide1.jpg'%}" style="width:100%">
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="mySlides fade">
+      <img src="{% static 'slide2.jpg' %}" style="width:100%">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 3</div>
+      <img src="{% static 'slide3.jpg' %}" style="width:100%">
+    </div>
+  </div>
+  <br>
+
+  <!-- Slide Indicators -->
+  <div style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <style>  
+      .container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-gap: 20px;
@@ -67,7 +139,7 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
-
+    /* slides*/
     .mySlides {
       display: none;
     }
@@ -168,7 +240,7 @@
       font-size: 24px;
       font-weight: bold;
       text-decoration: none;
-      color: #fff;
+      color: white;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
 
@@ -176,29 +248,7 @@
       display: flex;
       align-items: center;
     }
-
-    .navbar-search-form {
-      display: flex;
-      margin-right: 10px;
-    }
-
-    .navbar-search-form input[type="text"] {
-      padding: 5px;
-      border: none;
-      border-radius: 3px;
-      outline: none;
-    }
-
-    .navbar-search-form button[type="submit"] {
-      padding: 5px;
-      border: none;
-      border-radius: 3px;
-      background-color: black;
-      cursor: pointer;
-      color: white;
-    }
-    
-    .navbar-logout,
+  
     .navbar-login,
     .navbar-signup {
       display: block;
@@ -210,7 +260,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
 
-    .navbar-logout:hover,
     .navbar-login:hover,
     .navbar-signup:hover {
       background-color: #4d4d4d;
@@ -287,12 +336,7 @@
         align-items: flex-end;
       }
 
-      .navbar-search-form {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-
-      .navbar-logout,
+      
       .navbar-login,
       .navbar-signup {
         margin-left: 0;
@@ -315,222 +359,152 @@
     @media screen and (max-width: 480px) {
       .navbar-title {
         font-size: 20px;
+        text-decoration: none;
+        color:white;
       }
 
     }
   </style>
+  <!-- JavaScript -->
+  <script>
+    // Slideshow Logic
+    let slideIndex = 0;
+    showSlides();
 
-</head>
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
 
-<body>
-  <nav class="navbar">
-    <div class="navbar-left">
-      <a href="#" class="navbar-title">LostExpats.cz</a>
-      {% load static %}
-      {% csrf_token %}
-      {{ user_input|safe }}
-
-     </div>
-     <div class="navbar-right">
-       <form class="navbar-search-form">
-         <input type="text" placeholder="Search">
-         <button type="submit"><i class="fa fa-search"></i></button>
-       </form>
-       {% if user.is_authenticated %}
-       <form action="logout" method="POST">
-        {% csrf_token %}
-        <a href="/logout" class="navbar-logout">Logout</a>
-       </form>
-       {% else %}
-       <a href="/login" class="navbar-login">Login</a>
-       <a href="/signup" class="navbar-signup">Signup</a>
-       {% endif %}
-
-     </div>
-    </nav>
-
-    <div class="navbar-categories">
-      <ul>
-        <li><a href="#">NEWS</a></li>
-       <li><a href="#">FOOD&DRINK</a></li>
-       <li><a href="#">EVENTS</a></li>
-       <li><a href="#">NIGHTLIFE</a></li>
-     </ul>
-    </div>
-    <div class="navbar-mobile">
-     <ul>
-        <li><a href="#">NEWS</a></li>
-       <li><a href="#">FOOD&DRINK</a></li>
-       <li><a href="#">EVENTS</a></li>
-       <li><a href="#">NIGHTLIFE</a></li>
-     </ul>
-    </div>
-
-
-
-
-
-
-
-    <div class="slideshow-container">
-
-      <div class="mySlides fade">
-
-        <img src="{%static 'cera.jpg'%}" style="width:100%">
-
-      </div>
-
-      <div class="mySlides fade">
-
-        <img src="{%static 'latino.jpg'%}" style="width:100%">
-
-      </div>
-
-      <div class="mySlides fade">
-        <div class="numbertext">3 / 3</div>
-        <img src="{%static 'roxy.jpg'%}" style="width:100%">
-
-      </div>
-
-    </div>
-    <br>
-
-    <div style="text-align:center">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-
-    <script>
-      let slideIndex = 0;
-      showSlides();
-
-      function showSlides() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
-        for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}
-        for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        setTimeout(showSlides, 2000); // Change image every 2 seconds
+      // Hide all slides
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
       }
-    </script>
 
+      // Increment slideIndex and reset if it exceeds the number of slides
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
 
+      // Remove "active" class from all dots
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
 
+      // Show the current slide and add "active" class to the corresponding dot
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
 
+      // Call the function again after 2 seconds to change the slide
+      setTimeout(showSlides, 2000);
+    }
+  </script>
 
-
-
-
+<!-- Collapsible section displaying techno clubs of June -->
 
     <button class="collapsible">TECHNO CLUBS OF JUNE</button>
     <div class="content">
-      <h1>ROXY </h1>
+      
+      <h1>ROXY</h1>
+      <!-- Carousel displaying a club-->
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
-            <img src="{% static '1roxy.jpg' %}" alt="Image 1">
+            <!-- Carousel image 1-->
+            <img src="  {% static 'roxy1.jpg' %} " alt="Image 2">
             <div class="carousel-detail">
-              SKREAM<br>
-              19.05.<br>
-              LINE-UP:<br>
-              23:00-01:00 DASH<br>
-              01:00- 3:00 SKREAM<br>
-              03:00-5:30 BIODAN<br>
-              TICKETS: 370-400KC<br>
-              AVAILABLE AT GOOUT<br>
+              <a href="https://www.roxy.cz/events/detail/3589/mark-knight" class="carousel-title">AFTER-MATCH</a><br>
+              07.06<br>
+              MARK KNIGHT<br>
+              JUNIOR JAN<br>
+              SNBM<br>
+              TICKETS<br>
+              GOOUT: 400KC+TAX<br>
+              NoD: 420KC<br>
+              <a href="https://goout.net/cs/listky/west-ham-x-fiorentina-after-match-party-mark-knight/rpvs/" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
           </div>
+
           <div class="carousel-item">
-            <img src="  {% static '2roxy.jpg' %}" alt="Image 2">
+            <!-- Carousel image 2-->
+            <img src="  {% static 'roxy2.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
-              GIORGIA ANGIULI<br>
-              20.05<br>
-              LINE-UP:<br>
-              23:00-01:00 KRISTY VANSEN<br>
-              01:00- 2:15 GIORGIA ANGIULI<br>
-              02:15-5:30 ORBITH <br>
-              TICKETS: 430-450KC<BR>
-              AVAILABLE AT GOOUT<BR>
+              <a href="https://www.roxy.cz/events/detail/3437/i-hate-models" class="carousel-title">I HATE MODELS</a><br>
+              09.06<br>
+              MARIE PRAVDA <br>
+              SJ YELLOW<br>
+              TICKETS:<br>
+              GOOUT:650KC+TAX<br>
+              NoD: 640 KC<br>
+              <a href="https://goout.net/cs/listky/i-hate-models/pstq/" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
           </div>
+
           <div class="carousel-item">
-            <img src="  {% static '3roxy.jpeg' %} " alt="Image 2">
+            <!-- Carousel image 3-->
+            <img src="  {% static 'roxy3.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
-              ELDERBROOK<br>
-              22.05<br>
-              STARTING AT 19:00H<br>
-              TIBASKO SUPPORT<br>
-              TICKETS: 620KC<br>
-              AVAILABLE AT GOOUT AND TICKETMASTER<BR>
+              <a href="https://www.roxy.cz/events/detail/3125/son-lux" class="carousel-title">SON LUX</a><br>
+             14.06<br>
+            ANNA BE SAVAGE<br>
+            TICKETS:<br>
+            GOOUT:590KC<br>
+             <a href="https://goout.net/cs/listky/son-lux+support-anna-b-savage/syym/" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
           </div>
+
           <div class="carousel-item">
-            <img src="  {% static '4roxy.jpg'%}" alt="Image 2">
-            <div class="carousel-detail">
-              ELDERBROOK<br>
-              22.05<br>
-              STARTING AT 19:00H<br>
-              TIBASKO SUPPORT<br>
-              TICKETS: 620KC<br>
-              AVAILABLE AT GOOUT AND TICKETMASTER<BR>
+            <!-- Carousel image 4-->
+            <img src="  {% static 'roxy4.jpg'%}" alt="Image 2">
+            <div class="carousel-detail"><br>
+              <a href="https://www.roxy.cz/events/detail/3513/ki-ki" class="carousel-title">KI/KI</a><br>
+             16.06<br>
+             MICHAEL C<br>
+             FITZ PROJECT<br>
+             TICKETS: <br>
+             GOOUT: 300KC+TAX<br>
+             NoD: 310KC<br>
+             <a href="https://goout.net/cs/listky/ki-ki/wspr/" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
           </div>
+
           <div class="carousel-item">
-            <img src="  {% static '5roxy.jpg'%}" alt="Image 2">
-            <div class="carousel-detail">ELDERBROOK<br>
-              22.05<br>
-              STARTING AT 19:00H<br>
-              TIBASKO SUPPORT<br>
-              TICKETS: 620KC<br>
-              AVAILABLE AT GOOUT AND TICKETMASTER<BR>
+            <!-- Carousel image 5-->
+            <img src="  {% static 'roxy5.jpg'%}" alt="Image 2">
+            <div class="carousel-detail">MEMORIES<br>
+              <a href="https://www.roxy.cz/events/detail/3577/vojtanoo-teekei-m-paelo" class="carousel-title"></a><br>
+              23.06<br>
+              VOJTANOO<br>
+              TEEKEI<br>
+              M PAELO<br>
+              TICKETS AT THE DOOR:<br>
+              BEFORE 11PM: 200KC<br>
+              AFTER 11PM:250KC<br>
             </div>
 
           </div>
+          
           <div class="carousel-item">
-            <img src="  {% static '6roxy.jpg'%}" alt="Image 2">
-            <div class="carousel-detail">ELDERBROOK<br>
-              22.05<br>
-              STARTING AT 19:00H<br>
-              TIBASKO SUPPORT<br>
-              TICKETS: 620KC<br>
-              AVAILABLE AT GOOUT AND TICKETMASTER<BR>
+            <!-- Carousel image 6-->
+            <img src="  {% static 'roxy6.jpg'%}" alt="Image 2">
+            <div class="carousel-detail"><br>
+              <a href="https://www.roxy.cz/events/detail/3555/bbno" class="carousel-title">BBNO$</a><br>
+              27.06<br>
+              SUPPORT TBA<br>
+              TICKETS: 650KC<br>
+              <a href="https://goout.net/cs/listky/bbnos/atns/" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static '7roxy.png'%}" alt="Image 2">
-            <div class="carousel-detail">ELDERBROOK<br>
-              22.05<br>
-              STARTING AT 19:00H<br>
-              TIBASKO SUPPORT<br>
-              TICKETS: 620KC<br>
-              AVAILABLE AT GOOUT AND TICKETMASTER<BR>
-            </div>
-
-          </div>
-        </div>
-        <div class="carousel-controls">
-          <button class="carousel-prev">&lt;</button>
-          <button class="carousel-next">&gt;</button>
         </div>
       </div>
+
       <h1>EPIC </h1>
+      <!-- Carousel 2-->
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic1.png'%}" alt="Image 1">
             <div class="carousel-detail">
                 <a href="https://www.epicprague.com/program/1523/n-o-i-s-e" class="carousel-title">N.O.I.S.E</a><br>
@@ -545,6 +519,7 @@
           </div>
           
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic2.png' %}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.epicprague.com/program/1545/tv-noise" class="carousel-title">TV NOISE</a><br>
@@ -558,6 +533,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic3.png'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.epicprague.com/program/1565/groovebox" class="carousel-title">GROOVE BOX</a><br>
@@ -571,6 +547,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static  'epic4.png'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.epicprague.com/program/1475/will-sparks" class="carousel-title">WILL SPARKS</a><br>
@@ -584,6 +561,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic5.png'%}" alt="Image 2">
             <div class="carousel-detail"><br>
                <a href="https://www.epicprague.com/program/1507/space-92-epic-in-the-dark" class="carousel-title">SPACE 92</a><br>
@@ -597,6 +575,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'epic6.png'%}" alt="Image 2">
             <div class="carousel-detail"><br>
                <a href="https://www.epicprague.com/program/1471/sub-zero-project" class="carousel-title">SUB ZERO PROJECT</a><br>
@@ -609,36 +588,7 @@
             </div>
 
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'epic7.png' %}" alt="Image 2">
-            <div class="carousel-detail"><br>
-               <a href="https://www.epicprague.com/program/1563/ministry-of-house" class="carousel-title">MINISTRY OF HOUSE</a><br>
-                23.06<br>
-                STARTING AT 22:00<br>
-                TICKETS:<br>
-                GA:290KC<br>
-                VIP:580KC<br>
-               <a href="https://tickets.epicprague.com/tickets/events/835/book.html" class="carousel-ticket">BUY HERE</a>
-            </div>
-          </div>
           
-          <div class="carousel-item">
-            <img src="  {% static  'epic8.png' %}" alt="Image 2">
-            <div class="carousel-detail"><br>
-               <a href="https://www.epicprague.com/program/1509/richard-durand-en-trance" class="carousel-title">RICHARD DURAND</a><br>
-                24.06<br>
-                STARTING AT 22:00<br>
-                TICKETS:<br>
-                GA:350KC<br>
-                VIP:700KC<br>
-               <a href="https://tickets.epicprague.com/tickets/events/807/book.html" class="carousel-ticket">BUY HERE</a>
-            </div>
-
-          </div>
-        </div>
-        <div class="carousel-controls">
-          <button class="carousel-prev">&lt;</button>
-          <button class="carousel-next">&gt;</button>
         </div>
       </div>
 
@@ -647,9 +597,10 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ALT2.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
-              <a href="https://www.facebook.com/events/932303197972855" class="carousel-title">Daytime Psy Trance</a><br>
+              <a href="https://www.facebook.com/events/1324944158054106" class="carousel-title">Daytime Psy Trance</a><br>
               04.06.<br>
               LINE-UP:<br>
               ARTYFICIAL <br>
@@ -662,6 +613,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'alt1.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.facebook.com/events/932303197972855" class="carousel-title">ATG VLNY</a><br>
@@ -684,6 +636,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs1.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/927542391892915/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22page%22%7D]%7D" class="carousel-title">Shimmi & AstralKid22</a>
@@ -700,6 +653,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs2.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
                <a href="https://www.facebook.com/events/772800654240737/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22page%22%7D]%7D" class="carousel-title">rumble society x fuchs2</a>
@@ -715,6 +669,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'fuchs3.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="facebook.com/events/1355748288706284" class="carousel-title">the take off kiki ball</a>
@@ -729,31 +684,6 @@
               
               <a href="https://ra.co/events/1696435?fbclid=IwAR3cfIToNwmDLCnO24QAaMjkdzCNCXmhI3dkLv-v01uYAjv6s3YDyVZUOr0" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="  {% static 'fuchs4.jpg' %}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="https://www.facebook.com/events/1007160113984855/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22page%22%7D]%7D" class="carousel-title">F2 presents</a>
-              <a href="" class="carousel-ticket">BUY HERE</a><br>
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="  {% static 'fuchs5.jpg' %}" alt="Image 2">
-            <div class="carousel-detail"><br>
-             <a href="" class="carousel-title"></a>
-              <a href="" class="carousel-ticket">BUY HERE</a><br>
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="  {% static 'fuchs6.jpg' %}" alt="Image 2">
-            <div class="carousel-detail"><br>
-                <a href="" class="carousel-title"></a>
-
-              <a href="" class="carousel-ticket">BUY HERE</a><br>
-            </div>
           </div>
         </div>
       </div>
@@ -763,6 +693,7 @@
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali1.jpg' %}" alt="Image 1">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/769097164909867" class="carousel-title">ANORMAL</a><br>
@@ -780,6 +711,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali5.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/2548598441963940" class="carousel-title">PRIAUM</a><br>
@@ -798,6 +730,7 @@
           </div>
 
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali3.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/159637776863945" class="carousel-title">
@@ -816,6 +749,7 @@
 
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static  'ankali4.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/1297263691211975" class="carousel-title">Planeta Pravda</a><br>
@@ -830,6 +764,7 @@
             </div>
           </div>
           <div class="carousel-item">
+            <!-- Carousel image -->
             <img src="  {% static 'ankali2.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
               <a href="https://www.facebook.com/events/155921127405178" class="carousel-title">AQUEERIUS</a><br>
@@ -847,36 +782,20 @@
           </div>
         </div>
       </div>
-  </div>
-</div>
+      </div>
+     </div>
 
 
-    <button class="collapsible">POP&RNB CLUBS OF JUNE</button>
-    <div class="content">
-      <h1>DUPLEX</h1>
-      <div class="carousel">
-        <div class="carousel-row">
-          <div class="carousel-item">
-            <img src="  {% static 'duplexmon.webp'%}" alt="Image 1">
-            <div class="carousel-detail">
-              <a href="https://www.duplex.cz/duplex-events" class="carousel-title">MAGIC MONDAY</a><br>
-              EVERY MONDAY<br>
-              22:00-05:00<br>
-              80CZK | Beer<br>
-              150CZK | Cuba Libre<br>
-              150CZK | Gin & Tonic<br>
-              150CZK | Vodka Juice<br>
-              150CZK | Whiskey & Coke<br>
-              GA TICKETS: 200CZK<br>
-              VIP: 700CZK<br>
-              
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplextue.webp'%}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="https://www.duplex.cz/duplex-events" class="carousel-title">TUESDAY MUSIC THERAPY</a><br>
+  <button class="collapsible">POP&RNB CLUBS OF JUNE</button>
+  <div class="content">
+    <h1>DUPLEX</h1>
+    <div class="carousel">
+      <div class="carousel-row">
+        <div class="carousel-item">
+          <!-- Carousel image -->
+          <img src="  {% static 'duplextue.webp'%}" alt="Image 2">
+          <div class="carousel-detail">
+            <a href="https://www.duplex.cz/duplex-events" class="carousel-title">TUESDAY MUSIC THERAPY</a><br>
               EVERY TUESDAY<br>
               22:00-05:00<br>
               80CZK | Beer<br>
@@ -886,13 +805,14 @@
               150CZK | Whiskey & Coke<br>
               GA TICKETS: 200CZK<br>
               VIP: 700CZK<br>
-            </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplexwed.webp' %}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="https://www.duplex.cz/duplex-events" class="carousel-title"></a>WOW STUDENT WEDNESDAY<br>
+
+        </div>
+        <div class="carousel-item">
+          <!-- Carousel image -->
+          <img src="  {% static 'duplexwed.webp' %}" alt="Image 2">
+          <div class="carousel-detail">
+            <a href="https://www.duplex.cz/duplex-events" class="carousel-title"></a>WOW STUDENT WEDNESDAY<br>
               EVERY WEDNEDSDAY<br>
               22:00-05:00<br>
               80CZK | Beer<br>
@@ -902,435 +822,422 @@
               150CZK | Whiskey & Coke<br>
               GA TICKETS: 200CZK<br>
               VIP: 700CZK<br>
-            </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplexthur.webp' %}" alt="Image 2">
-            <div class="carousel-detail">
-             <a href="https://www.duplex.cz/duplex-events" class="carousel-title">2HURSDAY</a><br>
+
+        </div>
+        <div class="carousel-item">
+          <!-- Carousel image -->
+          <img src="  {% static 'duplexthur.webp' %}" alt="Image 2">
+          <div class="carousel-detail">
+            <a href="https://www.duplex.cz/duplex-events" class="carousel-title">2HURSDAY</a><br>
               EVERY THURSDAY<br>
               2 FLOORS<br>
               GA TICKETS: 200CZK<br>
               VIP: 700CZK<br>
 
-            </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplexfri.webp' %}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="https://www.duplex.cz/duplex-events" class="carousel-title">DUPLEX ON FRIDAY</a><br>
+
+        </div>
+        <div class="carousel-item">
+          <!-- Carousel image -->
+          <img src="  {% static 'duplexfri.webp' %}" alt="Image 2">
+          <div class="carousel-detail">
+            <a href="https://www.duplex.cz/duplex-events" class="carousel-title">DUPLEX ON FRIDAY</a><br>
               EVERY FRIDAY<br>
               2 FLOORS<br>
               GA TICKETS: 380CZK<br>
               VIP: 1000CZK<br>
 
-            </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplexsat.webp'%}" alt="Image 2">
-            <div class="carousel-detail"><br>
-              <a href="https://www.duplex.cz/duplex-events" class="carousel-title">DUPLEX ON SATURDAY</a><br>
+
+        </div>
+        <div class="carousel-item">
+          <!-- Carousel image -->
+          <img src="  {% static 'duplexsat.webp'%}" alt="Image 2">
+          <div class="carousel-detail"><br>
+            <a href="https://www.duplex.cz/duplex-events" class="carousel-title">DUPLEX ON SATURDAY</a><br>
               EVERY FRIDAY<br>
               2 FLOORS<br>
               GA TICKETS: 380CZK<br>
               VIP: 1000CZK<br>
          
-            </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplexsun.webp' %}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="https://www.duplex.cz/duplex-events" class="carousel-title">SUNDAYSERVICE</a><br>
+
+        </div>
+        <div class="carousel-item">
+          <!-- Carousel image -->
+          <img src="  {% static 'duplexsun.webp' %}" alt="Image 2">
+          <div class="carousel-detail">
+            <a href="https://www.duplex.cz/duplex-events" class="carousel-title">SUNDAYSERVICE</a><br>
               EVERYONE IS A VIP – Everyone gets VIP access
               BOTTLE SERVICE DEALS ALL NIGHT
               CRAZY CONFETTI SHOWS
               GA TICKETS: 200CZK<br>
               VIP: 700CZK<br>
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="  {% static 'duplnervo26.webp' %}" alt="Image 7">
-            <div class="carousel-detail">
-              <a href="https://www.duplex.cz/duplex-event" class="carousel-title"></a><br>
-              
-            </div>
-
           </div>
         </div>
-        <div class="carousel-controls">
-          <button class="carousel-prev">&lt;</button>
-          <button class="carousel-next">&gt;</button>
-        </div>
-      </div>
-      <h1>O</h1>
+      
+          
+       </div> 
+      <h1>DURTY NELLY'S</h1>
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
-            <img src="  {% static ALT2.jpg %}" alt="Image 1">
+            <!-- Carousel image -->
+            <img src="  {% static 'durtynellys1.webp' %}" alt="Image 1">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-             
-              <a href=" " class="carousel-ticket">BUY HERE</a><br>
+              <a href="https://www.durtynellys.cz/live-events/" class="carousel-title">EVERY WEEK KARAOKE AND LIVE MUSIC<br></a><br>
+             GROUND FLOOR: LIVE MUSIC 21:00-00:00<br>
+             1ST FLOOR KARAOKE 21:30-1:30<br>
             </div>
-
           </div>
-          <div class="carousel-item">
-            <img src="  {% static 'alt1.jpg' %}" alt="Image 2">
-            <div class="carousel-detail">
-             <a href="" class="carousel-title"></a><br>
-            </div>
-
-          </div>
-
         </div>
-        </div>
-        <div class="carousel-controls">
-          <button class="carousel-prev">&lt;</button>
-          <button class="carousel-next">&gt;</button>
         </div>
       <h1>CHAPEAU ROGUE</h1>
 
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
-            <img src="{% static '1roxy.jpg' %}" alt="Image 1">
+            <img src="{% static 'chapeau1.1.png' %}" alt="Image 1">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
+              <a href="https://www.chapeaurouge.cz/program/bar/6-2023/14533-/" class="carousel-title">DJ FUN</a><br>
+              02.06<br>
+              STYLE: HOUSE<br>
+              DJ FUN<br>
+              TICKET INFO UNAVAILABLE<br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{% static '2roxy.jpg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{% static 'chapeau2.2.png' %}" alt="Image 2">
             <div class="carousel-detail">
-             <a href="" class="carousel-title"></a><br>
+             <a href="https://www.chapeaurouge.cz/program/klub/6-2023/14532-le-cirque/" class="carousel-title">DJ NEIGHBOUR</a><br>
+             09.06<br>
+             DJ NEIGHBOUR (DEEP HOUSE/TECH HOUSE)<br>
+             TICKETS INFO UNAVAILABLE<br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{% static '3roxy.jpeg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{% static 'chapeau3.png' %}" alt="Image 2">
             <div class="carousel-detail">
-             <a href="" class="carousel-title"></a><br>
+             <a href="https://www.chapeaurouge.cz/program/bar/6-2023/14546-/" class="carousel-title">DJ PAVEL BIDLO</a><br>
+             10.06<br>
+             DJ PAVEL BIDLO (YOSHITOSHI - USA) <br>
+             TICKETS INFO UNAVAILABLE<br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{% static '4roxy.jpg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{% static 'chapeau4.png' %}" alt="Image 2">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
+              <a href="https://www.chapeaurouge.cz/program/bar/6-2023/14547-/" class="carousel-title">DJ RADEK HONC</a><br>
+              16.06<br>
+              DJ RADEK HONC <br>
+              TICKETS INFO UNAVAILABLE<br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{% static '5roxy.jpg'%}" alt="Image 2">
-            <div class="carousel-detail">ELDERBROOK<br>
-            <a href="" class="carousel-title"></a><br>
-              
-              
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="{% static '6roxy.jpg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{% static 'chapeau5.png'%}" alt="Image 2">
             <div class="carousel-detail"><br>
-              <a href="" class="carousel-title"></a><br>
-              
+            <a href="https://www.chapeaurouge.cz/program/bar/6-2023/14001-republic-artists/" class="carousel-title">REPUBLIC ARTISTS</a><br>
+            17.06<br>
+            MILANO PARSLEY<br>
+            TICKETS INFO UNAVAILABLE<br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{% static '7roxy.png' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{% static 'chapeau6.png' %}" alt="Image 2">
             <div class="carousel-detail"><br>
-              <a href="" class="carousel-title"></a><br>
-                         
+              <a href="https://www.chapeaurouge.cz/program/bar/6-2023/14548-/" class="carousel-title"> DJ GADJO.CZ</a><br>
+              23.06<br>
+              DJ GADJO.CZ<br>
+              TICKETS INFO UNAVAILABLE<br>
             </div>
-
           </div>
-        </div>
-        <div class="carousel-controls">
-
-          <button class="carousel-prev">&lt;</button>
-          <button class="carousel-next">&gt;</button>
         </div>
       </div>
 
 
-      <h1>EPIC</h1>
-      <div class="carousel">
-        <div class="carousel-row">
-          <div class="carousel-item">
-            <img src="{% static 'ankali1.jpg' %}" alt="Image 1">
-            <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-              
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src=" {%static 'ankali5.jpg'%}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-             
-            </div>
-
-          </div>
-
-          <div class="carousel-item">
-            <img src=" {%static 'ankali3.jpg' %}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="" class="carousel-title">
-             
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="{%static 'ankali4.jpg' %}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="{%static 'ankali2.jpg'%}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-              
-             </div>
-              </div>
-        </div>
-      </div>
+      
       <h1>M1 CLUB</h1>
       <div class="carousel">
         <div class="carousel-row">
           <div class="carousel-item">
-            <img src="{%static 'ankali1.jpg'%}" alt="Image 1">
+            <!-- Carousel image -->
+            <img src="{%static 'm1.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-              
+              <a href="https://www.m1lounge.com//#events" class="carousel-title">MONDAY ISSUES</a><br>
+              EVERY MONDAY<br>
+              Door open at 21:00<br>
+              DJ starts at 23:00<br>
+              FREE ENTRY<br>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="{%static 'ankali5.jpg'%}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{%static 'm2.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a>
-              
+              <a href="https://www.m1lounge.com//#events" class="carousel-title">CRAZY TUESDAY</a><br>
+              EVERY TUESDAY
+              Door open at 21:00<br>
+              DJ starts at 23:00<br>
+              FREE ENTRY<br>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <!-- Carousel image -->
+            <img src="{%static 'm3.jpeg'%}" alt="Image 2">
+            <div class="carousel-detail">
+              <a href="https://www.m1lounge.com//#events" class="carousel-title">WE LIT WEDNESDAY</a>
+              EVERY WEDNESDAY
+              Door open at 21:00<br>
+              DJ starts at 23:00<br>
+              FREE ENTRY<br>
             </div>
 
           </div>
 
           <div class="carousel-item">
-            <img src="{%static 'ankali3.jpg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{%static 'm4.jpeg' %}" alt="Image 2">
             <div class="carousel-detail">
-              <a href="" class="carousel-title">
-             
+              <a href="https://www.m1lounge.com//#events" class="carousel-title">TASTY THURSDAY</a>
+              EVERY THURSDAY<br>
+              Door open at 21:00<br>
+              DJ starts at 23:00<br>
+              FREE ENTRY<br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{%static 'ankali4.jpg'%}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{%static 'm5.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-
+              <a href="https://www.m1lounge.com//#events" class="carousel-title">FRIDAY DREAM</a><br>
+              EVERY FRIDAY<br>
+              Door open at 21:00<br>
+              DJ starts at 23:00<br>
+              FREE ENTRY<br>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="{%static 'ankali2.jpg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{%static 'm6.jpg' %}" alt="Image 2">
             <div class="carousel-detail">
-              <a href="" class="carousel-title"></a><br>
-              
+              <a href="https://www.m1lounge.com//#events" class="carousel-title">NEON DREAM</a><br>
+              EVERY SATURDAY<br>
+              Door open at 21:00<br>
+              DJ starts at 23:00<br>
+              FREE ENTRY<br>
             </div>
-          </div>
-  
-          <div class="carousel-controls">
-            <button class="carousel-prev">&lt;</button>
-            <button class="carousel-next">&gt;</button>
           </div>
         </div>
       </div>
-  </div>
+    </div>
+  </div> 
 
-   <button class="collapsible">PUB CRAWLS</button>
+  <button class="collapsible">PUB CRAWLS</button>
     <div class="content">
       <h1>PUBCRAWLS</h1>
       <div class="carousel">
         <div class="carousel-row">
+          <!-- Carousel image -->
           <div class="carousel-item">
-            <img src="" alt="Image 1">
+            <img src="{%static 'clock.jpg'%}" alt="Image 1">
             <div class="carousel-detail">
-              <a href="" class="carousel-title">CLOCK TOWER</a><br>
-              
+              <a href="https://www.tripadvisor.com/AttractionProductReview-g274707-d12010087-Clock_Tower_Bar_Crawl_in_Prague-Prague_Bohemia.html" class="carousel-title">CLOCK TOWER</a><br>
+              EVERY DAY <br>
+              ALL-YOU-CAN-DRINK<br>
+              2,5 HOURS <br>
+              2 BARS<br>
+              TICKETS: 600KC<br>
+              <a href="https://www.riversideparties.com/service-page/clock-tower-bar-crawl?referral=service_list_widget" class="carousel-ticket">BUY HERE</a><br>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <!-- Carousel image -->
+            <img src="{%static 'praguecrawl.jpg' %}" alt="Image 2">
+            <div class="carousel-detail">
+              <a href="https://www.tripadvisor.com/AttractionProductReview-g274707-d11455596-Prague_Pub_Crawl-Prague_Bohemia.html" class="carousel-title">THE PRAGUE CRAWL</a><br>
+              EVERY DAY<br>
+              ALL YOU CAN DRINK 2H STARTING AT 20PM<br>
+              2-3 BARS<br>
+              TICKETS:700KC<br>
+              <a href="https://praguepubcrawl.com/" class="carousel-ticket">BUY HERE</a><br>
             </div>
 
           </div>
           <div class="carousel-item">
-            <img src="{%static '2roxy.jpg' %}" alt="Image 2">
+            <!-- Carousel image -->
+            <img src="{%static 'drunkenmonkey.jpg'%}" alt="Image 2">
             <div class="carousel-detail">
-              <a href="" class="carousel-title">THE PRAGUE CRAWL</a><br>
-             
+              <a href="https://drunkenmonkeypubcrawl.cz/?_ga=2.204172560.1269618913.1685690161-904882975.1685690161" class="carousel-title">DRUNKEN MONKEY</a><br>
+                  EVERY DAY<br>
+                  WELCOME DRINK AT ALL BARS<br>
+                  2H OPEN BAR (1st group 8pm-10pm, 2nd 10pm-11pm)<br>
+                  3 BARS<br>
+                  TICKETS: 650KC+TAX<br>
+              <a href="https://drunkenmonkeypubcrawl.cz/tickets/" class="carousel-ticket">BUY HERE</a><br>
             </div>
-
-          </div>
-          <div class="carousel-item">
-            <img src="{%static '3roxy.jpeg'%}" alt="Image 2">
-            <div class="carousel-detail">
-              <a href="" class="carousel-title">DRUNKEN MONKEY</a><br>
-              
-            </div>
-
-          </div>
-          
-          <div class="carousel-controls">
-            <button class="carousel-prev">&lt;</button>
-            <button class="carousel-next">&gt;</button>
           </div>
         </div>
       </div>
-  </div>
+    </div>
 
 
 
 
     
-    <style>
-      .collapsible {
-        background-color: black;
-        color: white;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: middle;
-        outline: none;
-        font-size: 20px;
-        transition: 0.4s;
-      }
+  <style>
+  /* Styling for collapsible elements */
+  .collapsible {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: middle;
+     outline: none;
+    font-size: 20px;
+    transition: 0.4s;
+  }
 
-      .collapsible:hover {
-        background-color: #1c1b1b;
-      }
+  .collapsible:hover {
+    background-color: #1c1b1b;
+  }
 
-      .content {
-        padding: 0 18px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-      }
+  .content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
 
-      .collapsible.active {
-        background-color: #000;
-      }
+   .collapsible.active {
+     background-color: #black;
+  }
 
-      .collapsible.active:hover {
-        background-color: #1c1b1b;
-      }
+  .collapsible.active:hover {
+    background-color: #1c1b1b;
+  }
 
-      .collapsible.active+.content {
-        max-height: 1000px;
-        /* Adjust this value to fit the content */
-      }
+  .collapsible.active+.content {
+    max-height: 1000px;
+   /* Adjust this value to fit the content */
+  }
 
-      .carousel {
-        position: relative;
-      }
+  /* Styling for the carousel */
+  .carousel {
+    position: relative;
+  }
 
-      .carousel-row {
-        display: flex;
-        overflow: hidden;
-        align-items: center;
-      }
+  .carousel-row {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+  }
 
-      .carousel-item {
-        flex: 0 0 auto;
-        margin-right: 10px;
-        width: 200px;
-        height: 200px;
-        position: relative;
-      }
+  .carousel-item {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
 
-      .carousel-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-      .carousel-detail {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        margin: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        transition: .5s ease;
-        opacity: 0;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
-      }
+  .carousel-detail {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    transition: .5s ease;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
 
-      .carousel-item:hover .carousel-detail {
-        opacity: 1;
-      }
-      .carousel-title,
-      .carousel-ticket{
-        
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-      }
-      .carousel-controls {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+  .carousel-item:hover .carousel-detail {
+    opacity: 1;
+  }
 
-      .carousel-prev,
-      .carousel-next {
-        background-color: #fff;
-        color: #333;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: box-shadow 0.2s ease-in-out;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-      }
+  .carousel-title,
+  .carousel-ticket {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
 
-      .carousel-prev:hover,
-      .carousel-next:hover {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.16);
-      }
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-      .carousel-prev {
-        margin-right: 10px;
-      }
-    </style>
+  .carousel-prev,
+  .carousel-next {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  }
+
+  .carousel-prev:hover,
+  .carousel-next:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.16);
+  }
+
+  .carousel-prev {
+    margin-right: 10px;
+  }
+
+</style>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         var coll = document.getElementsByClassName('collapsible');
         var i;
-
+      
         for (i = 0; i < coll.length; i++) {
           coll[i].addEventListener('click', function () {
+            // Toggle the 'active' class to expand/collapse the content
             this.classList.toggle('active');
             var content = this.nextElementSibling;
             if (content.style.maxHeight) {
@@ -1340,9 +1247,9 @@
             }
           });
         }
-
+      
         var carousels = document.getElementsByClassName('carousel');
-
+      
         for (i = 0; i < carousels.length; i++) {
           var carousel = carousels[i];
           var prevButton = carousel.querySelector('.carousel-prev');
@@ -1350,27 +1257,16 @@
           var row = carousel.querySelector('.carousel-row');
           var items = carousel.querySelectorAll('.carousel-item');
           var itemWidth = items[0].offsetWidth;
-
+      
           var currentIndex = 0;
           var maxIndex = items.length - 1;
-
-          prevButton.addEventListener('click', function () {
-            if (currentIndex > 0) {
-              currentIndex--;
-              row.style.transform = 'translateX(-' + currentIndex * itemWidth + 'px)';
-            }
-          });
-
-          nextButton.addEventListener('click', function () {
-            if (currentIndex < maxIndex) {
-              currentIndex++;
-              row.style.transform = 'translateX(-' + currentIndex * itemWidth + 'px)';
-            }
-          });
+      
+          var intervalId; // variable to store the interval ID for automatic scrolling         
         }
       });
+      
+      
     </script>
  
 </body>
-
 </html>
