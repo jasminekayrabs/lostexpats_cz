@@ -130,7 +130,6 @@ MIDDLEWARE = [
     # Locks the user out from the account after a certain number of tries
     'axes.middleware.AxesMiddleware'
 ]
-]
 
 
 #When protecting the webiste from click-jacking there are 
